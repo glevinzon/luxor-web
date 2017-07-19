@@ -1,1 +1,1 @@
-# luxor-web
+# Luxor One Travellers Inn
