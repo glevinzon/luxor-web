@@ -1,7 +1,7 @@
 @font-face {
   font-family: "toolkit-entypo";
-  src: url('styles/fonts/toolkit-entypo.eot');
-  src: url('styles/fonts/toolkit-entypo.eot?#iefix') format('eot'), url('styles/fonts/toolkit-entypo.woff') format('woff'), url('styles/fonts/toolkit-entypo.ttf') format('truetype');
+  src: url('http://localhost:3000/fonts/toolkit-entypo.eot');
+  src: url('http://localhost:3000/fonts/toolkit-entypo.eot?#iefix') format("eot"), url('http://localhost:3000/fonts/toolkit-entypo.woff2') format("woff2"), url('http://localhost:3000/fonts/toolkit-entypo.woff') format("woff"), url('http://localhost:3000/fonts/toolkit-entypo.ttf') format("truetype");
   font-weight: normal;
   font-style: normal;
 }
