@@ -47,21 +47,3 @@ export const UserIsNotAdmin = UserAuthWrapper({
   failureRedirectPath: '/dashboard',
   allowRedirectBack: false
 })
-
-let FailureComponent = (props) => {
-  return (
-    <div className='alert alert-danger'>
-      <span className='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> You are not
-      authorized to view this page.
-    </div>
-  )
-}
-
-export const CheckUserRole = function (Component, roles = []) {
-  return UserAuthWrapper({
-    authSelector: state => state.auth,
-    wrapperDisplayName: 'CheckUserRole',
-    predicate: auth => auth.user && roles.indexOf(auth.user.role) !== -1,
-    FailureComponent
-  })(Component)
-}

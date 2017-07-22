@@ -207,8 +207,6 @@ const ACTION_HANDLERS = {
 const initialState = {
   loaded: false,
   user: null,
-  mobile: null,
-  fetchingMobile: false,
   settings: {
     loading: false,
     error: null,

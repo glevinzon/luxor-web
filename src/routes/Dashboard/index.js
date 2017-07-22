@@ -1,7 +1,23 @@
-import DashboardContainer from './containers/DashboardContainer'
-import { UserIsAuthenticated, CheckUserRole } from 'utils/authWrappers'
-import { DEV_ADMIN, SUPER_ADMIN } from 'utils/UserRoles'
-// Sync route definition
-export default {
-  component: UserIsAuthenticated(CheckUserRole(DashboardContainer, [ DEV_ADMIN, SUPER_ADMIN ]))
-}
+import { UserIsAuthenticated, UserIsNotAdmin} from 'utils/authWrappers'
+
+export default (store) => ({
+  path: '/dashboard',
+  getIndexRoute (partialNextState, cb) {
+    require.ensure([], require => {
+      const DashboardContainer = require('./containers/DashboardContainer').default
+      cb(null, { component: UserIsAuthenticated(UserIsNotAdmin(DashboardContainer)) })
+    }, 'dashboard-index')
+  },
+  getChildRoutes (partialNextState, cb) {
+    require.ensure([], require => {
+      const ReservationContainer = require('./containers/ReservationContainer').default
+      cb(null, [
+        {
+          path: 'reservations',
+          component: UserIsAuthenticated(UserIsNotAdmin(ReservationContainer))
+        }
+      ])
+    }, 'dashboard-reservations')
+  }
+})
+
