@@ -24,6 +24,7 @@ const webpackConfig = {
 // Entry Points
 // ------------------------------------
 const APP_ENTRY_PATHS = [
+  'babel-polyfill',
   paths.client('main.js')
 ]
 
@@ -61,6 +62,10 @@ webpackConfig.plugins = [
 ]
 
 if (__DEV__) {
+  webpackConfig.cache = true
+  webpackConfig.debug = true
+  webpackConfig.output.pathinfo = true
+  webpackConfig.devtool = 'eval'
   debug('Enable plugins for live development (HMR, NoErrors).')
   webpackConfig.plugins.push(
     new webpack.HotModuleReplacementPlugin(),
@@ -127,7 +132,12 @@ webpackConfig.module.loaders = [{
   query: {
     cacheDirectory: true,
     plugins: ['transform-runtime'],
-    presets: ['es2015', 'react', 'stage-0']
+    presets: ['es2015', 'react', 'stage-0'],
+    env: {
+      production: {
+        presets: ['react-optimize']
+      }
+    }
   }
 },
 {
@@ -197,6 +207,7 @@ webpackConfig.module.loaders.push({
   loaders: [
     'style',
     BASE_CSS_LOADER,
+    'resolve-url',
     'postcss',
     'sass?sourceMap'
   ]
@@ -207,6 +218,7 @@ webpackConfig.module.loaders.push({
   loaders: [
     'style',
     BASE_CSS_LOADER,
+    'resolve-url',
     'postcss'
   ]
 })

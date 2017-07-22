@@ -1,3 +1,11 @@
+@font-face {
+  font-family: "toolkit-entypo";
+  src: url('styles/fonts/toolkit-entypo.eot');
+  src: url('styles/fonts/toolkit-entypo.eot?#iefix') format('eot'), url('styles/fonts/toolkit-entypo.woff') format('woff'), url('styles/fonts/toolkit-entypo.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 :global {
   @import 'base';
   @import '~normalize.css/normalize';
@@ -19,5 +27,28 @@
   *:before,
   *:after {
     box-sizing: inherit;
+  }
+
+  /* global spacing overrides */
+  h1, h2, h3, h4, h5, h6,
+  .h1, .h2, .h3, .h4, .h5, .h6 {
+    margin-top: 0;
+  }
+  hr {
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
+
+  .navbar-fixed-top,
+  .navbar-static-top {
+    border-bottom: 0;
+  }
+  #error-container {
+    margin-top: -60px;
+    position: fixed;
+    width: 90%;
+    box-sizing: border-box;
+    padding: 0;
+    z-index:9999;
   }
 }
