@@ -9,8 +9,8 @@ class Header extends Component {
             <div className='col-sm-7'>
               <div className='header-content'>
                 <div className='header-content-inner'>
-                  <h1>New Age is an app landing page that will help you beautifully showcase your new mobile app, or anything else!</h1>
-                  <a href='#download' className='btn btn-outline btn-xl page-scroll'>Start Now for Free!</a>
+                  <h1>Keep calm! Winter is here.</h1>
+                  <a href='#download' className='btn btn-outline btn-xl page-scroll'>Reserve Now!</a>
                 </div>
               </div>
             </div>
