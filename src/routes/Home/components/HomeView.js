@@ -1,11 +1,15 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+import MainNav from './MainNav'
+import Header from './Header'
+import Footer from './Footer'
 
 class HomeView extends Component {
   render () {
     return (
-      <div>
-
+      <div className='page-top'>
+        <MainNav />
+        <Header />
+        <Footer />
       </div>
     )
   }
