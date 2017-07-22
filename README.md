@@ -1,1 +1,0 @@
-# Luxor One Travellers Inn
