@@ -7,7 +7,7 @@ export const DashboardLayout = ({ children }) => {
     <div className='dashboard-wrapper'>
       <div className='with-iconav'>
         {!isLogin && <NavBar />}
-        <div className='container'>
+        <div className='container-fluid'>
           {children}
         </div>
       </div>

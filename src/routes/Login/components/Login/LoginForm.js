@@ -80,7 +80,7 @@ class LoginForm extends Component {
             <Button
               value='Log In'
               hidden={this.state.isLoading}
-              className='green btn-block'
+              className='btn btn-default-outline'
             />
           </div>
         </div>

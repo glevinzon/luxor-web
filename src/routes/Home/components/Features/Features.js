@@ -11,7 +11,7 @@ class Features extends Component {
               <div className='section-heading'>
                 <h2>Unlimited Features, Unlimited Fun</h2>
                 <p className='text-muted'>Check out what you can do with this app theme!</p>
-                <hr />>
+                <hr />
               </div>
             </div>
           </div>
