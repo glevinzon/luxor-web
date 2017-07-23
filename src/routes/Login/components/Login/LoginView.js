@@ -4,7 +4,7 @@ class LoginView extends Component {
   render () {
     return (
       <div>
-
+        wew
       </div>
     )
   }

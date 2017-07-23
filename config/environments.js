@@ -11,9 +11,10 @@ export default {
   development: (config) => ({
     compiler_public_path: `http://${config.server_host}:${config.server_port}/`,
     proxy: {
-      enabled: false,
+      enabled: true,
       options: {
-        host: 'http://localhost:8000',
+        host: config.api_host,
+        map: path => path.replace('/api', ''),
         match: /^\/api\/.*/
       }
     }
@@ -31,6 +32,14 @@ export default {
       chunks: true,
       chunkModules: true,
       colors: true
+    },
+    proxy: {
+      enabled: true,
+      options: {
+        host: config.api_host,
+        map: path => path.replace('/api', ''),
+        match: /^\/api\/.*/
+      }
     }
   })
 }

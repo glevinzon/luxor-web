@@ -15,6 +15,11 @@ const config = {
   env : process.env.NODE_ENV || 'development',
 
   // ----------------------------------
+  // API Configuration
+  // ----------------------------------
+  api_host : process.env.API_HOST,
+
+  // ----------------------------------
   // Project Structure
   // ----------------------------------
   path_base  : path.resolve(__dirname, '..'),
