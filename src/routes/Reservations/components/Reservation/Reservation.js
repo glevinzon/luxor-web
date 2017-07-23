@@ -8,8 +8,8 @@ class Reservations extends Component {
         <div className='col-sm-12 content'>
           <div className='dashhead'>
             <div className='dashhead-titles'>
-              <h6 className='dashhead-subtitle'>Dashboards</h6>
-              <h2 className='dashhead-title'>Reservation</h2>
+              <h6 className='dashhead-subtitle'>Dashboard</h6>
+              <h2 className='dashhead-title'>Reservations</h2>
             </div>
 
             {/* <div className='btn-toolbar dashhead-toolbar'>
