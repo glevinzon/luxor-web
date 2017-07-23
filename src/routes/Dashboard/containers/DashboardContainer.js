@@ -1,7 +1,10 @@
 import {connect} from 'react-redux'
 import Dashboard from '../components/Dashboard'
 
+import { logout } from 'store/modules/auth'
+
 const mapActionCreators = {
+  logout
 }
 
 const mapStateToProps = (state) => ({
