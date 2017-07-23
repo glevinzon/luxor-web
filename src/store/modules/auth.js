@@ -93,9 +93,9 @@ export function logout () {
     await dispatch({
       type: LOGOUT_SUCCESS
     })
-    window.location = '/'
     localStorage.removeItem('reduxPersist:auth')
     localStorage.removeItem('reduxPersist:app')
+    window.location = '/dashboard'
   }
 }
 

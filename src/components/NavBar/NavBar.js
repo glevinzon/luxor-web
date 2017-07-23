@@ -7,6 +7,7 @@ const NavLink = activeComponent('li')
 
 class NavBar extends Component {
   render () {
+    // console.log('PROPS', this.props)
     return (
       <nav className='iconav'>
         <Link to='/dashboard' className='iconav-brand'>
@@ -19,11 +20,6 @@ class NavBar extends Component {
               <NavLink to='/dashboard/reservations' onlyActiveOnIndex>
                 <span className='icon icon-text-document' />
                 <small className='iconav-nav-label visible-xs-block'>Reservations</small></NavLink></OverlayTrigger>
-            <OverlayTrigger
-              placement='right' overlay={<Tooltip id='stats'>Statistics</Tooltip>}>
-              <NavLink to='/dashboard/stats'>
-                <span className='icon icon-bar-graph' />
-                <small className='iconav-nav-label visible-xs-block'>Statistics</small></NavLink></OverlayTrigger>
           </ul>
         </div>
       </nav>
