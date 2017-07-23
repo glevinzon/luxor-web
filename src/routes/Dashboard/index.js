@@ -1,4 +1,4 @@
-import { UserIsAuthenticated, UserIsNotAdmin} from 'utils/authWrappers'
+import { UserIsAuthenticated, UserIsAdmin} from 'utils/authWrappers'
 import LoginRoute from '../Login'
 export default (store) => ({
   path: 'dashboard',
@@ -20,7 +20,7 @@ export default (store) => ({
   getIndexRoute (partialNextState, cb) {
     require.ensure([], require => {
       const DashboardContainer = require('./containers/DashboardContainer').default
-      cb(null, { component: UserIsAuthenticated(UserIsNotAdmin(DashboardContainer)) })
+      cb(null, { component: UserIsAuthenticated(UserIsAdmin(DashboardContainer)) })
     }, 'dashboard-index')
   },
   childRoutes: [

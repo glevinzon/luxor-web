@@ -58,7 +58,7 @@ export function login (username, password) {
               success: (prevState, nextState) => {
                 const { query, pathname } = prevState.router.locationBeforeTransitions
 
-                const redirectTo = pathname === '/dashboard/login' ? '/dashboard' : '/'
+                const redirectTo = pathname === '/login' ? '/dashboard' : '/'
 
                 return ({
                   pathname: query.redirect || redirectTo

@@ -5,6 +5,7 @@ import { useRouterHistory } from 'react-router'
 import { syncHistoryWithStore } from 'react-router-redux'
 import createStore from './store/createStore'
 import AppContainer from './containers/AppContainer'
+// import Raven from 'raven-js'
 
 // ========================================================
 // Browser History Setup
@@ -80,6 +81,25 @@ if (__DEV__) {
         render()
       })
     })
+//   }
+// }
+
+// if (__PROD__) {
+//   const renderError = (error) => {
+//     Raven.config('https://bca29d390c614ec8a33ac21f695db3c8@sentry.io/167824').install()
+//     Raven.captureException(error)
+
+//     ReactDOM.render(Raven.showReportDialog(), MOUNT_NODE)
+//   }
+
+//   const renderApp = render
+
+//   render = () => {
+//     try {
+//       renderApp()
+//     } catch (error) {
+//       renderError(error)
+//     }
   }
 }
 

@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react'
+import LoginForm from './LoginForm'
 
 export default class Login extends Component {
   static propTypes = {
@@ -13,7 +14,7 @@ export default class Login extends Component {
         <div className='hr-divider m-t m-b'>
           <h3 className='hr-divider-content hr-divider-heading'><img src='icon.png' width='70' /></h3>
         </div>
-
+        <LoginForm {...this.props} />
         <hr className='m-t-0 m-b-md' />
       </div>
     )
