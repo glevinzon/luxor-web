@@ -1,3 +1,3 @@
-import LoginView from './LoginView'
+import Login from './Login'
 
-export default LoginView
+export default Login

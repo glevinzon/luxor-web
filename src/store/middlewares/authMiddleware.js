@@ -2,7 +2,7 @@ import { push } from 'react-router-redux'
 
 export default store => next => action => {
   if (action.payload && action.payload.name === 'ApiError') {
-    const loadFail = action.type === 'luxor/auth/LOAD_FAIL'
+    const loadFail = action.type === 'auth/LOAD_FAIL'
     if (action.payload.status === 401 && !loadFail && action.payload.response) {
       if ([action.payload.response.name, action.payload.response.error].includes('InvalidCredentialsError')) {
         const state = store.getState()
