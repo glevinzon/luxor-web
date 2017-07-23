@@ -10,7 +10,7 @@ export default class Login extends Component {
   render () {
     const { loading } = this.props.auth
     return (
-      <div className='container login-wrapper' style={{ marginLeft: '-85px', marginTop: '15%' }}>
+      <div className='container login-wrapper' style={{ marginTop: '15%' }}>
         <div className='hr-divider m-t m-b'>
           <h3 className='hr-divider-content hr-divider-heading'><img src='icon.png' width='70' /></h3>
         </div>

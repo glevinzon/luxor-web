@@ -1,5 +1,7 @@
 import { UserIsAuthenticated, UserIsAdmin} from 'utils/authWrappers'
 import LoginRoute from '../Login'
+import ReservationRoute from '../Reservations'
+
 export default (store) => ({
   path: 'dashboard',
   onEnter: async (nextState, replace, cb) => {
@@ -24,7 +26,8 @@ export default (store) => ({
     }, 'dashboard-index')
   },
   childRoutes: [
-    LoginRoute(store)
+    LoginRoute(store),
+    ReservationRoute(store)
   ]
   // path: '/dashboard',
   // onEnter: async (nextState, replace, cb) => {
