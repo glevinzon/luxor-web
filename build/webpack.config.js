@@ -152,76 +152,47 @@ webpackConfig.module.loaders = [{
 // css-loader not to duplicate minimization.
 const BASE_CSS_LOADER = 'css?sourceMap&-minimize'
 
-// Add any packge names here whose styles need to be treated as CSS modules.
-// These paths will be combined into a single regex.
-const PATHS_TO_TREAT_AS_CSS_MODULES = [
-  // 'react-toolbox', (example)
-]
-
-// If config has CSS modules enabled, treat this project's styles as CSS modules.
-if (config.compiler_css_modules) {
-  PATHS_TO_TREAT_AS_CSS_MODULES.push(
-    paths.client().replace(/[\^\$\.\*\+\-\?\=\!\:\|\\\/\(\)\[\]\{\}\,]/g, '\\$&') // eslint-disable-line
-  )
-}
-
-const isUsingCSSModules = !!PATHS_TO_TREAT_AS_CSS_MODULES.length
-const cssModulesRegex = new RegExp(`(${PATHS_TO_TREAT_AS_CSS_MODULES.join('|')})`)
-
-// Loaders for styles that need to be treated as CSS modules.
-if (isUsingCSSModules) {
-  const cssModulesLoader = [
-    BASE_CSS_LOADER,
-    'modules',
-    'importLoaders=1',
-    'localIdentName=[name]__[local]___[hash:base64:5]'
-  ].join('&')
-
-  webpackConfig.module.loaders.push({
-    test: /\.scss$/,
-    include: cssModulesRegex,
-    loaders: [
-      'style',
-      cssModulesLoader,
-      'postcss',
-      'sass?sourceMap'
-    ]
-  })
-
-  webpackConfig.module.loaders.push({
-    test: /\.css$/,
-    include: cssModulesRegex,
-    loaders: [
-      'style',
-      cssModulesLoader,
-      'postcss'
-    ]
-  })
-}
-
-// Loaders for files that should not be treated as CSS modules.
-const excludeCSSModules = isUsingCSSModules ? cssModulesRegex : false
 webpackConfig.module.loaders.push({
   test: /\.scss$/,
-  exclude: excludeCSSModules,
+  exclude: null,
   loaders: [
     'style',
-    BASE_CSS_LOADER,
-    'resolve-url',
-    'postcss',
-    'sass?sourceMap'
+    'css',
+    'sass'
   ]
 })
+
 webpackConfig.module.loaders.push({
   test: /\.css$/,
-  exclude: excludeCSSModules,
+  exclude: null,
   loaders: [
     'style',
     BASE_CSS_LOADER,
-    'resolve-url',
     'postcss'
   ]
 })
+
+webpackConfig.sassLoader = {
+  includePaths: paths.client('styles')
+}
+
+webpackConfig.postcss = [
+  cssnano({
+    autoprefixer: {
+      add: true,
+      remove: true,
+      browsers: ['last 2 versions']
+    },
+    discardComments: {
+      removeAll: true
+    },
+    discardUnused: false,
+    mergeIdents: false,
+    reduceIdents: false,
+    safe: true,
+    sourcemap: true
+  })
+]
 
 // ------------------------------------
 // Style Configuration

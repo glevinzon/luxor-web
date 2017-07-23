@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import TextFieldGroup from 'components/common/TextFieldGroup'
 import Button from 'components/common/Button'
 import validateInput from 'utils/validators/login'
+import Alert from 'react-s-alert'
 
 class LoginForm extends Component {
   constructor (props) {
@@ -16,12 +17,27 @@ class LoginForm extends Component {
   }
 
   componentWillMount () {
-    console.log('PROPS', this.props)
   }
 
   componentWillReceiveProps (newProps, oldProps) {
-    if (!newProps.loggingIn) {
+    if (!newProps.auth.get('loggingIn')) {
       this.setState({ isLoading: false })
+    }
+    if (newProps.auth.get('loginError')) {
+      let code = newProps.auth.get('loginError').get('code')
+      let message = newProps.auth.get('loginError').get('message')
+      Alert.error(`<h4>Error ${code}</h4><ul>` + (message ? (`<li>${message}</li>`) : '') + '</ul>', {
+        position: 'top-right',
+        effect: 'scale',
+        html: true
+      })
+    }
+    if (newProps.auth.get('loginSuccess')) {
+      let user = newProps.auth.get('user')
+      Alert.success(`Welcome! ${user.get('username')}`, {
+        position: 'top-right',
+        effect: 'scale'
+      })
     }
   }
 
