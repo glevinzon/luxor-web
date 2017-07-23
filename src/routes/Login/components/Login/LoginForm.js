@@ -92,7 +92,7 @@ class LoginForm extends Component {
           </div>
         </div>
         <div className='form-group row'>
-          <div className='col-sm-offset-4 col-xs-offset-2'>
+          <div className='col-sm-offset-4 col-sm-4 col-xs-offset-2 col-xs-8'>
             <Button
               value='Log In'
               hidden={this.state.isLoading}

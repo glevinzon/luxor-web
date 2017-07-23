@@ -7,8 +7,7 @@ class Button extends Component {
     const { value, className, hidden, disabled } = this.props
 
     return (
-      <div>
-        <Loading hidden={!hidden} />
+      <center>
         <button
           value={value}
           hidden={hidden}
@@ -17,7 +16,8 @@ class Button extends Component {
         >
           {value}
         </button>
-      </div>
+        <Loading hidden={!hidden} />
+      </center>
     )
   }
 }
