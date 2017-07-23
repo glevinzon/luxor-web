@@ -7,7 +7,6 @@ class Dashboard extends Component {
   }
 
   render () {
-    console.log('PROPS', this.props)
     return (
       <div className='container-fluid container-fluid-spacious' style={{ marginTop: '2%'}} >
         <div className='col-sm-12 content'>

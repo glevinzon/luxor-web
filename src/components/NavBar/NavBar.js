@@ -7,7 +7,6 @@ const NavLink = activeComponent('li')
 
 class NavBar extends Component {
   render () {
-    // console.log('PROPS', this.props)
     return (
       <nav className='iconav'>
         <Link to='/dashboard' className='iconav-brand'>
