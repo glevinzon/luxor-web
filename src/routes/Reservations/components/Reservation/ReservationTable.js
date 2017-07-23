@@ -10,8 +10,9 @@ class ReservationTable extends Component {
               <thead>
                 <tr>
                   <th>Code</th>
-                  <th>Customer name</th>
+                  <th>Customer Name</th>
                   <th>Note</th>
+                  <th>Email</th>
                   <th>Contact</th>
                   <th>Date</th>
                   <th></th>
@@ -23,6 +24,7 @@ class ReservationTable extends Component {
                   <td>First Last</td>
                   <td>Admin theme, marketing theme</td>
                   <td>01/01/2015</td>
+                  <td>admin@email.com</td>
                   <td>$200.00</td>
                   <td>
                     <div className='btn-group'>
@@ -33,139 +35,6 @@ class ReservationTable extends Component {
                         <span className='icon icon-erase' />
                       </button>
                     </div></td>
-                </tr>
-                <tr>
-                  <td><a href='#'>#10002</a></td>
-                  <td>Firstname Lastname</td>
-                  <td>Admin theme</td>
-                  <td>01/01/2015</td>
-                  <td>$100.00</td>
-                </tr>
-                <tr>
-                  <td><a href='#'>#10003</a></td>
-                  <td>Name Another</td>
-                  <td>Personal blog theme</td>
-                  <td>01/01/2015</td>
-                  <td>$100.00</td>
-                </tr>
-                <tr>
-                  <td><a href='#'>#10004</a></td>
-                  <td>One More</td>
-                  <td>Marketing theme, personal blog theme, admin theme</td>
-                  <td>01/01/2015</td>
-                  <td>$300.00</td>
-                </tr>
-                <tr>
-                  <td><a href='#'>#10005</a></td>
-                  <td>Name Right Here</td>
-                  <td>Personal blog theme, admin theme</td>
-                  <td>01/02/2015</td>
-                  <td>$200.00</td>
-                </tr>
-                <tr>
-                  <td><a href='#'>#10006</a></td>
-                  <td>First Last</td>
-                  <td>Admin theme, marketing theme</td>
-                  <td>01/01/2015</td>
-                  <td>$200.00</td>
-                </tr>
-                <tr>
-                  <td><a href='#'>#10007</a></td>
-                  <td>Firstname Lastname</td>
-                  <td>Admin theme</td>
-                  <td>01/01/2015</td>
-                  <td>$100.00</td>
-                </tr>
-                <tr>
-                  <td><a href='#'>#10008</a></td>
-                  <td>Name Another</td>
-                  <td>Personal blog theme</td>
-                  <td>01/01/2015</td>
-                  <td>$100.00</td>
-                </tr>
-                <tr>
-                  <td><a href='#'>#10009</a></td>
-                  <td>One More</td>
-                  <td>Marketing theme, personal blog theme, admin theme</td>
-                  <td>01/01/2015</td>
-                  <td>$300.00</td>
-                </tr>
-                <tr>
-                  <td><a href='#'>#10010</a></td>
-                  <td>Name Right Here</td>
-                  <td>Personal blog theme, admin theme</td>
-                  <td>01/02/2015</td>
-                  <td>$200.00</td>
-                </tr>
-                <tr>
-                  <td><a href='#'>#10011</a></td>
-                  <td>First Last</td>
-                  <td>Admin theme, marketing theme</td>
-                  <td>01/01/2015</td>
-                  <td>$200.00</td>
-                </tr>
-                <tr>
-                  <td><a href='#'>#10012</a></td>
-                  <td>Firstname Lastname</td>
-                  <td>Admin theme</td>
-                  <td>01/01/2015</td>
-                  <td>$100.00</td>
-                </tr>
-                <tr>
-                  <td><a href='#'>#10013</a></td>
-                  <td>Name Another</td>
-                  <td>Personal blog theme</td>
-                  <td>01/01/2015</td>
-                  <td>$100.00</td>
-                </tr>
-                <tr>
-                  <td><a href='#'>#10014</a></td>
-                  <td>One More</td>
-                  <td>Marketing theme, personal blog theme, admin theme</td>
-                  <td>01/01/2015</td>
-                  <td>$300.00</td>
-                </tr>
-                <tr>
-                  <td><a href='#'>#10015</a></td>
-                  <td>Name Right Here</td>
-                  <td>Personal blog theme, admin theme</td>
-                  <td>01/02/2015</td>
-                  <td>$200.00</td>
-                </tr>
-                <tr>
-                  <td><a href='#'>#10016</a></td>
-                  <td>First Last</td>
-                  <td>Admin theme, marketing theme</td>
-                  <td>01/01/2015</td>
-                  <td>$200.00</td>
-                </tr>
-                <tr>
-                  <td><a href='#'>#10017</a></td>
-                  <td>Firstname Lastname</td>
-                  <td>Admin theme</td>
-                  <td>01/01/2015</td>
-                  <td>$100.00</td>
-                </tr>
-                <tr>
-                  <td><a href='#'>#10018</a></td>
-                  <td>Name Another</td>
-                  <td>Personal blog theme</td>
-                  <td>01/01/2015</td>
-                  <td>$100.00</td>
-                </tr>
-                <tr>
-                  <td><a href='#'>#10019</a></td>
-                  <td>One More</td>
-                  <td>Marketing theme, personal blog theme, admin theme</td>
-                  <td>01/01/2015</td>
-                  <td>$300.00</td>
-                </tr>
-                <tr>
-                  <td><a href='#'>#10020</a></td>
-                  <td>Name Right Here</td>
-                  <td>Personal blog theme, admin theme</td>
-                  <td>01/02/2015</td>
-                  <td>$200.00</td>
                 </tr>
               </tbody>
             </table>
