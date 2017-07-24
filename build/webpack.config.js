@@ -121,6 +121,30 @@ webpackConfig.eslint = {
 }
 */
 
+// // ------------------------------------
+// // Loaders
+// // ------------------------------------
+// // JavaScript / JSON
+// webpackConfig.module.loaders = [{
+//   test: /\.(js|jsx)$/,
+//   exclude: /node_modules/,
+//   loader: 'babel',
+//   query: {
+//     cacheDirectory: true,
+//     plugins: ['transform-runtime'],
+//     presets: ['es2015', 'react', 'stage-0'],
+//     env: {
+//       production: {
+//         presets: ['react-optimize']
+//       }
+//     }
+//   }
+// },
+// {
+//   test: /\.json$/,
+//   loader: 'json'
+// }]
+
 // ------------------------------------
 // Loaders
 // ------------------------------------
@@ -129,18 +153,8 @@ webpackConfig.module.loaders = [{
   test: /\.(js|jsx)$/,
   exclude: /node_modules/,
   loader: 'babel',
-  query: {
-    cacheDirectory: true,
-    plugins: ['transform-runtime'],
-    presets: ['es2015', 'react', 'stage-0'],
-    env: {
-      production: {
-        presets: ['react-optimize']
-      }
-    }
-  }
-},
-{
+  query: config.compiler_babel
+}, {
   test: /\.json$/,
   loader: 'json'
 }]
