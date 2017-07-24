@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import TextFieldGroup from 'components/common/TextFieldGroup'
+import DatePickerGroup from 'components/common/DatePickerGroup'
 import Button from 'components/common/Button'
 import validateInput from 'utils/validators/reserve'
 import {
@@ -21,7 +22,7 @@ class ReserveForm extends Component {
       email: '',
       address: '',
       contact: '',
-      date: '',
+      date: new Date().toISOString(),
       errors: [],
       isLoading: false,
       isOpen: false
@@ -121,7 +122,7 @@ class ReserveForm extends Component {
             </div>
             <div className='form-group row'>
               <div className='input-group col-sm-offset-1 col-sm-10 col-xs-offset-1 col-xs-10'>
-                <TextFieldGroup
+                <DatePickerGroup
                   onChange={this.onChange}
                   value={this.state.date}
                   field='date'
