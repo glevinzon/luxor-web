@@ -8,7 +8,6 @@ class DatePickerGroup extends Component {
 
     return (
       <FormGroup>
-        <ControlLabel style={{ color: '#000'}}>{placeholder}</ControlLabel>
         <DatePicker id='reservation-datepicker' name={field} value={value} disabled={disabled} placeholder={placeholder} onChange={onChange} />
       </FormGroup>
     )

@@ -9,16 +9,16 @@ class MainNav extends Component {
             <button type='button' className='navbar-toggle collapsed' data-toggle='collapse' data-target='#bs-example-navbar-collapse-1'>
               <span className='sr-only'>Toggle navigation</span> Menu <i className='fa fa-bars'></i>
             </button>
-            <a className='navbar-brand page-scroll' href='#page-top'>Luxor One Traveller Inn</a>
+            <a className='navbar-brand page-scroll' href='#page-top'>Luxor One Traveller's Inn</a>
           </div>
 
           <div className='collapse navbar-collapse' id='bs-example-navbar-collapse-1'>
             <ul className='nav navbar-nav navbar-right'>
               <li>
-                <a className='page-scroll' href='#download'>Rooms</a>
+                <a className='page-scroll' href='#features'>Rooms</a>
               </li>
               <li>
-                <a className='page-scroll' href='#features'>Amenities</a>
+                <a className='page-scroll' href='#cta'>Amenities</a>
               </li>
               <li>
                 <a className='page-scroll' href='#contact'>Contact Us</a>

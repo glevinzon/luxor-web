@@ -9,8 +9,8 @@ class Features extends Component {
           <div className='row'>
             <div className='col-lg-12 text-center'>
               <div className='section-heading'>
-                <h2>Unlimited Features, Unlimited Fun</h2>
-                <p className='text-muted'>Check out what you can do with this app theme!</p>
+                <h2>Great Location, Service and Stay.</h2>
+                <p className='text-muted'>Check out all the rooms you can stay in! You feel comfortable!</p>
                 <hr />
               </div>
             </div>
@@ -21,7 +21,7 @@ class Features extends Component {
                 <div className='device-mockup iphone6_plus portrait white'>
                   <div className='device'>
                     <div className='screen'>
-                        <img src='img/demo-screen-1.jpg' className='img-responsive' alt='' /> </div>
+                        <img src='img/gensan-front.JPG' className='img-responsive' alt='' /> </div>
                     <div className='button'>
                     </div>
                   </div>

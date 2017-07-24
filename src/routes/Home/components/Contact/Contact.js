@@ -6,7 +6,7 @@ class Contact extends Component {
     return (
       <section id='contact' className='contact bg-primary'>
         <div className='container'>
-          <h2>We <i className='fa fa-heart'></i> new friends!</h2>
+          <h2>We <i className='fa fa-heart'></i> our customers! Connect to us.</h2>
           <ul className='list-inline list-social'>
             <li className='social-twitter'>
               <a href='#'><i className='fa fa-twitter'></i></a>

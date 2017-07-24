@@ -63,6 +63,16 @@
   .sweet-alert h2{
     color: #000;
   }
+  .carousel-indicators {
+    display: none;
+  }
+  .left.carousel-control {
+    display: none;
+  }
+  .right.carousel-control{
+    display: none;
+  }
+
   #error-container {
     margin-top: -60px;
     position: fixed;

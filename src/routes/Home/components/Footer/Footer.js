@@ -5,16 +5,19 @@ class Footer extends Component {
     return (
       <footer>
         <div className='container'>
-          <p>&copy; 2016 Start Bootstrap. All Rights Reserved.</p>
+          <p>&copy; Luxor One Traveller's Inn</p>
           <ul className='list-inline'>
             <li>
-              <a href='#'>Privacy</a>
+              <a href='#features'>Rooms</a>
             </li>
             <li>
-              <a href='#'>Terms</a>
+              <a href='#cta'>Amenities</a>
             </li>
             <li>
-              <a href='#'>FAQ</a>
+              <a href='#contact'>Contact</a>
+            </li>
+            <li>
+              <a href='#fqa'>FAQ</a>
             </li>
           </ul>
         </div>
