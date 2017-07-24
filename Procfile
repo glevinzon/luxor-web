@@ -1,1 +1,1 @@
-run: npm run dev
+web: npm run postinstall && npm start
