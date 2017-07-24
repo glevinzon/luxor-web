@@ -6,16 +6,25 @@ import {
   ModalTitle,
   ModalClose
 } from 'react-modal-bootstrap'
+import SweetAlert from 'react-bootstrap-sweetalert'
 
 class Header extends Component {
   state = {
-    isOpen: false
+    isOpen: false,
+    alert: null
   }
 
   componentWillReceiveProps (nextProps) {
     let reserveSuccess = nextProps.reserve.get('creatingReservationSuccess')
     if (reserveSuccess) {
       this.hideModal()
+      this.setState({
+        alert: (
+          <SweetAlert success title='Information Sent' onConfirm={e => { this.setState({alert: null}) }}>
+          The Inn will contact you shortly. Thank you!
+          </SweetAlert>
+        )
+      })
     }
   }
 
@@ -29,11 +38,16 @@ class Header extends Component {
     this.setState({
       isOpen: false
     })
-  };
+  }
+
+  onConfirm = () => {
+    console.log('wew')
+  }
 
   render () {
     return (
       <header>
+        {this.state.alert}
         <div className='container'>
           <div className='row'>
             <div className='col-sm-7'>
