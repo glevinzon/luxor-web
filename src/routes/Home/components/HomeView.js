@@ -12,7 +12,7 @@ class HomeView extends Component {
     return (
       <div id='page-top' className='page-top'>
         <MainNav />
-        <Header />
+        <Header {...this.props} />
 
         <Download />
         <Features />

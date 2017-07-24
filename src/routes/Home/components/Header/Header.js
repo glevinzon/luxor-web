@@ -1,9 +1,22 @@
 import React, { Component } from 'react'
 import ReserveForm from './ReserveForm'
+import {
+  Modal,
+  ModalHeader,
+  ModalTitle,
+  ModalClose
+} from 'react-modal-bootstrap'
 
 class Header extends Component {
   state = {
     isOpen: false
+  }
+
+  componentWillReceiveProps (nextProps) {
+    let reserveSuccess = nextProps.reserve.get('creatingReservationSuccess')
+    if (reserveSuccess) {
+      this.hideModal()
+    }
   }
 
   openModal = () => {
@@ -11,6 +24,12 @@ class Header extends Component {
       isOpen: true
     })
   }
+
+  hideModal = () => {
+    this.setState({
+      isOpen: false
+    })
+  };
 
   render () {
     return (
@@ -40,7 +59,14 @@ class Header extends Component {
             </div>
           </div>
         </div>
-        <ReserveForm show={this.state.isOpen} {...this.props} />
+        <Modal isOpen={this.state.isOpen} onRequestHide={this.hideModal} backdropStyles={{'color': '#000000'}}>
+          <ModalHeader>
+            <ModalClose onClick={this.hideModal} />
+            <ModalTitle >Reserve a Room</ModalTitle>
+          </ModalHeader>
+          <ReserveForm show={this.state.isOpen} {...this.props} />
+        </Modal>
+
       </header>
     )
   }
