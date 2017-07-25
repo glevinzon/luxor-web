@@ -9,7 +9,7 @@ class Reservations extends Component {
 
   render () {
     return (
-      <div className='container-fluid container-fluid-spacious' style={{ marginTop: '2%'}} >
+      <div className='container-fluid-spacious' style={{marginTop: '2%'}} >
         <div className='col-sm-12 content'>
           <div className='dashhead'>
             <div className='dashhead-titles'>

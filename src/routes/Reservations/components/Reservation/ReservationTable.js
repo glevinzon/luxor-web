@@ -2,18 +2,51 @@ import React, { Component } from 'react'
 import Immutable from 'immutable'
 import moment from 'moment'
 import cx from 'classnames'
+import SweetAlert from 'react-bootstrap-sweetalert'
 
 class ReservationTable extends Component {
   constructor (props) {
     super(props)
     this.state = {
       page: 1,
-      count: 15
+      count: 15,
+      delete: false,
+      alert: false
     }
   }
 
   componentWillReceiveProps (nextProps) {
+    var deleteSuccess = nextProps.deletingReservationSuccess
+    if (deleteSuccess) {
+      this.setState({
+        alert: (
+          <SweetAlert success title='Deleted!' onConfirm={e => { this.setState({alert: null}) }}>
+            Reservation has been deleted.
+          </SweetAlert>
+          )
+      })
+    }
+  }
 
+  handleDeleteAction = () => {
+    this.setState({delete: null})
+    this.props.deleteReservation(this.state.selected)
+    this.props.getReservations(1, 10)
+  }
+
+  handleDelete = (code) => {
+    this.setState({selected: code, delete: (<SweetAlert
+      warning
+      showCancel
+      confirmBtnText='Yes, delete it!'
+      confirmBtnBsStyle='danger'
+      cancelBtnBsStyle='default'
+      title='Are you sure?'
+      onConfirm={this.handleDeleteAction}
+      onCancel={e => { this.setState({delete: null}) }}
+    >
+    You will not be able to recover this record!
+    </SweetAlert>)})
   }
 
   handlePaginationClick = (type) => {
@@ -48,6 +81,8 @@ class ReservationTable extends Component {
 
     return (
       <div>
+        {this.state.delete}
+        {this.state.alert}
         <div className='table-full'>
           <div className='table-responsive'>
             <table className='table' data-sort='table'>
@@ -77,7 +112,7 @@ class ReservationTable extends Component {
                           <button type='button' className='btn btn-primary-outline'>
                             <span className='icon icon-pencil' />
                           </button>
-                          <button type='button' className='btn btn-primary-outline'>
+                          <button type='button' className='btn btn-primary-outline' onClick={e => { this.handleDelete(reserve.get('code')) }}>
                             <span className='icon icon-erase' />
                           </button>
                         </div></td>

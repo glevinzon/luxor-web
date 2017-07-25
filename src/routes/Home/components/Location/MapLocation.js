@@ -25,15 +25,12 @@ class MapLocation extends Component {
   }
 
   onDragEnd = (e) => {
-    console.log('onDragEnd', e)
   }
 
   onCloseClick = () => {
-    console.log('onCloseClick')
   }
 
   onClick = (e) => {
-    console.log('onClick', e)
   }
 
   render () {
@@ -44,7 +41,7 @@ class MapLocation extends Component {
         height={'320px'}
         lat={this.props.lat}
         lng={this.props.lng}
-        zoom={12}
+        zoom={18}
         loadingMessage={'Luxor One Travellers Inn'}
         params={params}
         onMapCreated={this.onMapCreated}>

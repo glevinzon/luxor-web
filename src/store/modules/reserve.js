@@ -8,6 +8,9 @@ export const CREATE_RESERVATION_FAIL = 'api/CREATE_RESERVATION_FAIL'
 export const GET_RESERVATIONS = 'api/GET_RESERVATIONS'
 export const GET_RESERVATIONS_SUCCESS = 'api/GET_RESERVATIONS_SUCCESS'
 export const GET_RESERVATIONS_FAIL = 'api/GET_RESERVATIONS_FAIL'
+export const DELETE_RESERVATION = 'api/DELETE_RESERVATION'
+export const DELETE_RESERVATION_SUCCESS = 'api/DELETE_RESERVATION_SUCCESS'
+export const DELETE_RESERVATION_FAIL = 'api/DELETE_RESERVATION_FAIL'
 
 // ------------------------------------
 // Actions
@@ -48,6 +51,25 @@ export function createReservation (data) {
   }
 }
 
+export function deleteReservation (code) {
+  return (dispatch, getState) => {
+    const { accessToken } = getState().auth.toJS()
+    return dispatch({
+      [CALL_API]: {
+        endpoint: `/api/v1/reserve/${code}`,
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${accessToken}`
+        },
+        types: [
+          DELETE_RESERVATION,
+          DELETE_RESERVATION_SUCCESS,
+          DELETE_RESERVATION_FAIL]
+      }
+    })
+  }
+}
+
 export function updateReservationWithCode (reserveCode, data, token) {
   return {
     [CALL_API]: {
@@ -80,6 +102,7 @@ export function updateReservationWithCode (reserveCode, data, token) {
 export const actions = {
   getReservations,
   createReservation,
+  deleteReservation,
   updateReservationWithCode
 }
 
@@ -142,6 +165,31 @@ actionHandlers[ GET_RESERVATIONS_FAIL ] = (state, action) => {
     getReservationsError: action.payload.response.error
   })
 }
+
+actionHandlers[ DELETE_RESERVATION ] = state => {
+  return state.merge({
+    deletingReservation: true,
+    deletingReservationSuccess: false,
+    deleteReservationError: null
+  })
+}
+
+actionHandlers[ DELETE_RESERVATION_SUCCESS ] = (state, action) => {
+  return state.merge({
+    deletingReservation: false,
+    deletingReservationSuccess: true,
+    deleteReservationError: null
+  })
+}
+
+actionHandlers[ DELETE_RESERVATION_FAIL ] = (state, action) => {
+  return state.merge({
+    deletingReservation: false,
+    deletingReservationSuccess: false,
+    deleteReservationError: action.payload.response.error
+  })
+}
+
 // ------------------------------------
 // Reducer
 // ------------------------------------
@@ -152,7 +200,9 @@ const initialState = Immutable.fromJS({
   creatingReservationSuccess: false,
   reserves: null,
   getReservationsError: false,
-  fetchingReservationSuccess: false
+  fetchingReservationSuccess: false,
+  deleteReservationError: false,
+  deletingReservationSuccess: false
 })
 
 export default function reducer (state = initialState, action) {
