@@ -6,7 +6,7 @@ class Cta extends Component {
     return (
       <section id='faqs' className='faqs'>
         <div className='container'>
-          <Panel collapsible defaultExpanded header='FAQs'>
+          <Panel collapsible defaultExpanded header='Frequently Asked Questions'>
           Veniam ut sunt exercitation Lorem tempor deserunt quis ea amet consequat id.
           <ListGroup fill>
             <ListGroupItem>

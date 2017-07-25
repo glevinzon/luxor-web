@@ -5,10 +5,31 @@ import _ from 'lodash'
 export const CREATE_RESERVATION = 'api/CREATE_RESERVATION'
 export const CREATE_RESERVATION_SUCCESS = 'api/CREATE_RESERVATION_SUCCESS'
 export const CREATE_RESERVATION_FAIL = 'api/CREATE_RESERVATION_FAIL'
+export const GET_RESERVATIONS = 'api/GET_RESERVATIONS'
+export const GET_RESERVATIONS_SUCCESS = 'api/GET_RESERVATIONS_SUCCESS'
+export const GET_RESERVATIONS_FAIL = 'api/GET_RESERVATIONS_FAIL'
 
 // ------------------------------------
 // Actions
 // ------------------------------------
+
+export function getReservations (page = 1, count = 10) {
+  return (dispatch, getState) => {
+    let endpoint = `/api/v1/reserves?page=${page}&count=${count}`
+    const { accessToken } = getState().auth.toJS()
+    return dispatch({
+      [CALL_API]: {
+        endpoint,
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${accessToken}`,
+          'Content-Type': 'application/json'
+        },
+        types: [GET_RESERVATIONS, GET_RESERVATIONS_SUCCESS, GET_RESERVATIONS_FAIL]
+      }
+    })
+  }
+}
 
 export function createReservation (data) {
   return {
@@ -57,6 +78,7 @@ export function updateReservationWithCode (reserveCode, data, token) {
 }
 
 export const actions = {
+  getReservations,
   createReservation,
   updateReservationWithCode
 }
@@ -96,6 +118,30 @@ actionHandlers[ CREATE_RESERVATION_FAIL ] = (state, action) => {
   })
 }
 
+actionHandlers[ GET_RESERVATIONS ] = state => {
+  return state.merge({
+    fetchingReservations: true,
+    fetchingReservationsSuccess: false,
+    getReservationsError: null
+  })
+}
+
+actionHandlers[ GET_RESERVATIONS_SUCCESS ] = (state, action) => {
+  return state.merge({
+    fetchingReservations: false,
+    fetchingReservationsSuccess: true,
+    getReservationsError: null,
+    reserves: action.payload.data.reserves
+  })
+}
+
+actionHandlers[ GET_RESERVATIONS_FAIL ] = (state, action) => {
+  return state.merge({
+    fetchingReservations: false,
+    fetchingReservationsSuccess: false,
+    getReservationsError: action.payload.response.error
+  })
+}
 // ------------------------------------
 // Reducer
 // ------------------------------------
@@ -103,7 +149,10 @@ actionHandlers[ CREATE_RESERVATION_FAIL ] = (state, action) => {
 const initialState = Immutable.fromJS({
   reserve: null,
   createReservationError: false,
-  creatingReservationSuccess: false
+  creatingReservationSuccess: false,
+  reserves: null,
+  getReservationsError: false,
+  fetchingReservationSuccess: false
 })
 
 export default function reducer (state = initialState, action) {

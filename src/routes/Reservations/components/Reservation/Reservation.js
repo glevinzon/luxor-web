@@ -2,6 +2,11 @@ import React, { Component } from 'react'
 import ReservationTable from './ReservationTable'
 
 class Reservations extends Component {
+
+  componentWillMount () {
+    this.props.getReservations(1, 10)
+  }
+
   render () {
     return (
       <div className='container-fluid container-fluid-spacious' style={{ marginTop: '2%'}} >

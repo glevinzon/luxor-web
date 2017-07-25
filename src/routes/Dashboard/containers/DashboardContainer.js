@@ -2,14 +2,17 @@ import {connect} from 'react-redux'
 import Dashboard from '../components/Dashboard'
 
 import { logout } from 'store/modules/auth'
+import { getReservations } from 'store/modules/reserve'
 
 const mapActionCreators = {
-  logout
+  logout,
+  getReservations
 }
 
 const mapStateToProps = (state) => ({
   accessToken: state.auth.get('accessToken'),
-  user: state.auth.get('user')
+  user: state.auth.get('user'),
+  reserves: state.reserve.get('reserves')
 })
 
 export default connect(mapStateToProps, mapActionCreators)(Dashboard)
