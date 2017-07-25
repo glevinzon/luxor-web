@@ -135,7 +135,7 @@ class Features extends Component {
                   <div className='col-md-6'>
                     <div className='feature-item'>
                       <h3>Lorem</h3>
-                      <p className='text-muted'>Since this theme is MIT licensed, you can use it commercially!</p>
+                      <p className='text-muted'>Irure mollit est id duis deserunt ut officia reprehenderit eiusmod.</p>
                       <Gallery images={DEFAULT_IMAGES.map(({ caption, id, orientation, useForDemo }) => ({
                         src: this.makeUnsplashSrc(id),
                         thumbnail: this.makeUnsplashThumbnail(id, orientation),
@@ -156,7 +156,7 @@ class Features extends Component {
                   <div className='col-md-6'>
                     <div className='feature-item'>
                       <h3>Lorem</h3>
-                      <p className='text-muted'>Since this theme is MIT licensed, you can use it commercially!</p>
+                      <p className='text-muted'>Deserunt proident ut irure magna anim Lorem cillum elit id dolore.</p>
                       <Gallery images={DEFAULT_IMAGES.map(({ caption, id, orientation, useForDemo }) => ({
                         src: this.makeUnsplashSrc(id),
                         thumbnail: this.makeUnsplashThumbnail(id, orientation),
@@ -175,7 +175,7 @@ class Features extends Component {
                   <div className='col-md-6'>
                     <div className='feature-item'>
                       <h3>Lorem</h3>
-                      <p className='text-muted'>Since this theme is MIT licensed, you can use it commercially!</p>
+                      <p className='text-muted'>Id tempor non minim sunt fugiat esse quis cillum reprehenderit officia.</p>
                       <Gallery images={DEFAULT_IMAGES.map(({ caption, id, orientation, useForDemo }) => ({
                         src: this.makeUnsplashSrc(id),
                         thumbnail: this.makeUnsplashThumbnail(id, orientation),
