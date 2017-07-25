@@ -5,21 +5,23 @@ class Footer extends Component {
     return (
       <footer>
         <div className='container'>
-          <p>&copy; Luxor One Traveller's Inn</p>
-          <ul className='list-inline'>
-            <li>
-              <a href='#features'>Rooms</a>
-            </li>
-            <li>
-              <a href='#location'>Location</a>
-            </li>
-            <li>
-              <a href='#contact'>Contact</a>
-            </li>
-            <li>
-              <a href='#fqa'>FAQ</a>
-            </li>
-          </ul>
+          <div className='container'>
+            <p>&copy; Luxor One Traveller's Inn</p>
+            <ul className='list-inline'>
+              <li>
+                <a href='#features'>Rooms</a>
+              </li>
+              <li>
+                <a href='#location'>Location</a>
+              </li>
+              <li>
+                <a href='#contact'>Contact</a>
+              </li>
+              <li>
+                <a href='#faqs'>FAQ</a>
+              </li>
+            </ul>
+          </div>
         </div>
       </footer>
     )

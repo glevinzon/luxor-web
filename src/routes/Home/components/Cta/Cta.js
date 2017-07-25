@@ -1,17 +1,30 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+import { Accordion, Panel, ListGroup, ListGroupItem } from 'react-bootstrap'
 
 class Cta extends Component {
   render () {
     return (
-      <section id='cta' className='cta'>
-        <div className='cta-content'>
-          <div className='container'>
-            <h2>Stop waiting.<br />Start building.</h2>
-            <a href='#contact' className='btn btn-outline btn-xl page-scroll'>Let's Get Started!</a>
-          </div>
+      <section id='faqs' className='faqs'>
+        <div className='container'>
+          <Panel collapsible defaultExpanded header='FAQs'>
+          Veniam ut sunt exercitation Lorem tempor deserunt quis ea amet consequat id.
+          <ListGroup fill>
+            <ListGroupItem>
+              <Accordion>
+                <Panel header='FAQ #1' eventKey='1'>
+                  Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                </Panel>
+                <Panel header='FAQ #2' eventKey='2'>
+                  Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                </Panel>
+                <Panel header='FAQ #3' eventKey='3'>
+                  Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                </Panel>
+              </Accordion>
+            </ListGroupItem>
+          </ListGroup>
+        </Panel>
         </div>
-        <div className='overlay'></div>
       </section>
     )
   }
