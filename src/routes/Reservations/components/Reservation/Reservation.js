@@ -33,7 +33,7 @@ class Reservations extends Component {
             </div>
           </div>
 
-          <ReservationTable />
+          <ReservationTable {...this.props} />
 
         </div>
       </div>
