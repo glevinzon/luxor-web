@@ -57,6 +57,15 @@
       color: #000;
     }
   }
+  .maps-wrapper{
+    @media (min-width: 320px) {
+        width: 100%;
+      }
+
+    @media (min-width: 768px) {
+      width: 65%;
+    }
+  }
   .modal-title {
     color: #000000;
   }

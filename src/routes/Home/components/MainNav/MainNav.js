@@ -18,7 +18,7 @@ class MainNav extends Component {
                 <a className='page-scroll' href='#features'>Rooms</a>
               </li>
               <li>
-                <a className='page-scroll' href='#cta'>Amenities</a>
+                <a className='page-scroll' href='#location'>Location</a>
               </li>
               <li>
                 <a className='page-scroll' href='#contact'>Contact Us</a>

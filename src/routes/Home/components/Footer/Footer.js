@@ -11,7 +11,7 @@ class Footer extends Component {
               <a href='#features'>Rooms</a>
             </li>
             <li>
-              <a href='#cta'>Amenities</a>
+              <a href='#location'>Location</a>
             </li>
             <li>
               <a href='#contact'>Contact</a>

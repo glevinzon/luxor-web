@@ -4,6 +4,7 @@ import Header from './Header'
 import Download from './Download'
 import Features from './Features'
 import Cta from './Cta'
+import Location from './Location'
 import Footer from './Footer'
 import Contact from './Contact'
 
@@ -16,6 +17,7 @@ class HomeView extends Component {
 
         <Download />
         <Features />
+        <Location />
         <Cta />
 
         <Contact />
