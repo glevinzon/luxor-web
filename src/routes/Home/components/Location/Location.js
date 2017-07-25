@@ -31,8 +31,8 @@ class Location extends Component {
         <div className='cta-content'>
           <div className='container'>
             <h2>Visit us. Locate. Navigate.</h2>
-            <a href='#map' className='btn btn-outline btn-xl page-scroll' onClick={e => { this.handleMapClick('gensan') }} >Gensan</a>
-            <a href='#map' className='btn btn-outline btn-xl page-scroll' onClick={e => { this.handleMapClick('davao') }} >Davao</a>
+            <a className='btn btn-outline btn-xl page-scroll' onClick={e => { this.handleMapClick('gensan') }} >Gensan</a> &nbsp;
+            <a className='btn btn-outline btn-xl page-scroll' onClick={e => { this.handleMapClick('davao') }} >Davao</a>
             <MapLocation lat={this.state.lat} lng={this.state.lng} {...this.props} />
           </div>
         </div>

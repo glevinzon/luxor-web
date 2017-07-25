@@ -45,6 +45,7 @@ class ReservationTable extends Component {
       var lastPage = reserves.get('lastPage')
       var data = reserves.get('data')
     }
+
     return (
       <div>
         <div className='table-full'>
@@ -64,7 +65,7 @@ class ReservationTable extends Component {
               <tbody>
                 {data && (data.map(reserve => {
                   return (
-                    <tr>
+                    <tr key={reserve.get('id')}>
                       <td><a href='#'>{reserve.get('code')}</a></td>
                       <td>{reserve.get('fullName')}</td>
                       <td>{reserve.get('note')}</td>
@@ -95,7 +96,7 @@ class ReservationTable extends Component {
               </a>
             </li>
             <li>
-              <a aria-label='Next' onClick={e => this.handlePaginationClick('next')} style={{display: cx({'none': (data && data.length === 0) || fetchingReservations})}} >
+              <a aria-label='Next' onClick={e => this.handlePaginationClick('next')} style={{display: cx({'none': (data && data.size === 0) || fetchingReservations})}} >
                 <span aria-hidden='true'>&raquo;</span>
               </a>
             </li>
