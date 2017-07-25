@@ -38,7 +38,7 @@ class MapLocation extends Component {
 
   render () {
     return (
-      <center className='maps-wrapper' style={{marginTop: '5%'}} >
+      <center id='map' className='maps-wrapper' style={{marginTop: '5%'}} >
       <Gmaps
         width={'auto'}
         height={'320px'}
