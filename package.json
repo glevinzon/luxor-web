@@ -78,6 +78,7 @@
   "author": "David Zukowski <david@zuko.me> (http://zuko.me)",
   "license": "MIT",
   "dependencies": {
+    "aphrodite": "^1.2.3",
     "babel-cli": "^6.5.1",
     "babel-core": "^6.3.17",
     "babel-loader": "^6.2.0",
@@ -119,6 +120,7 @@
     "react-bootstrap-sweetalert": "^3.0.0",
     "react-dom": "^15.0.0",
     "react-gmaps": "^1.6.0",
+    "react-images": "^0.5.4",
     "react-modal-bootstrap": "^1.1.1",
     "react-redux": "^4.0.0",
     "react-router": "^2.2.0",
