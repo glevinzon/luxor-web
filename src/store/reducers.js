@@ -3,6 +3,7 @@ import { routerReducer as router } from 'react-router-redux'
 import app from './modules/app'
 import auth from './modules/auth'
 import reserve from './modules/reserve'
+import branch from './modules/branch'
 
 export const makeRootReducer = (asyncReducers) => {
   return combineReducers({
@@ -11,6 +12,7 @@ export const makeRootReducer = (asyncReducers) => {
     app,
     auth,
     reserve,
+    branch,
     ...asyncReducers
   })
 }

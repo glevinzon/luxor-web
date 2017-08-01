@@ -1,13 +1,9 @@
 import {connect} from 'react-redux'
-import Dashboard from '../components/Dashboard'
+import Branch from '../components/Branch'
 
-import { logout } from 'store/modules/auth'
-import { getReservations } from 'store/modules/reserve'
 import { getBranches, deleteBranch } from 'store/modules/branch'
 
 const mapActionCreators = {
-  logout,
-  getReservations,
   getBranches,
   deleteBranch
 }
@@ -19,5 +15,5 @@ const mapStateToProps = (state) => ({
   deletingBranchSuccess: state.branch.get('deletingBranchSuccess')
 })
 
-export default connect(mapStateToProps, mapActionCreators)(Dashboard)
+export default connect(mapStateToProps, mapActionCreators)(Branch)
 
