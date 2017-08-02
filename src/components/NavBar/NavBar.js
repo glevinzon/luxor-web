@@ -24,6 +24,11 @@ class NavBar extends Component {
               <NavLink to='/dashboard/branches' onlyActiveOnIndex>
                 <span className='icon icon-flow-tree' />
                 <small className='iconav-nav-label visible-xs-block'>Branches</small></NavLink></OverlayTrigger>
+            <OverlayTrigger
+              placement='right' overlay={<Tooltip id='reservations'>Rooms</Tooltip>}>
+              <NavLink to='/dashboard/rooms' onlyActiveOnIndex>
+                <span className='icon icon-key' />
+                <small className='iconav-nav-label visible-xs-block'>Rooms</small></NavLink></OverlayTrigger>
           </ul>
         </div>
       </nav>

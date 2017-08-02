@@ -10,8 +10,10 @@ class BranchList extends Component {
           {branch.get('name') && (<li className='list-group-item'>{branch.get('name')}</li>)}
           {branch.get('address') && (<li className='list-group-item'>{branch.get('address')}</li>)}
           {branch.get('contact') && (<li className='list-group-item'>{branch.get('contact')}</li>)}
-          {branch.get('coordinates') && (<li className='list-group-item'>{branch.get('coordinates')}</li>)}
-          {branch.get('roomTypes') && (<li className='list-group-item'>{branch.get('roomTypes')}</li>)}
+          {branch.get('coordinates') && (<li className='list-group-item'>{JSON.parse(branch.get('coordinates')).lat}, {JSON.parse(branch.get('coordinates')).lng}</li>)}
+          {branch.get('roomTypes') && (<li className='list-group-item'>{JSON.parse(branch.get('roomTypes')).map(room => {
+            return (<button type='button' className='btn btn-xs btn-pill btn-info'>{room.name}</button>)
+          })}</li>)}
         </ul>
       </Popover>
     )
