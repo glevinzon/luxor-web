@@ -14,7 +14,6 @@ class Branch extends Component {
   }
 
   componentWillReceiveProps (nextProps) {
-    console.log(nextProps)
     let { creatingBranchSuccess, deletingBranchSuccess } = nextProps
     if (deletingBranchSuccess) {
       this.props.getBranches(1, 10)

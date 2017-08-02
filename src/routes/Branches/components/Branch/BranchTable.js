@@ -103,9 +103,11 @@ class BranchTable extends Component {
                       <td><a href='#'>{branch.get('code')}</a></td>
                       <td>{branch.get('name')}</td>
                       <td>{branch.get('address')}</td>
-                      <td>{branch.get('coordinates')}</td>
+                      <td>{JSON.parse(branch.get('coordinates')).lat}, {JSON.parse(branch.get('coordinates')).lng}</td>
                       <td>{branch.get('contact')}</td>
-                      <td>{branch.get('roomTypes')}</td>
+                      <td>{branch.get('roomTypes') && JSON.parse(branch.get('roomTypes')).map(room => {
+                        return (<button type='button' className='btn btn-xs btn-pill btn-info'>{room.name}</button>)
+                      })}</td>
                       <td>
                         <div className='btn-group'>
                           <button type='button' className='btn btn-primary-outline'>

@@ -14,7 +14,8 @@ class BranchCreateForm extends Component {
     address: '',
     coordinates: '',
     contact: '',
-    roomTypes: '',
+    roomTypes: null,
+    roomType: null,
     errors: [],
     isLoading: false
   }
@@ -37,17 +38,61 @@ class BranchCreateForm extends Component {
     e.preventDefault()
     let data = this.state
     if (this.isValid(data)) {
+      console.log('wew', data.roomTypes)
       data.coordinates = JSON.stringify(data.coordinates)
+      data.roomTypes = JSON.stringify(data.roomTypes)
       this.setState({ name: '',
         contact: '', address: '',
         coordinates: '',
-        roomTypes: '', errors: {}, isLoading: true })
+        roomTypes: null, roomType: '', errors: {}, isLoading: true })
       this.props.createBranch(data)
     }
   }
 
+  handleAddRoomType = () => {
+    let {roomType, roomTypes} = this.state
+    let types = roomTypes || []
+    if (roomType != '') {
+      types.push({name: roomType, desc: ''})
+    }
+    this.setState({roomTypes: types, roomType: ''})
+  }
+
+  renderRoomTypes = () => {
+    return (
+      <div className='form-group row'>
+      <div className='input-group col-sm-offset-1 col-sm-10 col-xs-offset-1 col-xs-10'>
+        <ul className='list-group' style={{ background: '#252830'}}>
+          {this.state.roomTypes && this.state.roomTypes.map(room => {
+            return (
+              <li className='list-group-item'>{room.name}</li>
+            )
+          })}
+          <li className='list-group-item'>
+            <div className='flextable'>
+              <div className='flextable-item flextable-primary'>
+                <TextFieldGroup
+                  onChange={this.onChange}
+                  field='roomType'
+                  value={this.state.roomType}
+                  placeholder='Room Type'
+                  />
+              </div>
+              <div className='flextable-item'>
+                <a className='btn btn-pill btn-default' onClick={e => this.handleAddRoomType()}>Add</a>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+        <div className='input-group col-sm-offset-1 col-sm-10 col-xs-offset-1 col-xs-10'>
+
+        </div>
+      </div>
+    )
+  }
+
   render () {
-    console.log(this.state.coordinates)
     return (
       <form className='form-access' onSubmit={this.onSubmit}>
         <ModalBody>
@@ -113,9 +158,10 @@ class BranchCreateForm extends Component {
               <Map latLngCb={(coordinates) => { this.setState({coordinates: coordinates}) }} />
             </div>
           </div>
+          {this.renderRoomTypes()}
         </ModalBody>
         <ModalFooter>
-          <button className='btn btn-primary'>
+          <button className='btn btn-lg btn-pill btn-primary'>
             Submit
           </button>
         </ModalFooter>

@@ -7,7 +7,6 @@ class Download extends Component {
     super(props)
   }
   onSelect= (active, direction) => {
-    console.log(`active=${active} && direction=${direction}`)
   }
   render () {
     return (

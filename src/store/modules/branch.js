@@ -37,6 +37,7 @@ export function getBranches (page = 1, count = 10) {
 }
 
 export function createBranch (data) {
+  console.log('data', data)
   return (dispatch, getState) => {
     const { accessToken } = getState().auth.toJS()
     return dispatch({

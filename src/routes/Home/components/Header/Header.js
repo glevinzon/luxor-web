@@ -41,7 +41,6 @@ class Header extends Component {
   }
 
   onConfirm = () => {
-    console.log('wew')
   }
 
   render () {
