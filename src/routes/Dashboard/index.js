@@ -2,6 +2,7 @@ import { UserIsAuthenticated, UserIsAdmin} from 'utils/authWrappers'
 import LoginRoute from '../Login'
 import ReservationRoute from '../Reservations'
 import BranchRoute from '../Branches'
+import RoomsRoute from '../Rooms'
 
 export default (store) => ({
   path: 'dashboard',
@@ -29,7 +30,8 @@ export default (store) => ({
   childRoutes: [
     LoginRoute(store),
     ReservationRoute(store),
-    BranchRoute(store)
+    BranchRoute(store),
+    RoomsRoute(store)
   ]
   // path: '/dashboard',
   // onEnter: async (nextState, replace, cb) => {

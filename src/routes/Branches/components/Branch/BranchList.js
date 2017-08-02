@@ -5,7 +5,7 @@ class BranchList extends Component {
   popoverRight = (branch) => {
     return (
       <Popover id='popover-positioned-right'>
-        <ul className='list-group'>
+        <ul key={branch.get('code')} className='list-group'>
           {branch.get('code') && (<li className='list-group-item'>{branch.get('code')}</li>)}
           {branch.get('name') && (<li className='list-group-item'>{branch.get('name')}</li>)}
           {branch.get('address') && (<li className='list-group-item'>{branch.get('address')}</li>)}

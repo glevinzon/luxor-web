@@ -5,6 +5,7 @@ import app from './modules/app'
 import auth from './modules/auth'
 import reserve from './modules/reserve'
 import branch from './modules/branch'
+import room from './modules/room'
 
 export const makeRootReducer = (asyncReducers) => {
   return combineReducers({
@@ -15,6 +16,7 @@ export const makeRootReducer = (asyncReducers) => {
     loadingBar: loadingBarReducer,
     reserve,
     branch,
+    room,
     ...asyncReducers
   })
 }

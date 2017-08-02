@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
 import BranchList from '../../Branches/components/Branch/BranchList'
+import RoomList from '../../Rooms/components/Room/RoomList'
 
 class Dashboard extends Component {
   componentWillMount () {
     this.props.getBranches(1, 10)
+    this.props.getRooms(1, 10)
   }
 
   handleLogout = (e) => {
@@ -38,62 +40,7 @@ class Dashboard extends Component {
           </div>
 
           <div className='col-md-4 m-b'>
-            <div className='list-group'>
-              <h4 className='list-group-header'>
-                Rooms
-              </h4>
-
-                <a className='list-group-item' href='#'>
-                  <span className='pull-right text-muted'>3,929,481</span>
-                  / (Logged out)
-                </a>
-
-                <a className='list-group-item' href='#'>
-                  <span className='pull-right text-muted'>1,143,393</span>
-                  / (Logged in)
-                </a>
-
-                <a className='list-group-item' href='#'>
-                  <span className='pull-right text-muted'>938,287</span>
-                  /tour
-                </a>
-
-                <a className='list-group-item' href='#'>
-                  <span className='pull-right text-muted'>749,393</span>
-                  /features/something
-                </a>
-
-                <a className='list-group-item' href='#'>
-                  <span className='pull-right text-muted'>695,912</span>
-                  /features/another-thing
-                </a>
-
-                <a className='list-group-item' href='#'>
-                  <span className='pull-right text-muted'>501,938</span>
-                  /users/username
-                </a>
-
-                <a className='list-group-item' href='#'>
-                  <span className='pull-right text-muted'>392,842</span>
-                  /page-title
-                </a>
-
-                <a className='list-group-item' href='#'>
-                  <span className='pull-right text-muted'>298,183</span>
-                  /some/page-slug
-                </a>
-
-                <a className='list-group-item' href='#'>
-                  <span className='pull-right text-muted'>193,129</span>
-                  /another/directory/and/page-title
-                </a>
-
-                <a className='list-group-item' href='#'>
-                  <span className='pull-right text-muted'>93,382</span>
-                  /one-more/page/directory/file-name
-                </a>
-
-            </div>
+            <RoomList {...this.props} />
             <a href='#' className='btn btn-primary-outline'>View all rooms</a>
           </div>
           <div className='col-md-4 m-b'>
