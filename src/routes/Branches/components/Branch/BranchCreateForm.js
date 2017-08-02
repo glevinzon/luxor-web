@@ -37,6 +37,7 @@ class BranchCreateForm extends Component {
     e.preventDefault()
     let data = this.state
     if (this.isValid(data)) {
+      data.coordinates = JSON.stringify(data.coordinates)
       this.setState({ name: '',
         contact: '', address: '',
         coordinates: '',
@@ -46,6 +47,7 @@ class BranchCreateForm extends Component {
   }
 
   render () {
+    console.log(this.state.coordinates)
     return (
       <form className='form-access' onSubmit={this.onSubmit}>
         <ModalBody>
@@ -88,7 +90,7 @@ class BranchCreateForm extends Component {
                 <div className='flextable-item'>
                   <TextFieldGroup
                     onChange={this.onChange}
-                    value={this.state.lat}
+                    value={this.state.coordinates.lat}
                     field='lat'
                     placeholder='Latitude'
                     error={this.state.errors.lat}
@@ -97,7 +99,7 @@ class BranchCreateForm extends Component {
                 <div className='flextable-item'>
                 <TextFieldGroup
                   onChange={this.onChange}
-                  value={this.state.lng}
+                  value={this.state.coordinates.lng}
                   field='lng'
                   placeholder='Longitude'
                   error={this.state.errors.lng}
@@ -108,7 +110,7 @@ class BranchCreateForm extends Component {
            </div>
           <div className='form-group row'>
             <div className='input-group col-sm-offset-1 col-sm-10 col-xs-offset-1 col-xs-10'>
-              <Map />
+              <Map latLngCb={(coordinates) => { this.setState({coordinates: coordinates}) }} />
             </div>
           </div>
         </ModalBody>

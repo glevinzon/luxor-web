@@ -6,6 +6,9 @@ const API_KEY = 'AIzaSyD138yl7DnZmtPxV0qb_mLlht2f8jsG1Z8'
 const params = {v: '3.exp', key: API_KEY}
 
 class Map extends Component {
+  state = {
+    markers: null
+  }
 
   onMapCreated = (map) => {
     map.setOptions({
@@ -20,6 +23,11 @@ class Map extends Component {
   }
 
   onClick = (e) => {
+    let coordinates = {lat: e.latLng.lat(), lng: e.latLng.lng()}
+    this.props.latLngCb(coordinates)
+    let marks = []
+    marks.push({lat: `${e.latLng.lat()}`, lng: `${e.latLng.lng()}`})
+    this.setState({ markers: marks })
   }
 
   render () {
@@ -32,7 +40,17 @@ class Map extends Component {
         zoom={15}
         loadingMessage={'Luxor One Travellers Inn'}
         params={params}
-        onMapCreated={this.onMapCreated}>
+        onMapCreated={this.onMapCreated}
+        onClick={this.onClick}>
+        {this.state.markers && (this.state.markers.map(mark => {
+          return (
+            <Marker
+              lat={mark.lat}
+              lng={mark.lng}
+              draggable
+              onDragEnd={this.onDragEnd} />
+          )
+        }))}
       </Gmaps>
     )
   }
