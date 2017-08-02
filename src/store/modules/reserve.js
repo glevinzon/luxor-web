@@ -1,6 +1,7 @@
 import Immutable from 'immutable'
 import { CALL_API } from 'redux-api-middleware'
 import _ from 'lodash'
+import { showLoading, hideLoading } from 'react-redux-loading-bar'
 
 export const CREATE_RESERVATION = 'api/CREATE_RESERVATION'
 export const CREATE_RESERVATION_SUCCESS = 'api/CREATE_RESERVATION_SUCCESS'
@@ -18,6 +19,7 @@ export const DELETE_RESERVATION_FAIL = 'api/DELETE_RESERVATION_FAIL'
 
 export function getReservations (page = 1, count = 10) {
   return (dispatch, getState) => {
+    dispatch(showLoading())
     let endpoint = `/api/v1/reserves?page=${page}&count=${count}`
     const { accessToken } = getState().auth.toJS()
     return dispatch({
@@ -30,7 +32,7 @@ export function getReservations (page = 1, count = 10) {
         },
         types: [GET_RESERVATIONS, GET_RESERVATIONS_SUCCESS, GET_RESERVATIONS_FAIL]
       }
-    })
+    }).then(() => { dispatch(hideLoading()) })
   }
 }
 
@@ -145,7 +147,9 @@ actionHandlers[ GET_RESERVATIONS ] = state => {
   return state.merge({
     fetchingReservations: true,
     fetchingReservationsSuccess: false,
-    getReservationsError: null
+    getReservationsError: null,
+    creatingReservationSuccess: false,
+    deletingReservationSuccess: false
   })
 }
 

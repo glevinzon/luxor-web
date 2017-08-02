@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import BranchesList from '../../Branches/components/Branch/BranchesList'
+import BranchList from '../../Branches/components/Branch/BranchList'
 
 class Dashboard extends Component {
   componentWillMount () {
@@ -34,7 +34,7 @@ class Dashboard extends Component {
 
         <div className='row'>
           <div className='col-md-4 m-b'>
-            <BranchesList {...this.props} />
+            <BranchList {...this.props} />
           </div>
 
           <div className='col-md-4 m-b'>

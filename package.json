@@ -123,6 +123,7 @@
     "react-images": "^0.5.4",
     "react-modal-bootstrap": "^1.1.1",
     "react-redux": "^4.0.0",
+    "react-redux-loading-bar": "^2.9.2",
     "react-router": "^2.2.0",
     "react-router-active-component": "^4.0.0",
     "react-router-redux": "^4.0.0",

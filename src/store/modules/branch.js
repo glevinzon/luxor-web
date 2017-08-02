@@ -1,6 +1,7 @@
 import Immutable from 'immutable'
 import { CALL_API } from 'redux-api-middleware'
 import _ from 'lodash'
+import { showLoading, hideLoading } from 'react-redux-loading-bar'
 
 export const CREATE_BRANCH = 'api/CREATE_BRANCH'
 export const CREATE_BRANCH_SUCCESS = 'api/CREATE_BRANCH_SUCCESS'
@@ -18,6 +19,7 @@ export const DELETE_BRANCH_FAIL = 'api/DELETE_BRANCH_FAIL'
 
 export function getBranches (page = 1, count = 10) {
   return (dispatch, getState) => {
+    dispatch(showLoading())
     let endpoint = `/api/v1/branches?page=${page}&count=${count}`
     const { accessToken } = getState().auth.toJS()
     return dispatch({
@@ -30,24 +32,28 @@ export function getBranches (page = 1, count = 10) {
         },
         types: [GET_BRANCHES, GET_BRANCHES_SUCCESS, GET_BRANCHES_FAIL]
       }
-    })
+    }).then(() => { dispatch(hideLoading()) })
   }
 }
 
 export function createBranch (data) {
-  return {
-    [CALL_API]: {
-      endpoint: '/api/v1/branch',
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data),
-      types: [
-        CREATE_BRANCH,
-        CREATE_BRANCH_SUCCESS,
-        CREATE_BRANCH_FAIL]
-    }
+  return (dispatch, getState) => {
+    const { accessToken } = getState().auth.toJS()
+    return dispatch({
+      [CALL_API]: {
+        endpoint: '/api/v1/branch',
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${accessToken}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data),
+        types: [
+          CREATE_BRANCH,
+          CREATE_BRANCH_SUCCESS,
+          CREATE_BRANCH_FAIL]
+      }
+    })
   }
 }
 
@@ -145,7 +151,9 @@ actionHandlers[ GET_BRANCHES ] = state => {
   return state.merge({
     fetchingBranches: true,
     fetchingBranchesSuccess: false,
-    getBranchesError: null
+    getBranchesError: null,
+    creatingBranchSuccess: false,
+    deletingBranchSuccess: false
   })
 }
 

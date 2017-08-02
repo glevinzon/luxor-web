@@ -90,6 +90,12 @@
     /* Chrome 10-25, Safari 5.1-6 */
     background: url("http://localhost:3000/img/bg-pattern.png"), linear-gradient(to left, #7b4397, #dc2430);
     }
+  .popover-content {
+    padding: 1px;
+    .list-group{
+      margin: 0px;
+    }
+  }
   #error-container {
     margin-top: -60px;
     position: fixed;
