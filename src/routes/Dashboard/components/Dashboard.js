@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import BranchList from '../../Branches/components/Branch/BranchList'
 import RoomList from '../../Rooms/components/Room/RoomList'
+import { Link } from 'react-router'
 
 class Dashboard extends Component {
   componentWillMount () {
@@ -41,7 +42,7 @@ class Dashboard extends Component {
 
           <div className='col-md-4 m-b'>
             <RoomList {...this.props} />
-            <a href='#' className='btn btn-primary-outline'>View all rooms</a>
+            <Link to='/dashboard/rooms' href='#' className='btn btn-primary-outline'>View all rooms</Link>
           </div>
           <div className='col-md-4 m-b'>
             <div className='list-group'>

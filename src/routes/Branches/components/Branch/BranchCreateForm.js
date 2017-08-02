@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import TextFieldGroup from 'components/common/TextFieldGroup'
-import Button from 'components/common/Button'
 import validateInput from 'utils/validators/branch'
 import {
   ModalBody,

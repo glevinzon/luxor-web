@@ -11,6 +11,7 @@ class Room extends Component {
 
   componentWillMount () {
     this.props.getRooms(1, 10)
+    this.props.getBranches(1, 10)
   }
 
   componentWillReceiveProps (nextProps) {
