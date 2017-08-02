@@ -6,6 +6,7 @@ import {
   ModalBody,
   ModalFooter
 } from 'react-modal-bootstrap'
+import Map from 'components/common/Map'
 
 class BranchCreateForm extends Component {
   state = {
@@ -79,6 +80,35 @@ class BranchCreateForm extends Component {
                 placeholder='Contact Mobile or Landline'
                 error={this.state.errors.contact}
                 />
+            </div>
+          </div>
+           <div className='form-group row'>
+            <div className='input-group col-sm-offset-1 col-sm-10 col-xs-offset-1 col-xs-10'>
+              <div className='flextable'>
+                <div className='flextable-item'>
+                  <TextFieldGroup
+                    onChange={this.onChange}
+                    value={this.state.lat}
+                    field='lat'
+                    placeholder='Latitude'
+                    error={this.state.errors.lat}
+                    />
+                </div>
+                <div className='flextable-item'>
+                <TextFieldGroup
+                  onChange={this.onChange}
+                  value={this.state.lng}
+                  field='lng'
+                  placeholder='Longitude'
+                  error={this.state.errors.lng}
+                  />
+                </div>
+              </div>
+            </div>
+           </div>
+          <div className='form-group row'>
+            <div className='input-group col-sm-offset-1 col-sm-10 col-xs-offset-1 col-xs-10'>
+              <Map />
             </div>
           </div>
         </ModalBody>

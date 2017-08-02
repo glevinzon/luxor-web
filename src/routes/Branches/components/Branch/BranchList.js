@@ -6,12 +6,12 @@ class BranchList extends Component {
     return (
       <Popover id='popover-positioned-right'>
         <ul className='list-group'>
-          <li className='list-group-item'>{branch.get('code')}</li>
-          <li className='list-group-item'>{branch.get('name')}</li>
-          <li className='list-group-item'>{branch.get('address')}</li>
-          <li className='list-group-item'>{branch.get('contact')}</li>
-          <li className='list-group-item'>{branch.get('coordinates')}</li>
-          <li className='list-group-item'>{branch.get('roomTypes')}</li>
+          {branch.get('code') && (<li className='list-group-item'>{branch.get('code')}</li>)}
+          {branch.get('name') && (<li className='list-group-item'>{branch.get('name')}</li>)}
+          {branch.get('address') && (<li className='list-group-item'>{branch.get('address')}</li>)}
+          {branch.get('contact') && (<li className='list-group-item'>{branch.get('contact')}</li>)}
+          {branch.get('coordinates') && (<li className='list-group-item'>{branch.get('coordinates')}</li>)}
+          {branch.get('roomTypes') && (<li className='list-group-item'>{branch.get('roomTypes')}</li>)}
         </ul>
       </Popover>
     )
