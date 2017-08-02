@@ -46,6 +46,22 @@ class RoomCreateForm extends Component {
     )
   }
 
+  getRoomTypesMenu = (data, id) => {
+    return (
+      data.map((branch, key) => {
+        if (branch.get('id') == id) {
+          return (
+            branch.get('roomTypes') && JSON.parse(branch.get('roomTypes')).map((type, i) => {
+              return (
+                <MenuItem key={i} onClick={e => this.setState({type: type.name})}>{type.name}</MenuItem>
+              )
+            })
+          )
+        }
+      })
+    )
+  }
+
   onSubmit = (e) => {
     e.preventDefault()
     let data = this.state
@@ -107,15 +123,20 @@ class RoomCreateForm extends Component {
                 />
             </div>
           </div>
-          <div className='form-group row'>
+          <div className={classnames('form-group row', { 'has-error': this.state.errors.type })} >
             <div className='input-group col-sm-offset-1 col-sm-10 col-xs-offset-1 col-xs-10'>
-              <TextFieldGroup
-                onChange={this.onChange}
-                value={this.state.type}
-                field='type'
-                placeholder='Room Type'
-                error={this.state.errors.type}
-                />
+            {this.state.errors.type && <small className='help-block text-right'>{this.state.errors.type}</small>}
+              <InputGroup>
+                <FormControl className='reason-input' name='type' type='text' value={this.state.type} placeholder='Room Type' disabled />
+                <DropdownButton
+                  componentClass={InputGroup.Button}
+                  id='input-dropdown-addon'
+                  title='Types'
+                  pullRight
+                  disabled={this.state.selectedBranch == null}>
+                  {data && this.getRoomTypesMenu(data, this.state.branchId)}
+                </DropdownButton>
+              </InputGroup>
             </div>
           </div>
           <div className='form-group row'>

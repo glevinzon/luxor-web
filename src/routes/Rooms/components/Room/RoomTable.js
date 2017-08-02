@@ -70,12 +70,16 @@ class RoomTable extends Component {
   }
 
   render () {
-    let { rooms, fetchingRooms } = this.props
+    let { branches, rooms, fetchingRooms } = this.props
     if (rooms) {
       var total = rooms.get('total')
       var currentPage = rooms.get('currentPage')
       var lastPage = rooms.get('lastPage')
       var data = rooms.get('data')
+    }
+
+    if (branches) {
+      var branchesData = branches.get('data')
     }
 
     return (
@@ -88,6 +92,7 @@ class RoomTable extends Component {
               <thead>
                 <tr>
                   <th>Code</th>
+                  <th>Branch</th>
                   <th>Room Name</th>
                   <th>Description</th>
                   <th>Type</th>
@@ -101,6 +106,11 @@ class RoomTable extends Component {
                   return (
                     <tr key={room.get('id')}>
                       <td><a href='#'>{room.get('code')}</a></td>
+                      <td>{branchesData && branchesData.map(branch => {
+                        if (branch.get('id') === room.get('branch_id')) {
+                          return (branch.get('name'))
+                        }
+                      })}</td>
                       <td>{room.get('name')}</td>
                       <td>{room.get('description')}</td>
                       <td>{room.get('type')}</td>
