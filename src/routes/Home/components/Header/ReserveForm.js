@@ -13,12 +13,15 @@ class ReserveForm extends Component {
     super(props)
 
     this.state = {
+      branchId: '',
+      roomId: '',
       fullName: '',
       note: '',
       email: '',
       address: '',
       contact: '',
-      date: new Date().toISOString(),
+      startDate: new Date().toISOString(),
+      endDate: new Date().toISOString(),
       errors: [],
       isLoading: false,
       isOpen: false
@@ -52,6 +55,7 @@ class ReserveForm extends Component {
   }
 
   render () {
+    console.log(this.state)
     return (
       <form className='form-access' onSubmit={this.onSubmit}>
         <ModalBody>
@@ -101,13 +105,27 @@ class ReserveForm extends Component {
           </div>
           <div className='form-group row'>
             <div className='input-group col-sm-offset-1 col-sm-10 col-xs-offset-1 col-xs-10'>
-              <DatePickerGroup
-                onChange={this.onChange}
-                value={this.state.date}
-                field='date'
-                placeholder='Date'
-                error={this.state.errors.date}
-                />
+              <div className='flextable'>
+                <div className='flextable-item'>
+                  <DatePickerGroup
+                    onChange={e => { this.setState({startDate: e}) }}
+                    value={this.state.startDate}
+                    field='startDate'
+                    placeholder='Start Date'
+                    error={this.state.errors.startDate}
+                  />
+                </div>
+                <div className='flextable-item'>
+                  <DatePickerGroup
+                    onChange={e => { this.setState({endDate: e}) }}
+                    value={this.state.endDate}
+                    field='endDate'
+                    placeholder='End Date'
+                    minDate={this.state.startDate}
+                    error={this.state.errors.endDate}
+                  />
+                </div>
+              </div>
             </div>
           </div>
           <div className='form-group row'>
