@@ -29,10 +29,45 @@ class Dashboard extends Component {
               </div>
             </div>
           </div>
-
         </div>
         <div className='hr-divider m-t-lg m-b-md'>
           <h3 className='hr-divider-content hr-divider-heading'>Quick Info</h3>
+        </div>
+
+        <div className='row'>
+          <div className='col-sm-6 col-md-6'>
+            <div className='statcard statcard-success'>
+              <div className='p-a'>
+                <span className='statcard-desc'>Page views</span>
+                <h2 className='statcard-number'>
+                  12,938
+                  <small className='delta-indicator delta-positive'>5%</small>
+                </h2>
+                <hr className='statcard-hr m-b-0' />
+              </div>
+              <canvas
+                className='sparkline'
+                data-chart='spark-line'
+                data-value='[{data:[28,68,41,43,96,45,100]}]'
+                data-labels="['a','b','c','d','e','f','g']"
+                width='378' height='94'>
+              </canvas>
+            </div>
+          </div>
+          <div className='col-sm-6 col-md-6'>
+            <div>
+              <canvas
+                className='ex-line-graph'
+                width='600' height='400'
+                data-chart='bar'
+                data-scale-line-color='transparent'
+                data-scale-grid-line-color='rgba(255,255,255,.05)'
+                data-scale-font-color='#a2a2a2'
+                data-labels="['August','September','October','November','December','January','February']"
+                data-value="[{ label: 'First dataset', data: [65, 59, 80, 81, 56, 55, 40] }, { label: 'Second dataset', data: [28, 48, 40, 19, 86, 27, 90] }]">
+              </canvas>
+            </div>
+          </div>
         </div>
 
         <div className='row'>

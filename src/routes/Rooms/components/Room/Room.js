@@ -43,12 +43,6 @@ class Room extends Component {
               <h6 className='dashhead-subtitle'>Dashboard</h6>
               <h2 className='dashhead-title'>Rooms</h2>
             </div>
-
-            <div className='btn-toolbar dashhead-toolbar'>
-              <div className='btn-toolbar-item' style={{ marginLeft: '0px' }}>
-
-              </div>
-            </div>
           </div>
           <div className='flextable'>
             <div className='flextable-item flextable-primary'>
