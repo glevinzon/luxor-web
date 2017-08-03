@@ -6,6 +6,7 @@ import Preferences from './Preferences'
 
 class Setting extends Component {
   state = {
+    branchId: null,
     selectedBranch: null,
     selectedTab: null,
     preferences: null,
@@ -17,7 +18,10 @@ class Setting extends Component {
   }
 
   onSubmit = () => {
-    console.log('wew')
+    let data = this.state
+    let branchId = data.branchId
+    let preferences = data.preferences
+    this.props.updateSettingWithCode('ga6bN', {branchId: branchId || null, preferences: JSON.stringify(preferences)})
   }
 
   getBranchesMenu = (data) => {
@@ -37,20 +41,20 @@ class Setting extends Component {
 
   handleSettingsCb = (data, branch) => {
     let { preferences } = this.state
-    let pref = []
+    let pref = {}
 
     if (preferences != null) {
       pref = preferences
       var arrKeys = Object.keys(data)
       arrKeys.map(key => {
         if (key == branch) {
-          pref[branch] = data
+          pref[`${branch}`] = data
         } else {
-          pref[branch] = data
+          pref[`${branch}`] = data
         }
       })
     } else {
-      pref[branch] = data
+      pref[`${branch}`] = data
     }
 
     this.setState({preferences: pref})
@@ -77,14 +81,8 @@ class Setting extends Component {
             </div>
           </div>
           <div className='flextable'>
-            <div className='flextable-item flextable-primary'>
-              <div className='btn-toolbar-item input-with-icon'>
-                <input type='text' className='form-control input-block' placeholder='Search' />
-                <span className='icon icon-magnifying-glass' />
-              </div>
-            </div>
             <div className='flextable-item'>
-              <button type='button' className='btn btn-pill btn-primary' onClick={this.onSubmit}>Save Changes</button>
+              <button type='button' className='btn btn-pill btn-primary' onClick={this.onSubmit} style={{display: 'center'}}>Save Changes</button>
             </div>
           </div>
           <div className='hr-divider m-t-lg m-b-md'>

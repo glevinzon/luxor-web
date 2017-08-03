@@ -49,7 +49,7 @@ class RoomImages extends Component {
 
   onDrop = (accepted, target) => {
     let { roomImages } = this.state
-    let room = []
+    let room = {}
 
     if (roomImages != null) {
       room = roomImages

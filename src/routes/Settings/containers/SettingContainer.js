@@ -1,7 +1,7 @@
 import {connect} from 'react-redux'
 import Setting from '../components/Setting'
 
-import { createSetting, getSettings, deleteSetting } from 'store/modules/setting'
+import { createSetting, getSettings, deleteSetting, updateSettingWithCode } from 'store/modules/setting'
 import { getBranches } from 'store/modules/branch'
 import { uploadImage, getDumb } from 'store/modules/upload'
 
@@ -11,7 +11,8 @@ const mapActionCreators = {
   deleteSetting,
   getBranches,
   uploadImage,
-  getDumb
+  getDumb,
+  updateSettingWithCode
 }
 
 const mapStateToProps = (state) => ({
