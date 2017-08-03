@@ -7,6 +7,7 @@ import reserve from './modules/reserve'
 import branch from './modules/branch'
 import room from './modules/room'
 import setting from './modules/setting'
+import upload from './modules/upload'
 
 export const makeRootReducer = (asyncReducers) => {
   return combineReducers({
@@ -19,6 +20,7 @@ export const makeRootReducer = (asyncReducers) => {
     branch,
     room,
     setting,
+    upload,
     ...asyncReducers
   })
 }

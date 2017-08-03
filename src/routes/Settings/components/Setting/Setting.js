@@ -7,7 +7,8 @@ import Preferences from './Preferences'
 class Setting extends Component {
   state = {
     selectedBranch: null,
-    selectedTab: null
+    selectedTab: null,
+    preferences: null
   }
 
   componentWillMount () {
@@ -31,6 +32,11 @@ class Setting extends Component {
   handleSelect = (e) => {
     event.preventDefault()
     this.setState({ selectedTab: e })
+  }
+
+  handleSettingsCb = (preferences, branch) => {
+    console.log('CB', preferences)
+    this.setState({preferences})
   }
 
   render () {
@@ -89,7 +95,7 @@ class Setting extends Component {
           <Tabs bsStyle='nav nav-pills hr-divider-content hr-divider-tab' activeKey={this.state.selectedTab || 0} onSelect={this.handleSelect} id='controlled-tab-example'>
               {data && data.map((branch, key) => {
                 return (
-                  <Tab eventKey={key} title={branch.get('name')}>{<Preferences {...branch} {...this.props} />}</Tab>
+                  <Tab eventKey={key} title={branch.get('name')}>{<Preferences branch={branch} settingsCb={(data, branch) => this.handleSettingsCb(data, branch)} {...this.props} />}</Tab>
                 )
               })}
             </Tabs>
