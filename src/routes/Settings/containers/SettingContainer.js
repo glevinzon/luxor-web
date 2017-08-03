@@ -3,14 +3,15 @@ import Setting from '../components/Setting'
 
 import { createSetting, getSettings, deleteSetting } from 'store/modules/setting'
 import { getBranches } from 'store/modules/branch'
-import { uploadImage } from 'store/modules/upload'
+import { uploadImage, getDumb } from 'store/modules/upload'
 
 const mapActionCreators = {
   createSetting,
   getSettings,
   deleteSetting,
   getBranches,
-  uploadImage
+  uploadImage,
+  getDumb
 }
 
 const mapStateToProps = (state) => ({
@@ -23,7 +24,8 @@ const mapStateToProps = (state) => ({
   branches: state.branch.get('branches'),
   upload: state.upload.get('upload'),
   uploadingImageSuccess: state.upload.get('uploadingImageSuccess'),
-  target: state.upload.get('target')
+  target: state.upload.get('target'),
+  gettingDumbSuccess: state.upload.get('gettingDumbSuccess')
 })
 
 export default connect(mapStateToProps, mapActionCreators)(Setting)

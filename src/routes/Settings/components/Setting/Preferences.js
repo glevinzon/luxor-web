@@ -3,6 +3,8 @@ import TextFieldGroup from 'components/common/TextFieldGroup'
 import classnames from 'classnames'
 import Dropzone from 'react-dropzone'
 import FormData from 'form-data'
+import RoomImages from './RoomImages'
+import SweetAlert from 'react-bootstrap-sweetalert'
 
 class Preferences extends Component {
   state = {
@@ -12,16 +14,34 @@ class Preferences extends Component {
     carouselText: null,
     errors: [],
     isLoading: false,
-    accepted: null
+    accepted: null,
+    rooms: null,
+    alert: null
+  }
+
+  componentWillMount () {
+    this.props.settingsCb(this.state, this.props.branch.get('code'))
   }
 
   componentWillReceiveProps (nextProps, nextState) {
     let { target, upload, uploadingImageSuccess, branch } = nextProps
     if (uploadingImageSuccess) {
+      this.props.getDumb()
       if (target === `${branch.get('code')}_headerBgImage`) {
-        this.setState({headerBgImage: upload})
+        this.setState({headerBgImage: upload, alert: (
+          <SweetAlert success title='Upload Success' onConfirm={e => { this.handleUploadSuccess() }}>
+            Sweet!
+          </SweetAlert>
+        )})
       }
     }
+  }
+
+  handleUploadSuccess = () => {
+    let data = this.state
+    data.alert = null
+    this.props.settingsCb(data, this.props.branch.get('code'))
+    this.setState({alert: null})
   }
 
   onDrop = (accepted, target) => {
@@ -29,13 +49,17 @@ class Preferences extends Component {
     formData.append('image', accepted[0])
 
     this.props.uploadImage(formData, target)
-
     this.setState({ accepted })
   }
 
   onChange = (e) => {
     this.setState({ [e.target.name]: e.target.value })
-    this.props.settingsCb(this.state, this.props.branch.get('code'))
+    let data = this.state
+    if (e.target.name === 'headerTitle') {
+      data.headerTitle = e.target.value
+      data.alert = null
+    }
+    this.props.settingsCb(data, this.props.branch.get('code'))
   }
 
   isValid = () => {
@@ -51,10 +75,14 @@ class Preferences extends Component {
   handleAddCarouselText = () => {
     let {carouselText, carouselTexts} = this.state
     let texts = carouselTexts || []
-    if (carouselText != '') {
+    if (carouselText != '' && carouselText != null) {
       texts.push({name: carouselText})
     }
     this.setState({carouselTexts: texts, carouselText: ''})
+    let data = this.state
+    data.carouselTexts = texts
+    data.alert = null
+    this.props.settingsCb(data, this.props.branch.get('code'))
   }
 
   renderCarouselTexts = () => {
@@ -62,9 +90,9 @@ class Preferences extends Component {
       <div className='form-group row'>
         <div className='input-group col-sm-offset-1 col-sm-10 col-xs-offset-1 col-xs-10'>
           <ul className='list-group' style={{ background: '#252830'}}>
-            {this.state.carouselTexts && this.state.carouselTexts.map(text => {
+            {this.state.carouselTexts && this.state.carouselTexts.map((text, i) => {
               return (
-                <li className='list-group-item'>{text.name}</li>
+                <li key={i} className='list-group-item'>{text.name}</li>
               )
             })}
             <li className='list-group-item'>
@@ -91,11 +119,25 @@ class Preferences extends Component {
     )
   }
 
+  handlePreferencesCb = (rooms) => {
+    this.setState({rooms})
+    let data = this.state
+    data.rooms = rooms
+    data.alert = null
+    this.props.settingsCb(data, this.props.branch.get('code'))
+  }
+
+  renderRoomImages = () => {
+    return (
+      <RoomImages inceptionCb={e => { this.props.settingsCb(this.state, this.props.branch.get('code')) }} preferencesCb={rooms => this.handlePreferencesCb(rooms)} {...this.props} />
+    )
+  }
+
   render () {
     let { branch } = this.props
-
     return (
       <form className='form-access container' style={{ paddingTop: '1em' }}>
+        {this.state.alert}
         <div className='form-group row'>
           <div className='input-group col-sm-offset-1 col-sm-10 col-xs-offset-1 col-xs-10'>
             <TextFieldGroup
@@ -133,6 +175,7 @@ class Preferences extends Component {
           </div>
         </div>
         {this.renderCarouselTexts()}
+        {this.renderRoomImages()}
       </form>
     )
   }

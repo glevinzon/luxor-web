@@ -51,7 +51,7 @@ class BranchCreateForm extends Component {
   handleAddRoomType = () => {
     let {roomType, roomTypes} = this.state
     let types = roomTypes || []
-    if (roomType != '') {
+    if (roomType != '' && roomType != null) {
       types.push({name: roomType, desc: ''})
     }
     this.setState({roomTypes: types, roomType: ''})

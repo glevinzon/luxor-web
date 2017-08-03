@@ -8,7 +8,8 @@ class Setting extends Component {
   state = {
     selectedBranch: null,
     selectedTab: null,
-    preferences: null
+    preferences: null,
+    alert: null
   }
 
   componentWillMount () {
@@ -34,9 +35,25 @@ class Setting extends Component {
     this.setState({ selectedTab: e })
   }
 
-  handleSettingsCb = (preferences, branch) => {
-    console.log('CB', preferences)
-    this.setState({preferences})
+  handleSettingsCb = (data, branch) => {
+    let { preferences } = this.state
+    let pref = []
+
+    if (preferences != null) {
+      pref = preferences
+      var arrKeys = Object.keys(data)
+      arrKeys.map(key => {
+        if (key == branch) {
+          pref[branch] = data
+        } else {
+          pref[branch] = data
+        }
+      })
+    } else {
+      pref[branch] = data
+    }
+
+    this.setState({preferences: pref})
   }
 
   render () {
@@ -47,6 +64,8 @@ class Setting extends Component {
       var lastPage = branches.get('lastPage')
       var data = branches.get('data')
     }
+
+    console.log('RENDER_SETTINGS', this.state)
 
     return (
       <div className='container-fluid-spacious' style={{marginTop: '2%'}} >
@@ -95,7 +114,7 @@ class Setting extends Component {
           <Tabs bsStyle='nav nav-pills hr-divider-content hr-divider-tab' activeKey={this.state.selectedTab || 0} onSelect={this.handleSelect} id='controlled-tab-example'>
               {data && data.map((branch, key) => {
                 return (
-                  <Tab eventKey={key} title={branch.get('name')}>{<Preferences branch={branch} settingsCb={(data, branch) => this.handleSettingsCb(data, branch)} {...this.props} />}</Tab>
+                  <Tab key={key} eventKey={key} title={branch.get('name')}>{<Preferences branch={branch} settingsCb={(data, branch) => this.handleSettingsCb(data, branch)} {...this.props} />}</Tab>
                 )
               })}
             </Tabs>
