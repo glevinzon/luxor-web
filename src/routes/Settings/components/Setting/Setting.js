@@ -74,6 +74,7 @@ class Setting extends Component {
   }
 
   handleSettingsCb = (data, branch, upload) => {
+    console.log('UPLOAD', upload)
     let { preferences, branchId } = this.state
     let pref = {}
 
@@ -92,6 +93,7 @@ class Setting extends Component {
     }
 
     this.setState({preferences: pref})
+
     if (upload) {
       this.props.updateSettingWithCode('ga6bN', {branchId: branchId || null, preferences: JSON.stringify(pref)})
       this.props.getDumb()
@@ -145,7 +147,7 @@ class Setting extends Component {
             <Tabs bsStyle='nav nav-pills hr-divider-content hr-divider-tab' activeKey={this.state.selectedTab || 0} onSelect={this.handleSelect} id='controlled-tab-example'>
               {branches && branches.map((branch, key) => {
                 return (
-                  <Tab key={key} eventKey={key} title={branch.get('name')}>{<Preferences preferences={preferences} branch={branch} settingsCb={(data, branch) => this.handleSettingsCb(data, branch)} {...this.props} />}</Tab>
+                  <Tab key={key} eventKey={key} title={branch.get('name')}>{<Preferences preferences={preferences} branch={branch} settingsCb={(data, branch, upload) => this.handleSettingsCb(data, branch, upload)} {...this.props} />}</Tab>
                 )
               })}
             </Tabs>

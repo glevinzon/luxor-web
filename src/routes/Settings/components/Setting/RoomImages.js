@@ -9,17 +9,23 @@ class RoomImages extends Component {
   }
 
   componentWillMount () {
+    let { rooms } = this.props
+    if (rooms) {
+      this.setState({...rooms})
+    }
+  }
+
+  componentDidMount () {
     let data = this.state
     data.alert = null
-    this.props.preferencesCb(data)
+    this.props.preferencesCb(data, false)
   }
 
   componentWillReceiveProps (nextProps, nextState) {
-    let { target, upload, uploadingImageSuccess, branch, rooms } = nextProps
+    let { target, upload, uploadingImageSuccess } = nextProps
     let { roomImages } = this.state
 
     if (uploadingImageSuccess) {
-      // this.props.getDumb()
       if (roomImages != null) {
         var url = roomImages
         var arrKeys = Object.keys(url)
@@ -36,17 +42,13 @@ class RoomImages extends Component {
         )})
       }
     }
-    if (rooms) {
-      this.setState({...rooms})
-    }
   }
 
   handleUploadSuccess = (url) => {
     let data = this.state
     data.roomImages = url
     data.alert = null
-    this.props.preferencesCb(data)
-    this.props.inceptionCb()
+    this.props.preferencesCb(data, true)
     this.setState({alert: null})
   }
 

@@ -32,21 +32,13 @@ class Preferences extends Component {
   }
 
   componentDidMount () {
-    this.props.settingsCb(this.state, this.props.branch.get('code'), false)
+    let data = this.state
+    data.alert = null
+    this.props.settingsCb(data, this.props.branch.get('code'), false)
   }
 
   componentWillReceiveProps (nextProps, nextState) {
     let { target, upload, uploadingImageSuccess, branch, uploadingImage } = nextProps
-
-    console.log(upload, target)
-
-    // if (target === `${branch.get('code')}_headerBgImage`) {
-    //   this.setState({headerBgImage: upload, alert: (
-    //       <SweetAlert success title='Upload Success' onConfirm={e => { this.handleUploadSuccess() }}>
-    //         Sweet!
-    //       </SweetAlert>
-    //     )})
-    // }
 
     if (uploadingImageSuccess) {
       if (target === `${branch.get('code')}_headerBgImage`) {
@@ -142,23 +134,23 @@ class Preferences extends Component {
     )
   }
 
-  handlePreferencesCb = (rooms) => {
-    this.setState({rooms})
+  handlePreferencesCb = (rooms, upload) => {
     let data = this.state
     data.rooms = rooms
     data.alert = null
-    this.props.settingsCb(data, this.props.branch.get('code'), false)
+    this.props.settingsCb(data, this.props.branch.get('code'), upload)
   }
 
   renderRoomImages = (rooms) => {
     return (
-      <RoomImages rooms={rooms} inceptionCb={e => { this.props.settingsCb(this.state, this.props.branch.get('code')) }} preferencesCb={rooms => this.handlePreferencesCb(rooms)} {...this.props} />
+      <RoomImages rooms={rooms} preferencesCb={(rooms, upload) => this.handlePreferencesCb(rooms, upload)} {...this.props} />
     )
   }
 
   render () {
     let { branch } = this.props
-    console.log('RENDER_PREF', this.props.preferences)
+    let { rooms } = this.state.rooms
+    console.log('RENDER_PREF', rooms)
     return (
       <form className='form-access container' style={{ paddingTop: '1em' }}>
         {this.state.alert}
@@ -199,7 +191,7 @@ class Preferences extends Component {
           </div>
         </div>
         {this.renderCarouselTexts()}
-        {/* this.renderRoomImages(this.state.rooms)*/}
+        {this.renderRoomImages(this.state.rooms)}
       </form>
     )
   }
