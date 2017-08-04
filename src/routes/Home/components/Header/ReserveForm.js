@@ -55,7 +55,6 @@ class ReserveForm extends Component {
   }
 
   render () {
-    console.log(this.state)
     return (
       <form className='form-access' onSubmit={this.onSubmit}>
         <ModalBody>

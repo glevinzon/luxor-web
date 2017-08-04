@@ -24,7 +24,7 @@ export function getSettings (settingCode) {
         endpoint,
         method: 'GET',
         headers: {
-          'Authorization': `Bearer ${accessToken}`,
+          // 'Authorization': `Bearer ${accessToken}`,
           'Content-Type': 'application/json'
         },
         types: [GET_SETTINGS, GET_SETTINGS_SUCCESS, GET_SETTINGS_FAIL]

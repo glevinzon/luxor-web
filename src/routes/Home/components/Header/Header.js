@@ -11,10 +11,13 @@ import SweetAlert from 'react-bootstrap-sweetalert'
 class Header extends Component {
   state = {
     isOpen: false,
-    alert: null
+    alert: null,
+    bgImage: null,
+    title: null
   }
 
   componentWillReceiveProps (nextProps) {
+    let { preferences } = nextProps
     let reserveSuccess = nextProps.reserve.get('creatingReservationSuccess')
     if (reserveSuccess) {
       this.hideModal()
@@ -25,6 +28,9 @@ class Header extends Component {
           </SweetAlert>
         )
       })
+    }
+    if (preferences) {
+      this.setState({bgImage: preferences.headerBgImage, title: preferences.headerTitle})
     }
   }
 
@@ -44,15 +50,16 @@ class Header extends Component {
   }
 
   render () {
+    console.log(this.state.bgImage)
     return (
-      <header style={{ background: 'url("img/gensan-side.JPG")', backgroundSize: '100% auto', backgroundRepeat: 'no-repeat', backgroundPosition: 'center'}}>
+      <header style={{ background: `url(${this.state.bgImage}) center center / auto 100% no-repeat`, height: '100%', width: '100%' }}>
         {this.state.alert}
         <div className='container'>
           <div className='row'>
             <div className='col-sm-7'>
               <div className='header-content'>
                 <div className='header-content-inner'>
-                  <h1> A very good place to be.</h1>
+                  {this.state.title && (<h1>{this.state.title}</h1>)}
                   <a href='#download' className='btn btn-outline btn-xl page-scroll' onClick={this.openModal} >Reserve Now!</a>
                 </div>
               </div>
