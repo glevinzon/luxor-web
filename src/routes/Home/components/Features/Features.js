@@ -46,7 +46,6 @@ class Features extends Component {
   }
 
   render () {
-    console.log(this.state)
     const theme = {
 	// container
       container: {
