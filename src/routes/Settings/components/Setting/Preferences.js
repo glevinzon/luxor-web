@@ -20,13 +20,35 @@ class Preferences extends Component {
   }
 
   componentWillMount () {
+    let { fetchingSettingsSuccess, preferences, branch } = this.props
+    if (fetchingSettingsSuccess && preferences) {
+      var prefKeys = Object.keys(preferences)
+      prefKeys.map(key => {
+        if (key == branch.get('code')) {
+          this.setState({ ...preferences[`${key}`] })
+        }
+      })
+    }
+  }
+
+  componentDidMount () {
     this.props.settingsCb(this.state, this.props.branch.get('code'))
   }
 
   componentWillReceiveProps (nextProps, nextState) {
-    let { target, upload, uploadingImageSuccess, branch, preferences, fetchingSettingsSuccess, uploadingImage, fetchingSettings } = nextProps
+    let { target, upload, uploadingImageSuccess, branch, uploadingImage } = nextProps
+
+    console.log(upload, target)
+
+    // if (target === `${branch.get('code')}_headerBgImage`) {
+    //   this.setState({headerBgImage: upload, alert: (
+    //       <SweetAlert success title='Upload Success' onConfirm={e => { this.handleUploadSuccess() }}>
+    //         Sweet!
+    //       </SweetAlert>
+    //     )})
+    // }
+
     if (uploadingImageSuccess) {
-      this.props.getDumb()
       if (target === `${branch.get('code')}_headerBgImage`) {
         this.setState({headerBgImage: upload, alert: (
           <SweetAlert success title='Upload Success' onConfirm={e => { this.handleUploadSuccess() }}>
@@ -34,15 +56,6 @@ class Preferences extends Component {
           </SweetAlert>
         )})
       }
-    }
-
-    if (fetchingSettingsSuccess) {
-      var prefKeys = Object.keys(preferences)
-      prefKeys.map(key => {
-        if (key == branch.get('code')) {
-          this.setState({ ...preferences[`${key}`] })
-        }
-      })
     }
   }
 
@@ -145,7 +158,7 @@ class Preferences extends Component {
 
   render () {
     let { branch } = this.props
-
+    console.log('RENDER_PREF', this.props.preferences)
     return (
       <form className='form-access container' style={{ paddingTop: '1em' }}>
         {this.state.alert}
@@ -186,7 +199,7 @@ class Preferences extends Component {
           </div>
         </div>
         {this.renderCarouselTexts()}
-        {this.renderRoomImages(this.state.rooms)}
+        {/* this.renderRoomImages(this.state.rooms)*/}
       </form>
     )
   }

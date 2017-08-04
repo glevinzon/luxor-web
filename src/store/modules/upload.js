@@ -7,8 +7,6 @@ export const UPLOAD_IMAGE_SUCCESS = 'api/UPLOAD_IMAGE_SUCCESS'
 export const UPLOAD_IMAGE_FAIL = 'api/UPLOAD_IMAGE_FAIL'
 
 export const GET_DUMB = 'api/GET_DUMB'
-export const GET_DUMB_SUCCESS = 'api/GET_DUMB_SUCCESS'
-export const GET_DUMB_FAIL = 'api/GET_DUMB_FAIL'
 
 // ------------------------------------
 // Actions
@@ -35,19 +33,8 @@ export function uploadImage (data, target) {
 }
 
 export function getDumb () {
-  return (dispatch, getState) => {
-    dispatch(showLoading())
-    let endpoint = '/api/'
-    return dispatch({
-      [CALL_API]: {
-        endpoint,
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        types: [GET_DUMB, GET_DUMB_SUCCESS, GET_DUMB_FAIL]
-      }
-    }).then(() => { dispatch(hideLoading()) })
+  return {
+    type: GET_DUMB
   }
 }
 
@@ -97,24 +84,7 @@ actionHandlers[ UPLOAD_IMAGE_FAIL ] = (state, action) => {
 
 actionHandlers[ GET_DUMB ] = state => {
   return state.merge({
-    gettingDumb: true,
-    gettingDumbSuccess: false,
     uploadingImageSuccess: false
-  })
-}
-
-actionHandlers[ GET_DUMB_SUCCESS ] = (state, action) => {
-  return state.merge({
-    gettingDumb: false,
-    gettingDumbSuccess: true
-  })
-}
-
-actionHandlers[ GET_DUMB_FAIL ] = (state, action) => {
-  return state.merge({
-    gettingDumb: false,
-    gettingDumbSuccess: false,
-    getDumbError: action.payload.response.error
   })
 }
 
@@ -126,10 +96,7 @@ const initialState = Immutable.fromJS({
   upload: null,
   target: null,
   uploadImageError: false,
-  uploadingImageSuccess: false,
-  gettingDumb: false,
-  gettingDumbSuccess: false,
-  getDumbError: false
+  uploadingImageSuccess: false
 })
 
 export default function reducer (state = initialState, action) {

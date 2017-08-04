@@ -3,6 +3,7 @@ import { FormControl, InputGroup, DropdownButton,
   MenuItem, ControlLabel, Tabs, Tab, Form, FormGroup,
   Col, Checkbox, Button } from 'react-bootstrap'
 import Preferences from './Preferences'
+import SweetAlert from 'react-bootstrap-sweetalert'
 
 class Setting extends Component {
   state = {
@@ -10,19 +11,20 @@ class Setting extends Component {
     selectedBranch: null,
     selectedTab: 0,
     preferences: null,
-    alert: null
+    alert: null,
+    branches: null
   }
 
   componentWillReceiveProps (nextProps) {
-    let { settings, branches, fetchingSettingsSuccess, uploadingImageSuccess } = nextProps
+    let { settings, branches, fetchingSettingsSuccess, creatingSettingSuccess } = nextProps
 
-    if (fetchingSettingsSuccess && settings) {
+    if (fetchingSettingsSuccess && settings) { // getSettings
       let branchId = settings.get('branch_id')
       if (branches) {
         var branchesData = branches.get('data')
         branchesData.map(branch => {
           if (branch.get('id') === branchId) {
-            this.setState({selectedBranch: branch.get('name')})
+            this.setState({selectedBranch: branch.get('name'), branches: branchesData})
           }
         })
       }
@@ -30,6 +32,18 @@ class Setting extends Component {
       let preferences = JSON.parse(settings.get('preferences'))
       this.setState({branchId, preferences})
     }
+    if (creatingSettingSuccess) { // updateSettingsWithCode
+      this.setState({alert: (
+          <SweetAlert success title='Saving Success' onConfirm={e => { this.handleSavingSettings() }}>
+            Saved!
+          </SweetAlert>
+        )})
+    }
+  }
+
+  handleSavingSettings = () => {
+    this.setState({alert: null})
+    this.props.getSettings('ga6bN')
   }
 
   componentWillMount () {
@@ -57,11 +71,10 @@ class Setting extends Component {
   handleSelect = (e) => {
     event.preventDefault()
     this.setState({ selectedTab: e })
-    this.onSubmit()
   }
 
   handleSettingsCb = (data, branch) => {
-    let { preferences } = this.state
+    let { preferences, branchId } = this.state
     let pref = {}
 
     if (preferences != null) {
@@ -79,21 +92,17 @@ class Setting extends Component {
     }
 
     this.setState({preferences: pref})
+    this.props.updateSettingWithCode('ga6bN', {branchId: branchId || null, preferences: JSON.stringify(pref)})
+    this.props.getDumb()
   }
 
   render () {
-    let { branches } = this.props
-    if (branches) {
-      var total = branches.get('total')
-      var currentPage = branches.get('currentPage')
-      var lastPage = branches.get('lastPage')
-      var data = branches.get('data')
-    }
+    let { branches, preferences } = this.state
 
     console.log('RENDER_SETTINGS', this.state)
-
     return (
       <div className='container-fluid-spacious' style={{marginTop: '2%'}} >
+      {this.state.alert}
         <div className='col-sm-12 content'>
           <div className='dashhead'>
             <div className='dashhead-titles'>
@@ -121,7 +130,7 @@ class Setting extends Component {
                   title='Branches'
                   pullRight
                   >
-                {data && this.getBranchesMenu(data)}
+                {branches && this.getBranchesMenu(branches)}
                 </DropdownButton>
               </InputGroup>
             </div>
@@ -130,14 +139,16 @@ class Setting extends Component {
           <div className='hr-divider m-t-lg m-b-md'>
             <h3 className='hr-divider-content hr-divider-heading'>In-Page</h3>
           </div>
-          <Tabs bsStyle='nav nav-pills hr-divider-content hr-divider-tab' activeKey={this.state.selectedTab || 0} onSelect={this.handleSelect} id='controlled-tab-example'>
-              {data && data.map((branch, key) => {
+          {!!((preferences && branches)) && (
+            <Tabs bsStyle='nav nav-pills hr-divider-content hr-divider-tab' activeKey={this.state.selectedTab || 0} onSelect={this.handleSelect} id='controlled-tab-example'>
+              {branches && branches.map((branch, key) => {
                 return (
-                  <Tab key={key} eventKey={key} title={branch.get('name')}>{<Preferences preferences={this.state.preferences} branch={branch} settingsCb={(data, branch) => this.handleSettingsCb(data, branch)} {...this.props} />}</Tab>
+                  <Tab key={key} eventKey={key} title={branch.get('name')}>{<Preferences preferences={preferences} branch={branch} settingsCb={(data, branch) => this.handleSettingsCb(data, branch)} {...this.props} />}</Tab>
                 )
               })}
             </Tabs>
-        </div>
+          )}
+          </div>
       </div>
     )
   }
