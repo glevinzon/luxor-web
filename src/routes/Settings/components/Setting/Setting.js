@@ -8,13 +8,33 @@ class Setting extends Component {
   state = {
     branchId: null,
     selectedBranch: null,
-    selectedTab: null,
+    selectedTab: 0,
     preferences: null,
     alert: null
   }
 
+  componentWillReceiveProps (nextProps) {
+    let { settings, branches, fetchingSettingsSuccess } = nextProps
+
+    if (fetchingSettingsSuccess && settings) {
+      let branchId = settings.get('branch_id')
+      if (branches) {
+        var branchesData = branches.get('data')
+        branchesData.map(branch => {
+          if (branch.get('id') === branchId) {
+            this.setState({selectedBranch: branch.get('name')})
+          }
+        })
+      }
+
+      let preferences = JSON.parse(settings.get('preferences'))
+      this.setState({branchId, preferences})
+    }
+  }
+
   componentWillMount () {
     this.props.getBranches(1, 10)
+    this.props.getSettings('ga6bN')
   }
 
   onSubmit = () => {
@@ -37,6 +57,7 @@ class Setting extends Component {
   handleSelect = (e) => {
     event.preventDefault()
     this.setState({ selectedTab: e })
+    this.onSubmit()
   }
 
   handleSettingsCb = (data, branch) => {
@@ -69,7 +90,7 @@ class Setting extends Component {
       var data = branches.get('data')
     }
 
-    console.log('RENDER_SETTINGS', this.state)
+    // console.log('RENDER_SETTINGS', this.state)
 
     return (
       <div className='container-fluid-spacious' style={{marginTop: '2%'}} >
@@ -112,7 +133,7 @@ class Setting extends Component {
           <Tabs bsStyle='nav nav-pills hr-divider-content hr-divider-tab' activeKey={this.state.selectedTab || 0} onSelect={this.handleSelect} id='controlled-tab-example'>
               {data && data.map((branch, key) => {
                 return (
-                  <Tab key={key} eventKey={key} title={branch.get('name')}>{<Preferences branch={branch} settingsCb={(data, branch) => this.handleSettingsCb(data, branch)} {...this.props} />}</Tab>
+                  <Tab key={key} eventKey={key} title={branch.get('name')}>{<Preferences preferences={this.state.preferences} branch={branch} settingsCb={(data, branch) => this.handleSettingsCb(data, branch)} {...this.props} />}</Tab>
                 )
               })}
             </Tabs>

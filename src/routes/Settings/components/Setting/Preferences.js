@@ -24,7 +24,7 @@ class Preferences extends Component {
   }
 
   componentWillReceiveProps (nextProps, nextState) {
-    let { target, upload, uploadingImageSuccess, branch } = nextProps
+    let { target, upload, uploadingImageSuccess, branch, preferences, fetchingSettingsSuccess } = nextProps
     if (uploadingImageSuccess) {
       this.props.getDumb()
       if (target === `${branch.get('code')}_headerBgImage`) {
@@ -34,6 +34,16 @@ class Preferences extends Component {
           </SweetAlert>
         )})
       }
+    }
+    if (fetchingSettingsSuccess) {
+      var prefKeys = Object.keys(preferences)
+      // console.log(prefKeys)
+      prefKeys.map(key => {
+        if (key == branch.get('code')) {
+          console.log(preferences[`${key}`])
+          this.setState({ ...preferences[`${key}`] })
+        }
+      })
     }
   }
 
@@ -135,6 +145,8 @@ class Preferences extends Component {
 
   render () {
     let { branch } = this.props
+
+    console.log('this.state', this.state)
     return (
       <form className='form-access container' style={{ paddingTop: '1em' }}>
         {this.state.alert}
@@ -169,8 +181,8 @@ class Preferences extends Component {
             multiple={false}
             accept='image/jpeg, image/png'
             onDrop={(accepted, rejected) => this.onDrop(accepted, `${branch.get('code')}_headerBgImage`)}>
-                {this.state.accepted && (<div className='headerBgImage' style={{ background: `url(${this.state.accepted[0].preview}) center center / auto 100% no-repeat`, height: '100%', width: '100%' }} ></div>)}
-                {!this.state.accepted && (<p style={{ textAlign: 'center' }}>Drop an image here, or click to select file to upload.</p>)}
+                {(this.state.accepted || this.state.headerBgImage) && (<div className='headerBgImage' style={{ background: `url(${this.state.headerBgImage || this.state.accepted[0].preview}) center center / auto 100% no-repeat`, height: '100%', width: '100%' }} ></div>)}
+                {(!this.state.accepted || !this.state.headerBgImage) && (<p style={{ textAlign: 'center' }}>Drop an image here, or click to select file to upload.</p>)}
             </Dropzone>
           </div>
         </div>

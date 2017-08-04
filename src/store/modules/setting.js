@@ -14,10 +14,10 @@ export const GET_SETTINGS_FAIL = 'api/GET_SETTINGS_FAIL'
 // Actions
 // ------------------------------------
 
-export function getSettings (page = 1, count = 10) {
+export function getSettings (settingCode) {
   return (dispatch, getState) => {
     dispatch(showLoading())
-    let endpoint = `/api/v1/settings?page=${page}&count=${count}`
+    let endpoint = `/api/v1/setting/${settingCode}`
     const { accessToken } = getState().auth.toJS()
     return dispatch({
       [CALL_API]: {
@@ -73,7 +73,8 @@ actionHandlers[ CREATE_SETTING ] = state => {
   return state.merge({
     creatingSetting: true,
     creatingSettingSuccess: false,
-    createSettingError: null
+    createSettingError: null,
+    fetchingSettingsSuccess: false
   })
 }
 
@@ -99,8 +100,7 @@ actionHandlers[ GET_SETTINGS ] = state => {
     fetchingSettings: true,
     fetchingSettingsSuccess: false,
     getSettingsError: null,
-    creatingSettingSuccess: false,
-    deletingSettingSuccess: false
+    creatingSettingSuccess: false
   })
 }
 
@@ -109,7 +109,7 @@ actionHandlers[ GET_SETTINGS_SUCCESS ] = (state, action) => {
     fetchingSettings: false,
     fetchingSettingsSuccess: true,
     getSettingsError: null,
-    settings: action.payload.data.settings
+    settings: action.payload.data
   })
 }
 
@@ -131,9 +131,7 @@ const initialState = Immutable.fromJS({
   creatingSettingSuccess: false,
   settings: null,
   getSettingsError: false,
-  fetchingSettingSuccess: false,
-  deleteSettingError: false,
-  deletingSettingSuccess: false
+  fetchingSettingSuccess: false
 })
 
 export default function reducer (state = initialState, action) {
