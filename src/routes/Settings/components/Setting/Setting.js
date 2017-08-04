@@ -14,7 +14,7 @@ class Setting extends Component {
   }
 
   componentWillReceiveProps (nextProps) {
-    let { settings, branches, fetchingSettingsSuccess } = nextProps
+    let { settings, branches, fetchingSettingsSuccess, uploadingImageSuccess } = nextProps
 
     if (fetchingSettingsSuccess && settings) {
       let branchId = settings.get('branch_id')

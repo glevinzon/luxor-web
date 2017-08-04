@@ -15,7 +15,7 @@ class RoomImages extends Component {
   }
 
   componentWillReceiveProps (nextProps, nextState) {
-    let { target, upload, uploadingImageSuccess, branch } = nextProps
+    let { target, upload, uploadingImageSuccess, branch, rooms } = nextProps
     let { roomImages } = this.state
 
     if (uploadingImageSuccess) {
@@ -35,6 +35,9 @@ class RoomImages extends Component {
           </SweetAlert>
         )})
       }
+    }
+    if (rooms) {
+      this.setState({...rooms})
     }
   }
 
@@ -78,6 +81,7 @@ class RoomImages extends Component {
     let { roomImages } = this.state
     let { branch } = this.props
 
+    console.log('ROOMS', this.state)
     return (
       <div>
       {this.state.alert}
@@ -92,7 +96,7 @@ class RoomImages extends Component {
                       multiple={false}
                       accept='image/jpeg, image/png'
                       onDrop={(accepted, rejected) => this.onDrop(accepted, `${room.name}_roomImage0`)}>
-                            {roomImages != null && roomImages[`${room.name}_roomImage0`] ? (<div className='roomImage0' style={{ background: `url(${roomImages[`${room.name}_roomImage0`].imageFile.preview}) center center / auto 100% no-repeat`, height: '100%', width: '100%' }} ></div>) : null}
+                            {roomImages != null && roomImages[`${room.name}_roomImage0`] ? (<div className='roomImage0' style={{ background: `url(${roomImages[`${room.name}_roomImage0`].imageUrl || roomImages[`${room.name}_roomImage0`].imageFile.preview}) center center / auto 100% no-repeat`, height: '100%', width: '100%' }} ></div>) : null}
                             {roomImages == null ? (<p style={{ textAlign: 'center' }}>Drop an image here</p>) : null}
                     </Dropzone>
                   </div>
@@ -101,7 +105,7 @@ class RoomImages extends Component {
                       multiple={false}
                       accept='image/jpeg, image/png'
                       onDrop={(accepted, rejected) => this.onDrop(accepted, `${room.name}_roomImage1`)}>
-                            {roomImages != null && roomImages[`${room.name}_roomImage1`] ? (<div className='roomImage1' style={{ background: `url(${roomImages[`${room.name}_roomImage1`].imageFile.preview}) center center / auto 100% no-repeat`, height: '100%', width: '100%' }} ></div>) : null}
+                            {roomImages != null && roomImages[`${room.name}_roomImage1`] ? (<div className='roomImage1' style={{ background: `url(${roomImages[`${room.name}_roomImage1`].imageUrl || roomImages[`${room.name}_roomImage1`].imageFile.preview}) center center / auto 100% no-repeat`, height: '100%', width: '100%' }} ></div>) : null}
                             {roomImages == null ? (<p style={{ textAlign: 'center' }}>Drop an image here</p>) : null}
                     </Dropzone>
                   </div>
@@ -110,7 +114,7 @@ class RoomImages extends Component {
                       multiple={false}
                       accept='image/jpeg, image/png'
                       onDrop={(accepted, rejected) => this.onDrop(accepted, `${room.name}_roomImage2`)}>
-                            {roomImages != null && roomImages[`${room.name}_roomImage2`] ? (<div className='roomImage2' style={{ background: `url(${roomImages[`${room.name}_roomImage2`].imageFile.preview}) center center / auto 100% no-repeat`, height: '100%', width: '100%' }} ></div>) : null}
+                            {roomImages != null && roomImages[`${room.name}_roomImage2`] ? (<div className='roomImage2' style={{ background: `url(${roomImages[`${room.name}_roomImage2`].imageUrl || roomImages[`${room.name}_roomImage2`].imageFile.preview}) center center / auto 100% no-repeat`, height: '100%', width: '100%' }} ></div>) : null}
                             {roomImages == null ? (<p style={{ textAlign: 'center' }}>Drop an image here</p>) : null}
                     </Dropzone>
                   </div>
@@ -119,7 +123,7 @@ class RoomImages extends Component {
                       multiple={false}
                       accept='image/jpeg, image/png'
                       onDrop={(accepted, rejected) => this.onDrop(accepted, `${room.name}_roomImage3`)}>
-                            {roomImages != null && roomImages[`${room.name}_roomImage3`] ? (<div className='roomImage3' style={{ background: `url(${roomImages[`${room.name}_roomImage3`].imageFile.preview}) center center / auto 100% no-repeat`, height: '100%', width: '100%' }} ></div>) : null}
+                            {roomImages != null && roomImages[`${room.name}_roomImage3`] ? (<div className='roomImage3' style={{ background: `url(${roomImages[`${room.name}_roomImage3`].imageUrl || roomImages[`${room.name}_roomImage3`].imageFile.preview}) center center / auto 100% no-repeat`, height: '100%', width: '100%' }} ></div>) : null}
                             {roomImages == null ? (<p style={{ textAlign: 'center' }}>Drop an image here</p>) : null}
                     </Dropzone>
                   </div>
@@ -128,7 +132,7 @@ class RoomImages extends Component {
                       multiple={false}
                       accept='image/jpeg, image/png'
                       onDrop={(accepted, rejected) => this.onDrop(accepted, `${room.name}_roomImage4`)}>
-                            {roomImages != null && roomImages[`${room.name}_roomImage4`] ? (<div className='roomImage4' style={{ background: `url(${roomImages[`${room.name}_roomImage4`].imageFile.preview}) center center / auto 100% no-repeat`, height: '100%', width: '100%' }} ></div>) : null}
+                            {roomImages != null && roomImages[`${room.name}_roomImage4`] ? (<div className='roomImage4' style={{ background: `url(${roomImages[`${room.name}_roomImage4`].imageUrl || roomImages[`${room.name}_roomImage4`].imageFile.preview}) center center / auto 100% no-repeat`, height: '100%', width: '100%' }} ></div>) : null}
                             {roomImages == null ? (<p style={{ textAlign: 'center' }}>Drop an image here</p>) : null}
                     </Dropzone>
                   </div>

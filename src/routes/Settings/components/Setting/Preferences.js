@@ -137,16 +137,15 @@ class Preferences extends Component {
     this.props.settingsCb(data, this.props.branch.get('code'))
   }
 
-  renderRoomImages = () => {
+  renderRoomImages = (rooms) => {
     return (
-      <RoomImages inceptionCb={e => { this.props.settingsCb(this.state, this.props.branch.get('code')) }} preferencesCb={rooms => this.handlePreferencesCb(rooms)} {...this.props} />
+      <RoomImages rooms={rooms} inceptionCb={e => { this.props.settingsCb(this.state, this.props.branch.get('code')) }} preferencesCb={rooms => this.handlePreferencesCb(rooms)} {...this.props} />
     )
   }
 
   render () {
     let { branch } = this.props
 
-    console.log('PREFERENCES', this.state)
     return (
       <form className='form-access container' style={{ paddingTop: '1em' }}>
         {this.state.alert}
@@ -187,7 +186,7 @@ class Preferences extends Component {
           </div>
         </div>
         {this.renderCarouselTexts()}
-        {this.renderRoomImages()}
+        {this.renderRoomImages(this.state.rooms)}
       </form>
     )
   }
