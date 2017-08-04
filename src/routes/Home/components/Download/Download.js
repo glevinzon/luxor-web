@@ -16,7 +16,6 @@ class Download extends Component {
   onSelect= (active, direction) => {
   }
   render () {
-    console.log(this.state.statements)
     return (
       <section id='download' className='download bg-primary text-center'>
         {this.state.statements && (
@@ -27,7 +26,7 @@ class Download extends Component {
             className='carousel-fade'>
             {this.state.statements.map(text => {
               return (
-                <div className='container'>
+                <div className='container' key={text.name}>
                   <div className='row'>
                     <div className='col-md-8 col-md-offset-2'>
                       <h2 className='section-heading'>{text.name}</h2>

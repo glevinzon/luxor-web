@@ -4,12 +4,30 @@ import Gallery from './Gallery'
 class Features extends Component {
   state = {
     types: null,
-    branchCode: null
+    branchCode: null,
+    rooms: null
   }
   componentWillReceiveProps (nextProps) {
     let { branch, rooms } = nextProps
+    let data = {}
     if (branch && rooms) {
-      this.setState({types: JSON.parse(branch.get('roomTypes')), branchCode: branch.get('code')})
+      var arrKey = Object.keys(rooms)
+      JSON.parse(branch.get('roomTypes')).map(type => {
+        var image = []
+        arrKey.map(key => {
+          for (var i = 0; i < 5; i++) {
+            if (key === `${type.name}_roomImage${i}`) {
+              if (image.length < 1) {
+                image.push({ url: rooms[`${key}`].imageUrl, caption: 'No Caption', orientation: 'square', useForDemo: true })
+              } else {
+                image.push({ url: rooms[`${key}`].imageUrl, caption: 'No Caption', orientation: 'landscape', useForDemo: true })
+              }
+            }
+          }
+        })
+        data[type.name] = image
+      })
+      this.setState({types: JSON.parse(branch.get('roomTypes')), branchCode: branch.get('code'), rooms: data})
     }
   }
 
@@ -124,84 +142,22 @@ class Features extends Component {
             <div className='col-md-8'>
               <div className='container-fluid'>
                 <div className='row'>
-                  <div className='col-md-6'>
-                    <div className='feature-item'>
-                      <h3>Lorem</h3>
-                      <p className='text-muted'>Eiusmod magna amet amet aliqua commodo eu labore tempor dolor aliqua.</p>
-                      <Gallery images={DEFAULT_IMAGES.map(({ caption, id, orientation, useForDemo }) => ({
-                        src: this.makeUnsplashSrc(id),
-                        thumbnail: this.makeUnsplashThumbnail(id, orientation),
-                        srcset: [
-                          this.makeUnsplashSrcSet(id, 1024),
-                          this.makeUnsplashSrcSet(id, 800),
-                          this.makeUnsplashSrcSet(id, 500),
-                          this.makeUnsplashSrcSet(id, 320)
-                        ],
-                        caption,
-                        orientation,
-                        useForDemo
-                      }))} />
+                {this.state.types && this.state.types.map(type => {
+                  return (
+                    <div className='col-md-6' key={type.name}>
+                      <div className='feature-item'>
+                        <h3>{type.name}</h3>
+                        <Gallery images={this.state.rooms[`${type.name}`].map(({ url, caption, orientation, useForDemo }) => ({
+                          src: url,
+                          thumbnail: url,
+                          // caption,
+                          orientation,
+                          useForDemo
+                        }))} />
+                      </div>
                     </div>
-                  </div>
-                  <div className='col-md-6'>
-                    <div className='feature-item'>
-                      <h3>Lorem</h3>
-                      <p className='text-muted'>Irure mollit est id duis deserunt ut officia reprehenderit eiusmod.</p>
-                      <Gallery images={DEFAULT_IMAGES.map(({ caption, id, orientation, useForDemo }) => ({
-                        src: this.makeUnsplashSrc(id),
-                        thumbnail: this.makeUnsplashThumbnail(id, orientation),
-                        srcset: [
-                          this.makeUnsplashSrcSet(id, 1024),
-                          this.makeUnsplashSrcSet(id, 800),
-                          this.makeUnsplashSrcSet(id, 500),
-                          this.makeUnsplashSrcSet(id, 320)
-                        ],
-                        caption,
-                        orientation,
-                        useForDemo
-                      }))} />
-                    </div>
-                  </div>
-                </div>
-                <div className='row'>
-                  <div className='col-md-6'>
-                    <div className='feature-item'>
-                      <h3>Lorem</h3>
-                      <p className='text-muted'>Deserunt proident ut irure magna anim Lorem cillum elit id dolore.</p>
-                      <Gallery images={DEFAULT_IMAGES.map(({ caption, id, orientation, useForDemo }) => ({
-                        src: this.makeUnsplashSrc(id),
-                        thumbnail: this.makeUnsplashThumbnail(id, orientation),
-                        srcset: [
-                          this.makeUnsplashSrcSet(id, 1024),
-                          this.makeUnsplashSrcSet(id, 800),
-                          this.makeUnsplashSrcSet(id, 500),
-                          this.makeUnsplashSrcSet(id, 320)
-                        ],
-                        caption,
-                        orientation,
-                        useForDemo
-                      }))} />
-                    </div>
-                  </div>
-                  <div className='col-md-6'>
-                    <div className='feature-item'>
-                      <h3>Lorem</h3>
-                      <p className='text-muted'>Id tempor non minim sunt fugiat esse quis cillum reprehenderit officia.</p>
-                      <Gallery images={DEFAULT_IMAGES.map(({ caption, id, orientation, useForDemo }) => ({
-                        src: this.makeUnsplashSrc(id),
-                        thumbnail: this.makeUnsplashThumbnail(id, orientation),
-                        srcset: [
-                          this.makeUnsplashSrcSet(id, 1024),
-                          this.makeUnsplashSrcSet(id, 800),
-                          this.makeUnsplashSrcSet(id, 500),
-                          this.makeUnsplashSrcSet(id, 320)
-                        ],
-                        caption,
-                        orientation,
-                        useForDemo
-                      }))} />
-                    </div>
-                  </div>
+                  )
+                })}
                 </div>
               </div>
             </div>
