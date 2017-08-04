@@ -90,7 +90,7 @@ class Setting extends Component {
       var data = branches.get('data')
     }
 
-    // console.log('RENDER_SETTINGS', this.state)
+    console.log('RENDER_SETTINGS', this.state)
 
     return (
       <div className='container-fluid-spacious' style={{marginTop: '2%'}} >

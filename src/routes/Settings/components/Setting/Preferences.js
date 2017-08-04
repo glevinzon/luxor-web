@@ -24,7 +24,7 @@ class Preferences extends Component {
   }
 
   componentWillReceiveProps (nextProps, nextState) {
-    let { target, upload, uploadingImageSuccess, branch, preferences, fetchingSettingsSuccess } = nextProps
+    let { target, upload, uploadingImageSuccess, branch, preferences, fetchingSettingsSuccess, uploadingImage, fetchingSettings } = nextProps
     if (uploadingImageSuccess) {
       this.props.getDumb()
       if (target === `${branch.get('code')}_headerBgImage`) {
@@ -35,12 +35,11 @@ class Preferences extends Component {
         )})
       }
     }
+
     if (fetchingSettingsSuccess) {
       var prefKeys = Object.keys(preferences)
-      // console.log(prefKeys)
       prefKeys.map(key => {
         if (key == branch.get('code')) {
-          console.log(preferences[`${key}`])
           this.setState({ ...preferences[`${key}`] })
         }
       })
@@ -48,10 +47,10 @@ class Preferences extends Component {
   }
 
   handleUploadSuccess = () => {
+    this.setState({alert: null})
     let data = this.state
     data.alert = null
     this.props.settingsCb(data, this.props.branch.get('code'))
-    this.setState({alert: null})
   }
 
   onDrop = (accepted, target) => {
@@ -91,6 +90,7 @@ class Preferences extends Component {
     this.setState({carouselTexts: texts, carouselText: ''})
     let data = this.state
     data.carouselTexts = texts
+    data.carouselText = null
     data.alert = null
     this.props.settingsCb(data, this.props.branch.get('code'))
   }
@@ -146,7 +146,7 @@ class Preferences extends Component {
   render () {
     let { branch } = this.props
 
-    console.log('this.state', this.state)
+    console.log('PREFERENCES', this.state)
     return (
       <form className='form-access container' style={{ paddingTop: '1em' }}>
         {this.state.alert}

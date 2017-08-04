@@ -27,7 +27,9 @@ const mapStateToProps = (state) => ({
   uploadingImageSuccess: state.upload.get('uploadingImageSuccess'),
   target: state.upload.get('target'),
   gettingDumbSuccess: state.upload.get('gettingDumbSuccess'),
-  fetchingSettingsSuccess: state.setting.get('fetchingSettingsSuccess')
+  fetchingSettingsSuccess: state.setting.get('fetchingSettingsSuccess'),
+  uploadingImage: state.upload.get('uploadingImage'),
+  fetchingSettings: state.setting.get('fetchingSettings')
 })
 
 export default connect(mapStateToProps, mapActionCreators)(Setting)

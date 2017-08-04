@@ -19,7 +19,7 @@ class RoomImages extends Component {
     let { roomImages } = this.state
 
     if (uploadingImageSuccess) {
-      this.props.getDumb()
+      // this.props.getDumb()
       if (roomImages != null) {
         var url = roomImages
         var arrKeys = Object.keys(url)

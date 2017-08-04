@@ -106,8 +106,7 @@ actionHandlers[ GET_DUMB ] = state => {
 actionHandlers[ GET_DUMB_SUCCESS ] = (state, action) => {
   return state.merge({
     gettingDumb: false,
-    gettingDumbSuccess: true,
-    uploadingImageSuccess: false
+    gettingDumbSuccess: true
   })
 }
 
