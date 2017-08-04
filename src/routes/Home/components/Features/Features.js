@@ -2,6 +2,16 @@ import React, { Component } from 'react'
 import Gallery from './Gallery'
 
 class Features extends Component {
+  state = {
+    types: null,
+    branchCode: null
+  }
+  componentWillReceiveProps (nextProps) {
+    let { branch, rooms } = nextProps
+    if (branch && rooms) {
+      this.setState({types: JSON.parse(branch.get('roomTypes')), branchCode: branch.get('code')})
+    }
+  }
 
   makeUnsplashSrc = (id) => {
     return `https://images.unsplash.com/photo-${id}?dpr=2&auto=format&w=1024&h=1024`
@@ -18,6 +28,7 @@ class Features extends Component {
   }
 
   render () {
+    console.log(this.state)
     const theme = {
 	// container
       container: {

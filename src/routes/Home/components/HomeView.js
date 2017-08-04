@@ -13,7 +13,8 @@ class HomeView extends Component {
     branchId: null,
     selectedBranchCode: null,
     preferences: null,
-    rooms: null
+    rooms: null,
+    branch: null
   }
 
   componentWillMount () {
@@ -35,7 +36,7 @@ class HomeView extends Component {
           arrKeys.map(key => {
             if (branch.get('code') == key) {
               // console.log('ROOM', preferences[`${key}`])
-              this.setState({selectedBranchCode: branch.get('code'), preferences: preferences[`${key}`], rooms: preferences[`${key}`].rooms.roomImages})
+              this.setState({selectedBranchCode: branch.get('code'), preferences: preferences[`${key}`], rooms: preferences[`${key}`].rooms.roomImages, branch: branch})
             }
           })
         }
@@ -51,8 +52,8 @@ class HomeView extends Component {
         <MainNav />
         <Header {...this.props} preferences={this.state.preferences} />
         <Download preferences={this.state.preferences} />
-        <Features room={this.state.rooms} />
-        <Location />
+        <Features branch={this.state.branch} rooms={this.state.rooms} />
+        <Location branch={this.state.branch} />
         <Cta />
 
         <Contact />

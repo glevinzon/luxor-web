@@ -10,18 +10,11 @@ class Location extends Component {
     }
   }
 
-  handleMapClick = (loc) => {
-    if (loc === 'gensan') {
-      this.setState({
-        lat: '6.128683',
-        lng: '125.182129'
-      })
-    }
-    if (loc === 'davao') {
-      this.setState({
-        lat: '7.129932',
-        lng: '125.626664'
-      })
+  componentWillReceiveProps (nextProps) {
+    let {branch} = nextProps
+    if (branch) {
+      let coors = JSON.parse(branch.get('coordinates'))
+      this.setState({lat: coors.lat, lng: coors.lng})
     }
   }
 
@@ -31,8 +24,6 @@ class Location extends Component {
         <div className='cta-content'>
           <div className='container'>
             <h2>Visit us. Locate. Navigate.</h2>
-            <a className='btn btn-outline btn-xl page-scroll' onClick={e => { this.handleMapClick('gensan') }} >Gensan</a> &nbsp;
-            <a className='btn btn-outline btn-xl page-scroll' onClick={e => { this.handleMapClick('davao') }} >Davao</a>
             <MapLocation lat={this.state.lat} lng={this.state.lng} {...this.props} />
           </div>
         </div>

@@ -1,17 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import {Gmaps, Marker} from 'react-gmaps'
 
-const coords = {
-  davao: {
-    lat: 7.129932,
-    lng: 125.626664
-  },
-  gensan: {
-    lat: 6.128683,
-    lng: 125.182129
-  }
-}
-
 const API_KEY = 'AIzaSyD138yl7DnZmtPxV0qb_mLlht2f8jsG1Z8'
 
 const params = {v: '3.exp', key: API_KEY}
@@ -46,13 +35,8 @@ class MapLocation extends Component {
         params={params}
         onMapCreated={this.onMapCreated}>
         <Marker
-          lat={coords.davao.lat}
-          lng={coords.davao.lng}
-          draggable
-          onDragEnd={this.onDragEnd} />
-        <Marker
-          lat={coords.gensan.lat}
-          lng={coords.gensan.lng}
+          lat={this.props.lat}
+          lng={this.props.lng}
           draggable
           onDragEnd={this.onDragEnd} />
       </Gmaps>
