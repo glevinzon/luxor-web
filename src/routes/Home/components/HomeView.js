@@ -50,7 +50,6 @@ class HomeView extends Component {
       <div id='page-top' className='page-top'>
         <MainNav />
         <Header {...this.props} preferences={this.state.preferences} />
-
         <Download preferences={this.state.preferences} />
         <Features room={this.state.rooms} />
         <Location />

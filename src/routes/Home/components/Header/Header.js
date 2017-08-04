@@ -50,7 +50,6 @@ class Header extends Component {
   }
 
   render () {
-    console.log(this.state.bgImage)
     return (
       <header style={{ background: `url(${this.state.bgImage}) center center / auto 100% no-repeat`, height: '100%', width: '100%' }}>
         {this.state.alert}
