@@ -32,7 +32,7 @@ class Preferences extends Component {
   }
 
   componentDidMount () {
-    this.props.settingsCb(this.state, this.props.branch.get('code'))
+    this.props.settingsCb(this.state, this.props.branch.get('code'), false)
   }
 
   componentWillReceiveProps (nextProps, nextState) {
@@ -63,7 +63,7 @@ class Preferences extends Component {
     this.setState({alert: null})
     let data = this.state
     data.alert = null
-    this.props.settingsCb(data, this.props.branch.get('code'))
+    this.props.settingsCb(data, this.props.branch.get('code'), true)
   }
 
   onDrop = (accepted, target) => {
@@ -81,7 +81,7 @@ class Preferences extends Component {
       data.headerTitle = e.target.value
       data.alert = null
     }
-    this.props.settingsCb(data, this.props.branch.get('code'))
+    this.props.settingsCb(data, this.props.branch.get('code'), false)
   }
 
   isValid = () => {
@@ -105,7 +105,7 @@ class Preferences extends Component {
     data.carouselTexts = texts
     data.carouselText = null
     data.alert = null
-    this.props.settingsCb(data, this.props.branch.get('code'))
+    this.props.settingsCb(data, this.props.branch.get('code'), false)
   }
 
   renderCarouselTexts = () => {
@@ -147,7 +147,7 @@ class Preferences extends Component {
     let data = this.state
     data.rooms = rooms
     data.alert = null
-    this.props.settingsCb(data, this.props.branch.get('code'))
+    this.props.settingsCb(data, this.props.branch.get('code'), false)
   }
 
   renderRoomImages = (rooms) => {

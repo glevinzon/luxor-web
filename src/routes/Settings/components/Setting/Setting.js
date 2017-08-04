@@ -73,7 +73,7 @@ class Setting extends Component {
     this.setState({ selectedTab: e })
   }
 
-  handleSettingsCb = (data, branch) => {
+  handleSettingsCb = (data, branch, upload) => {
     let { preferences, branchId } = this.state
     let pref = {}
 
@@ -92,8 +92,10 @@ class Setting extends Component {
     }
 
     this.setState({preferences: pref})
-    this.props.updateSettingWithCode('ga6bN', {branchId: branchId || null, preferences: JSON.stringify(pref)})
-    this.props.getDumb()
+    if (upload) {
+      this.props.updateSettingWithCode('ga6bN', {branchId: branchId || null, preferences: JSON.stringify(pref)})
+      this.props.getDumb()
+    }
   }
 
   render () {
