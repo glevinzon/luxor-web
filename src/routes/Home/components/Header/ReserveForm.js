@@ -23,8 +23,8 @@ class ReserveForm extends Component {
       email: '',
       address: '',
       contact: '',
-      startDate: new Date().toISOString(),
-      endDate: new Date().toISOString(),
+      startDate: null,
+      endDate: null,
       errors: [],
       isLoading: false,
       isOpen: false,
@@ -61,7 +61,8 @@ class ReserveForm extends Component {
         email: '',
         contact: '',
         address: '',
-        date: new Date().toISOString(),
+        startDate: null,
+        endDate: null,
         note: '', errors: {}, isLoading: true })
       this.props.createReservation(data)
     }
@@ -167,7 +168,7 @@ class ReserveForm extends Component {
               <div className='flextable'>
                 <div className='flextable-item'>
                   <DatePickerGroup
-                    onChange={e => { this.setState({startDate: e}) }}
+                    onChange={e => { this.setState({startDate: e, endDate: null}) }}
                     value={this.state.startDate}
                     field='startDate'
                     placeholder='Start Date'
@@ -180,6 +181,7 @@ class ReserveForm extends Component {
                     value={this.state.endDate}
                     field='endDate'
                     placeholder='End Date'
+                    disabled={this.state.startDate == null}
                     minDate={this.state.startDate}
                     error={this.state.errors.endDate}
                   />

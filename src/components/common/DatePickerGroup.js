@@ -1,13 +1,14 @@
 import React, { Component, PropTypes } from 'react'
 import DatePicker from 'react-bootstrap-date-picker'
-import { FormGroup, HelpBlock, ControlLabel } from 'react-bootstrap'
+import classnames from 'classnames'
 
 class DatePickerGroup extends Component {
   render () {
     const { field, value, placeholder, onChange, error, disabled, minDate, maxDate } = this.props
 
     return (
-      <FormGroup>
+      <div className={classnames('form-group', { 'has-error': error })}>
+        {error && <small className='help-block text-right'>{error}</small>}
         <DatePicker
           id='reservation-datepicker'
           name={field}
@@ -17,7 +18,7 @@ class DatePickerGroup extends Component {
           onChange={onChange}
           minDate={minDate || `${new Date().toISOString()}`}
           maxDate={maxDate} />
-      </FormGroup>
+      </div>
     )
   }
 }
