@@ -14,7 +14,8 @@ class HomeView extends Component {
     selectedBranchCode: null,
     preferences: null,
     rooms: null,
-    branch: null
+    branch: null,
+    branches: null
   }
 
   componentWillMount () {
@@ -26,7 +27,7 @@ class HomeView extends Component {
     let { fetchingBranchSuccess, fetchingSettingsSuccess, branches, settings } = nextProps
 
     if (fetchingSettingsSuccess && settings) {
-      let branchId = settings.get('branch_id')
+      let branchId = this.state.branchId || settings.get('branch_id')
       let preferences = JSON.parse(settings.get('preferences'))
 
       let data = branches.get('data')
@@ -42,14 +43,22 @@ class HomeView extends Component {
         }
       })
 
-      this.setState({branchId})
+      this.setState({branchId, branches: data})
     }
   }
 
+  handleSwitchBranch = (branch) => {
+    let branchId = branch.target.name
+    this.setState({branchId})
+    this.props.getBranches(1, 10)
+    this.props.getSettings('ga6bN')
+  }
+
   render () {
+    let { branches, branchId } = this.state
     return (
       <div id='page-top' className='page-top'>
-        <MainNav />
+        {branches && (<MainNav branchId={branchId} switchBranchCb={branch => this.handleSwitchBranch(branch)} branches={branches} />)}
         <Header {...this.props} preferences={this.state.preferences} />
         <Download preferences={this.state.preferences} />
         <Features branch={this.state.branch} rooms={this.state.rooms} />
