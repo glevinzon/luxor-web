@@ -101,6 +101,25 @@ export function updateReservationWithCode (reserveCode, data, token) {
   }
 }
 
+export function updateReservationStatus (reserveId, status) {
+  return (dispatch, getState) => {
+    dispatch(showLoading())
+    let endpoint = `/api/v1/reserve/${reserveId}/${status}`
+    const { accessToken } = getState().auth.toJS()
+    return dispatch({
+      [CALL_API]: {
+        endpoint,
+        method: 'PUT',
+        headers: {
+          'Authorization': `Bearer ${accessToken}`,
+          'Content-Type': 'application/json'
+        },
+        types: [GET_RESERVATIONS, GET_RESERVATIONS_SUCCESS, GET_RESERVATIONS_FAIL]
+      }
+    }).then(() => { dispatch(hideLoading()) })
+  }
+}
+
 export const actions = {
   getReservations,
   createReservation,

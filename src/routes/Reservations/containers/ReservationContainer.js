@@ -1,13 +1,14 @@
 import {connect} from 'react-redux'
 import Reservation from '../components/Reservation'
 
-import { getReservations, deleteReservation } from 'store/modules/reserve'
+import { getReservations, deleteReservation, updateReservationStatus } from 'store/modules/reserve'
 import { getRooms } from 'store/modules/room'
 
 const mapActionCreators = {
   getReservations,
   deleteReservation,
-  getRooms
+  getRooms,
+  updateReservationStatus
 }
 
 const mapStateToProps = (state) => ({

@@ -71,7 +71,7 @@ class ReservationTable extends Component {
     this.setState({page})
   }
 
-  renderStatus = (status, room) => {
+  renderStatus = (status, room, reserveId) => {
     console.log(room)
     var indicator = (<button type='button' className='btn btn-sm btn-pill btn-default'>Default</button>)
     if (status == '10') {
@@ -85,7 +85,7 @@ class ReservationTable extends Component {
           confirmBtnBsStyle='info'
           cancelBtnBsStyle='default'
           title='Are you sure?'
-          onConfirm={e => { this.setState({approveAlert: null}) }}
+          onConfirm={e => { this.handleUpdateStatus(reserveId) }}
           onCancel={e => { this.setState({approveAlert: null}) }}
         >
         This will approve selected request and will reject all other pending requests on {room.get('name')}({room.get('type')}).
@@ -95,6 +95,11 @@ class ReservationTable extends Component {
       indicator = (<button type='button' className='btn btn-sm btn-pill btn-success'>Approved</button>)
     }
     return indicator
+  }
+
+  handleUpdateStatus = (reserveId) => {
+    this.props.updateReservationStatus(reserveId, 'approve')
+    this.setState({approveAlert: null})
   }
 
   render () {
@@ -147,7 +152,7 @@ class ReservationTable extends Component {
                             <td>{moment(reserve.date).format('MM-DD-YYYY')}</td>
                             <td>{room.get('type')}</td>
                             <td>{room.get('name')}</td>
-                            <td>{this.renderStatus(reserve.get('status'), room)}</td>
+                            <td>{this.renderStatus(reserve.get('status'), room, reserve.get('id'))}</td>
                             <td>
                               <div className='btn-group'>
                                 <button type='button' className='btn btn-primary-outline'>
