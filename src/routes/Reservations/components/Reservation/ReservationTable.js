@@ -11,7 +11,8 @@ class ReservationTable extends Component {
       page: 1,
       count: 15,
       delete: false,
-      alert: false
+      alert: false,
+      approveAlert: null
     }
   }
 
@@ -70,8 +71,34 @@ class ReservationTable extends Component {
     this.setState({page})
   }
 
+  renderStatus = (status, room) => {
+    console.log(room)
+    var indicator = (<button type='button' className='btn btn-sm btn-pill btn-default'>Default</button>)
+    if (status == '10') {
+      indicator = (<button type='button' className='btn btn-sm btn-pill btn-danger'>Rejected</button>)
+    } else if (status == '0') {
+      indicator = (<button type='button' className='btn btn-sm btn-pill btn-warning' onClick={e => {
+        this.setState({approveAlert: (<SweetAlert
+          info
+          showCancel
+          confirmBtnText='Yes, approve and reject other.'
+          confirmBtnBsStyle='info'
+          cancelBtnBsStyle='default'
+          title='Are you sure?'
+          onConfirm={e => { this.setState({approveAlert: null}) }}
+          onCancel={e => { this.setState({approveAlert: null}) }}
+        >
+        This will approve selected request and will reject all other pending requests on {room.get('name')}({room.get('type')}).
+        </SweetAlert>)})
+      }}>Pending</button>)
+    } else if (status == '1') {
+      indicator = (<button type='button' className='btn btn-sm btn-pill btn-success'>Approved</button>)
+    }
+    return indicator
+  }
+
   render () {
-    let { reserves, fetchingReservations } = this.props
+    let { reserves, fetchingReservations, rooms } = this.props
     if (reserves) {
       var total = reserves.get('total')
       var currentPage = reserves.get('currentPage')
@@ -79,10 +106,15 @@ class ReservationTable extends Component {
       var data = reserves.get('data')
     }
 
+    if (rooms) {
+      var roomsData = rooms.get('data')
+    }
+
     return (
       <div>
         {this.state.delete}
         {this.state.alert}
+        {this.state.approveAlert}
         <div className='table-full'>
           <div className='table-responsive'>
             <table className='table' data-sort='table'>
@@ -94,29 +126,41 @@ class ReservationTable extends Component {
                   <th>Contact</th>
                   <th>Email</th>
                   <th>Date</th>
+                  <th>Room Type</th>
+                  <th>Room Name</th>
+                  <th>Status</th>
                   <th></th>
                 </tr>
               </thead>
               <tbody>
                 {data && (data.map(reserve => {
                   return (
-                    <tr key={reserve.get('id')}>
-                      <td><a href='#'>{reserve.get('code')}</a></td>
-                      <td>{reserve.get('fullName')}</td>
-                      <td>{reserve.get('note')}</td>
-                      <td>{reserve.get('contact')}</td>
-                      <td>{reserve.get('email')}</td>
-                      <td>{moment(reserve.date).format('MM-DD-YYYY')}</td>
-                      <td>
-                        <div className='btn-group'>
-                          <button type='button' className='btn btn-primary-outline'>
-                            <span className='icon icon-pencil' />
-                          </button>
-                          <button type='button' className='btn btn-primary-outline' onClick={e => { this.handleDelete(reserve.get('code')) }}>
-                            <span className='icon icon-erase' />
-                          </button>
-                        </div></td>
-                    </tr>
+                    roomsData && roomsData.map(room => {
+                      if (reserve.get('room_id') == room.get('id')) {
+                        return (
+                          <tr key={reserve.get('id')}>
+                            <td><a href='#'>{reserve.get('code')}</a></td>
+                            <td>{reserve.get('fullName')}</td>
+                            <td>{reserve.get('note')}</td>
+                            <td>{reserve.get('contact')}</td>
+                            <td>{reserve.get('email')}</td>
+                            <td>{moment(reserve.date).format('MM-DD-YYYY')}</td>
+                            <td>{room.get('type')}</td>
+                            <td>{room.get('name')}</td>
+                            <td>{this.renderStatus(reserve.get('status'), room)}</td>
+                            <td>
+                              <div className='btn-group'>
+                                <button type='button' className='btn btn-primary-outline'>
+                                  <span className='icon icon-pencil' />
+                                </button>
+                                <button type='button' className='btn btn-primary-outline' onClick={e => { this.handleDelete(reserve.get('code')) }}>
+                                  <span className='icon icon-erase' />
+                                </button>
+                              </div></td>
+                          </tr>
+                        )
+                      }
+                    })
                   )
                 }))}
               </tbody>

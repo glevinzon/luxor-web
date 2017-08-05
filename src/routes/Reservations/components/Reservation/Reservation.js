@@ -4,6 +4,7 @@ import ReservationTable from './ReservationTable'
 class Reservations extends Component {
 
   componentWillMount () {
+    this.props.getRooms(1, 10)
     this.props.getReservations(1, 10)
   }
 
