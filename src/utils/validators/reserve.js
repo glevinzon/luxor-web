@@ -5,6 +5,14 @@ export default function validateInput (data) {
   let errors = {}
 
   // Check for null
+  if (Validator.isNull(data.roomType)) {
+    errors.roomType = 'Room Type Name is required'
+  }
+
+  if (Validator.isNull(data.room)) {
+    errors.room = 'Room Type Name is required'
+  }
+
   if (Validator.isNull(data.fullName)) {
     errors.fullName = 'Full Name is required'
   }

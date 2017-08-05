@@ -15,16 +15,18 @@ class HomeView extends Component {
     preferences: null,
     rooms: null,
     branch: null,
-    branches: null
+    branches: null,
+    availableRooms: null
   }
 
   componentWillMount () {
+    this.props.getRoomsWithStatus('available')
     this.props.getBranches(1, 10)
     this.props.getSettings('ga6bN')
   }
 
   componentWillReceiveProps (nextProps) {
-    let { fetchingBranchSuccess, fetchingSettingsSuccess, branches, settings } = nextProps
+    let { fetchingBranchSuccess, fetchingSettingsSuccess, branches, settings, rooms } = nextProps
 
     if (fetchingSettingsSuccess && settings) {
       let branchId = this.state.branchId || settings.get('branch_id')
@@ -36,14 +38,13 @@ class HomeView extends Component {
           var arrKeys = Object.keys(preferences)
           arrKeys.map(key => {
             if (branch.get('code') == key) {
-              // console.log('ROOM', preferences[`${key}`])
               this.setState({selectedBranchCode: branch.get('code'), preferences: preferences[`${key}`], rooms: preferences[`${key}`].rooms.roomImages, branch: branch})
             }
           })
         }
       })
 
-      this.setState({branchId, branches: data})
+      this.setState({branchId, branches: data, availableRooms: rooms})
     }
   }
 
@@ -59,7 +60,7 @@ class HomeView extends Component {
     return (
       <div id='page-top' className='page-top'>
         {branches && (<MainNav branchId={branchId} switchBranchCb={branch => this.handleSwitchBranch(branch)} branches={branches} />)}
-        <Header {...this.props} preferences={this.state.preferences} />
+        <Header {...this.props} branch={this.state.branch} branchId={branchId} rooms={this.state.availableRooms} preferences={this.state.preferences} />
         <Download preferences={this.state.preferences} />
         <Features branch={this.state.branch} rooms={this.state.rooms} />
         <Location branch={this.state.branch} />

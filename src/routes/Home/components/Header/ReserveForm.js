@@ -7,6 +7,9 @@ import {
   ModalBody,
   ModalFooter
 } from 'react-modal-bootstrap'
+import { FormControl, DropdownButton, MenuItem, InputGroup } from 'react-bootstrap'
+
+const InputGroupButton = InputGroup.Button
 
 class ReserveForm extends Component {
   constructor (props) {
@@ -24,7 +27,10 @@ class ReserveForm extends Component {
       endDate: new Date().toISOString(),
       errors: [],
       isLoading: false,
-      isOpen: false
+      isOpen: false,
+      roomType: '',
+      room: ''
+
     }
   }
 
@@ -46,8 +52,15 @@ class ReserveForm extends Component {
     e.preventDefault()
     let data = this.state
     if (this.isValid(data)) {
-      this.setState({ fullName: '', email: '',
-        contact: '', address: '',
+      this.setState({
+        branchId: '',
+        roomId: '',
+        roomType: '',
+        room: '',
+        fullName: '',
+        email: '',
+        contact: '',
+        address: '',
         date: new Date().toISOString(),
         note: '', errors: {}, isLoading: true })
       this.props.createReservation(data)
@@ -55,9 +68,56 @@ class ReserveForm extends Component {
   }
 
   render () {
+    console.log(this.state)
     return (
       <form className='form-access' onSubmit={this.onSubmit}>
         <ModalBody>
+          <div className='form-group row'>
+            <div className='input-group col-sm-offset-1 col-sm-10 col-xs-offset-1 col-xs-10'>
+               <TextFieldGroup
+                 onChange={this.onChange}
+                 value={this.state.roomType}
+                 field='roomType'
+                 placeholder='Room Type'
+                 disabled
+                 error={this.state.errors.roomType}
+                />
+                <DropdownButton
+                  componentClass={InputGroupButton}
+                  id='input-dropdown-addon'
+                  title='Room Types'
+                >
+                  {this.props.branch && JSON.parse(this.props.branch.get('roomTypes')).map((type, key) => {
+                    return (<MenuItem key={key} onClick={e => { this.setState({roomType: type.name, branchId: this.props.branchId}) }}>{type.name}</MenuItem>)
+                  })}
+                </DropdownButton>
+            </div>
+          </div>
+          <div className='form-group row'>
+            <div className='input-group col-sm-offset-1 col-sm-10 col-xs-offset-1 col-xs-10'>
+               <TextFieldGroup
+                 onChange={this.onChange}
+                 value={this.state.room}
+                 field='room'
+                 disabled
+                 placeholder='Select Room'
+                 error={this.state.errors.room}
+                />
+                <DropdownButton
+                  componentClass={InputGroupButton}
+                  id='input-dropdown-addon'
+                  title='Room Names'
+                  disabled={this.state.roomType == ''}
+                >
+                {this.props.rooms && this.props.rooms.map((room, key) => {
+                  if (this.state.roomType === room.get('type')) {
+                    return (<MenuItem key={key} onClick={e => { this.setState({room: room.get('name'), roomId: room.get('id')}) }}>{room.get('name')}</MenuItem>)
+                  }
+                })}
+
+                </DropdownButton>
+            </div>
+          </div>
           <div className='form-group row'>
             <div className='input-group col-sm-offset-1 col-sm-10 col-xs-offset-1 col-xs-10'>
               <TextFieldGroup

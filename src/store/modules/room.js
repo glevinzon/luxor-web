@@ -36,6 +36,22 @@ export function getRooms (page = 1, count = 10) {
   }
 }
 
+export function getRoomsWithStatus (status) {
+  return (dispatch, getState) => {
+    let endpoint = `/api/v1/rooms/${status}`
+    return dispatch({
+      [CALL_API]: {
+        endpoint,
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        types: [GET_ROOMS, GET_ROOMS_SUCCESS, GET_ROOMS_FAIL]
+      }
+    })
+  }
+}
+
 export function createRoom (data) {
   return (dispatch, getState) => {
     const { accessToken } = getState().auth.toJS()
