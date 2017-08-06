@@ -149,7 +149,7 @@ class Preferences extends Component {
 
   render () {
     let { branch } = this.props
-    let { rooms } = this.state.rooms
+    let { rooms } = this.state
     return (
       <form className='form-access container' style={{ paddingTop: '1em' }}>
         {this.state.alert}
@@ -190,7 +190,7 @@ class Preferences extends Component {
           </div>
         </div>
         {this.renderCarouselTexts()}
-        {this.renderRoomImages(this.state.rooms)}
+        {this.renderRoomImages(rooms || null)}
       </form>
     )
   }

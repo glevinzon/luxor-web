@@ -100,6 +100,7 @@ class Setting extends Component {
   }
 
   render () {
+    console.log(this.state)
     let { branches, preferences } = this.state
 
     return (
@@ -141,11 +142,11 @@ class Setting extends Component {
           <div className='hr-divider m-t-lg m-b-md'>
             <h3 className='hr-divider-content hr-divider-heading'>In-Page</h3>
           </div>
-          {!!((preferences && branches)) && (
+          {branches && (
             <Tabs bsStyle='nav nav-pills hr-divider-content hr-divider-tab' activeKey={this.state.selectedTab || 0} onSelect={this.handleSelect} id='controlled-tab-example'>
               {branches && branches.map((branch, key) => {
                 return (
-                  <Tab key={key} eventKey={key} title={branch.get('name')}>{<Preferences preferences={preferences} branch={branch} settingsCb={(data, branch, upload) => this.handleSettingsCb(data, branch, upload)} {...this.props} />}</Tab>
+                  <Tab key={key} eventKey={key} title={branch.get('name')}>{<Preferences preferences={preferences || null} branch={branch} settingsCb={(data, branch, upload) => this.handleSettingsCb(data, branch, upload)} {...this.props} />}</Tab>
                 )
               })}
             </Tabs>
