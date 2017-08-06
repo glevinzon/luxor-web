@@ -6,6 +6,7 @@ import {
   ModalFooter
 } from 'react-modal-bootstrap'
 import Map from 'components/common/Map'
+import SweetAlert from 'react-bootstrap-sweetalert'
 
 class BranchCreateForm extends Component {
   state = {
@@ -13,10 +14,13 @@ class BranchCreateForm extends Component {
     address: '',
     coordinates: '',
     contact: '',
-    roomTypes: null,
+    roomTypes: [],
     roomType: null,
     errors: [],
-    isLoading: false
+    isLoading: false,
+    lat: null,
+    lng: null,
+    alert: null
   }
 
   onChange = (e) => {
@@ -36,15 +40,24 @@ class BranchCreateForm extends Component {
   onSubmit = (e) => {
     e.preventDefault()
     let data = this.state
-    if (this.isValid(data)) {
-      console.log('wew', data.roomTypes)
-      data.coordinates = JSON.stringify(data.coordinates)
-      data.roomTypes = JSON.stringify(data.roomTypes)
-      this.setState({ name: '',
-        contact: '', address: '',
-        coordinates: '',
-        roomTypes: null, roomType: '', errors: {}, isLoading: true })
-      this.props.createBranch(data)
+    if (data.roomTypes.length < 1) {
+      this.setState({alert: (
+          <SweetAlert warning title='Oh! No.' onConfirm={e => { this.setState({alert: null}) }}>
+            No room types! Please add one.
+          </SweetAlert>
+        )})
+    } else {
+      if (this.isValid(data)) {
+        console.log('wew', data.roomTypes)
+        data.coordinates = JSON.stringify({lat: this.state.lat || this.state.coordinates.lat, lng: this.state.lng || data.coordinates.lng})
+        data.roomTypes = JSON.stringify(data.roomTypes)
+        this.setState({ name: '',
+          contact: '', address: '',
+          coordinates: {lat: null, lng: null}, lat: null, lng: null,
+          roomTypes: null, roomType: '', errors: {}, isLoading: true })
+
+        this.props.createBranch(data)
+      }
     }
   }
 
@@ -62,9 +75,9 @@ class BranchCreateForm extends Component {
       <div className='form-group row'>
       <div className='input-group col-sm-offset-1 col-sm-10 col-xs-offset-1 col-xs-10'>
         <ul className='list-group' style={{ background: '#252830'}}>
-          {this.state.roomTypes && this.state.roomTypes.map(room => {
+          {this.state.roomTypes && this.state.roomTypes.map((room, key) => {
             return (
-              <li className='list-group-item'>{room.name}</li>
+              <li key={key} className='list-group-item'>{room.name}</li>
             )
           })}
           <li className='list-group-item'>
@@ -92,8 +105,10 @@ class BranchCreateForm extends Component {
   }
 
   render () {
+    var coords = (this.state.lat != null && this.state.lng != null) ? {lat: this.state.lat, lng: this.state.lng} : {lat: null, lng: null}
     return (
       <form className='form-access' onSubmit={this.onSubmit}>
+      {this.state.alert}
         <ModalBody>
           <div className='form-group row'>
             <div className='input-group col-sm-offset-1 col-sm-10 col-xs-offset-1 col-xs-10'>
@@ -134,7 +149,7 @@ class BranchCreateForm extends Component {
                 <div className='flextable-item'>
                   <TextFieldGroup
                     onChange={this.onChange}
-                    value={this.state.coordinates.lat}
+                    value={this.state.lat || this.state.coordinates.lat}
                     field='lat'
                     placeholder='Latitude'
                     error={this.state.errors.lat}
@@ -143,7 +158,7 @@ class BranchCreateForm extends Component {
                 <div className='flextable-item'>
                 <TextFieldGroup
                   onChange={this.onChange}
-                  value={this.state.coordinates.lng}
+                  value={this.state.lng || this.state.coordinates.lng}
                   field='lng'
                   placeholder='Longitude'
                   error={this.state.errors.lng}
@@ -154,7 +169,7 @@ class BranchCreateForm extends Component {
            </div>
           <div className='form-group row'>
             <div className='input-group col-sm-offset-1 col-sm-10 col-xs-offset-1 col-xs-10'>
-              <Map latLngCb={(coordinates) => { this.setState({coordinates: coordinates}) }} />
+              <Map coordinates={coords != null ? coords : null} latLngCb={(coordinates) => { this.setState({coordinates: coordinates, lat: null, lng: null}) }} />
             </div>
           </div>
           {this.renderRoomTypes()}

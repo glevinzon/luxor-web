@@ -30,6 +30,15 @@ class Map extends Component {
     this.setState({ markers: marks })
   }
 
+  componentWillReceiveProps (nextProps) {
+    let { coordinates } = nextProps
+    if (coordinates != null) {
+      let marks = []
+      marks.push(coordinates)
+      this.setState({markers: marks})
+    }
+  }
+
   render () {
     return (
       <Gmaps
@@ -42,9 +51,9 @@ class Map extends Component {
         params={params}
         onMapCreated={this.onMapCreated}
         onClick={this.onClick}>
-        {this.state.markers && (this.state.markers.map(mark => {
+        {this.state.markers && (this.state.markers.map((mark, key) => {
           return (
-            <Marker
+            <Marker key={key}
               lat={mark.lat}
               lng={mark.lng}
               draggable

@@ -74,7 +74,6 @@ class Setting extends Component {
   }
 
   handleSettingsCb = (data, branch, upload) => {
-    console.log('UPLOAD', upload)
     let { preferences, branchId } = this.state
     let pref = {}
 
@@ -103,7 +102,6 @@ class Setting extends Component {
   render () {
     let { branches, preferences } = this.state
 
-    console.log('RENDER_SETTINGS', this.state)
     return (
       <div className='container-fluid-spacious' style={{marginTop: '2%'}} >
       {this.state.alert}
