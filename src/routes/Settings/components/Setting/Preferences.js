@@ -150,7 +150,6 @@ class Preferences extends Component {
   render () {
     let { branch } = this.props
     let { rooms } = this.state.rooms
-    console.log('RENDER_PREF', rooms)
     return (
       <form className='form-access container' style={{ paddingTop: '1em' }}>
         {this.state.alert}

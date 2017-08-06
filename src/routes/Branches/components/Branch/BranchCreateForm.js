@@ -48,7 +48,6 @@ class BranchCreateForm extends Component {
         )})
     } else {
       if (this.isValid(data)) {
-        console.log('wew', data.roomTypes)
         data.coordinates = JSON.stringify({lat: this.state.lat || this.state.coordinates.lat, lng: this.state.lng || data.coordinates.lng})
         data.roomTypes = JSON.stringify(data.roomTypes)
         this.setState({ name: '',

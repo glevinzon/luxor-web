@@ -72,7 +72,6 @@ class ReservationTable extends Component {
   }
 
   renderStatus = (status, room, reserveId) => {
-    console.log(room)
     var indicator = (<button type='button' className='btn btn-sm btn-pill btn-default'>Default</button>)
     if (status == '10') {
       indicator = (<button type='button' className='btn btn-sm btn-pill btn-danger'>Rejected</button>)

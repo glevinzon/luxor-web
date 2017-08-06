@@ -16,7 +16,8 @@ const mapStateToProps = (state) => ({
   user: state.auth.get('user'),
   reserves: state.reserve.get('reserves'),
   deletingReservationSuccess: state.reserve.get('deletingReservationSuccess'),
-  rooms: state.room.get('rooms')
+  rooms: state.room.get('rooms'),
+  fetchingReservations: state.reserve.get('fetchingReservations')
 })
 
 export default connect(mapStateToProps, mapActionCreators)(Reservation)

@@ -83,7 +83,6 @@ class RoomImages extends Component {
     let { roomImages } = this.state
     let { branch } = this.props
 
-    console.log('ROOMS', this.state)
     return (
       <div>
       {this.state.alert}

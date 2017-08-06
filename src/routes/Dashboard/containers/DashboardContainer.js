@@ -21,7 +21,9 @@ const mapStateToProps = (state) => ({
   branches: state.branch.get('branches'),
   deletingBranchSuccess: state.branch.get('deletingBranchSuccess'),
   rooms: state.room.get('rooms'),
-  deletingRoomSuccess: state.room.get('deletingRoomSuccess')
+  deletingRoomSuccess: state.room.get('deletingRoomSuccess'),
+  reserves: state.reserve.get('reserves'),
+  fetchingReservations: state.reserve.get('fetchingReservations')
 })
 
 export default connect(mapStateToProps, mapActionCreators)(Dashboard)

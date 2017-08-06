@@ -1,12 +1,14 @@
 import React, { Component } from 'react'
 import BranchList from '../../Branches/components/Branch/BranchList'
 import RoomList from '../../Rooms/components/Room/RoomList'
+import ReservationList from '../../Reservations/components/Reservation/ReservationList'
 import { Link } from 'react-router'
 
 class Dashboard extends Component {
   componentWillMount () {
     this.props.getBranches(1, 10)
     this.props.getRooms(1, 10)
+    this.props.getReservations(1, 10)
   }
 
   handleLogout = (e) => {
@@ -34,8 +36,8 @@ class Dashboard extends Component {
           <h3 className='hr-divider-content hr-divider-heading'>Quick Info</h3>
         </div>
 
-        <div className='row'>
-          <div className='col-sm-6 col-md-6'>
+        <div className='row statcards'>
+          <div className='col-sm-6 col-lg-3 m-b'>
             <div className='statcard statcard-success'>
               <div className='p-a'>
                 <span className='statcard-desc'>Page views</span>
@@ -45,27 +47,46 @@ class Dashboard extends Component {
                 </h2>
                 <hr className='statcard-hr m-b-0' />
               </div>
-              <canvas
-                className='sparkline'
-                data-chart='spark-line'
-                data-value='[{data:[28,68,41,43,96,45,100]}]'
-                data-labels="['a','b','c','d','e','f','g']"
-                width='378' height='94'>
-              </canvas>
+              <canvas id='sparkline1' width='378' height='94' className='sparkline' data-chart='spark-line' data-value='[{data:[28,68,41,43,96,45,100]}]' data-labels="['a','b','c','d','e','f','g']" style={{width: '189px', height: '47px'}}></canvas>
             </div>
           </div>
-          <div className='col-sm-6 col-md-6'>
-            <div>
-              <canvas
-                className='ex-line-graph'
-                width='600' height='400'
-                data-chart='bar'
-                data-scale-line-color='transparent'
-                data-scale-grid-line-color='rgba(255,255,255,.05)'
-                data-scale-font-color='#a2a2a2'
-                data-labels="['August','September','October','November','December','January','February']"
-                data-value="[{ label: 'First dataset', data: [65, 59, 80, 81, 56, 55, 40] }, { label: 'Second dataset', data: [28, 48, 40, 19, 86, 27, 90] }]">
-              </canvas>
+          <div className='col-sm-6 col-lg-3 m-b'>
+            <div className='statcard statcard-danger'>
+              <div className='p-a'>
+                <span className='statcard-desc'>Pending Requests</span>
+                <h2 className='statcard-number'>
+                  758
+                  <small className='delta-indicator delta-negative'>1.3%</small>
+                </h2>
+                <hr className='statcard-hr m-b-0' />
+              </div>
+              <canvas id='sparkline1' width='378' height='94' className='sparkline' data-chart='spark-line' data-value='[{data:[4,34,64,27,96,50,80]}]' data-labels="['a', 'b','c','d','e','f','g']" style={{width: '189px', height: '47px'}}></canvas>
+            </div>
+          </div>
+          <div className='col-sm-6 col-lg-3 m-b'>
+            <div className='statcard statcard-info'>
+              <div className='p-a'>
+                <span className='statcard-desc'>Available Rooms</span>
+                <h2 className='statcard-number'>
+                  1,293
+                  <small className='delta-indicator delta-positive'>6.75%</small>
+                </h2>
+                <hr className='statcard-hr m-b-0' />
+              </div>
+              <canvas id='sparkline1' width='378' height='94' className='sparkline' data-chart='spark-line' data-value='[{data:[12,38,32,60,36,54,68]}]' data-labels="['a', 'b','c','d','e','f','g']" style={{width: '189px', height: '47px'}}></canvas>
+            </div>
+          </div>
+          <div className='col-sm-6 col-lg-3 m-b'>
+            <div className='statcard statcard-warning'>
+              <div className='p-a'>
+                <span className='statcard-desc'>Facebook Likes</span>
+                <h2 className='statcard-number'>
+                  758
+                  <small className='delta-indicator delta-negative'>1.3%</small>
+                </h2>
+                <hr className='statcard-hr m-b-0' />
+              </div>
+              <canvas id='sparkline1' width='378' height='94' className='sparkline' data-chart='spark-line' data-value='[{data:[43,48,52,58,50,95,100]}]' data-labels="['a', 'b','c','d','e','f','g']" style={{width: '189px', height: '47px'}}></canvas>
             </div>
           </div>
         </div>
@@ -80,63 +101,8 @@ class Dashboard extends Component {
             <Link to='/dashboard/rooms' href='#' className='btn btn-primary-outline'>View all rooms</Link>
           </div>
           <div className='col-md-4 m-b'>
-            <div className='list-group'>
-              <h4 className='list-group-header'>
-                Reservations
-              </h4>
-
-                <a className='list-group-item' href='#'>
-                  <span className='pull-right text-muted'>3,929,481</span>
-                  Desktop (1920x1080)
-                </a>
-
-                <a className='list-group-item' href='#'>
-                  <span className='pull-right text-muted'>1,143,393</span>
-                  Desktop (1366x768)
-                </a>
-
-                <a className='list-group-item' href='#'>
-                  <span className='pull-right text-muted'>938,287</span>
-                  Desktop (1440x900)
-                </a>
-
-                <a className='list-group-item' href='#'>
-                  <span className='pull-right text-muted'>749,393</span>
-                  Desktop (1280x800)
-                </a>
-
-                <a className='list-group-item' href='#'>
-                  <span className='pull-right text-muted'>695,912</span>
-                  Tablet (1024x768)
-                </a>
-
-                <a className='list-group-item' href='#'>
-                  <span className='pull-right text-muted'>501,938</span>
-                  Tablet (768x1024)
-                </a>
-
-                <a className='list-group-item' href='#'>
-                  <span className='pull-right text-muted'>392,842</span>
-                  Phone (320x480)
-                </a>
-
-                <a className='list-group-item' href='#'>
-                  <span className='pull-right text-muted'>298,183</span>
-                  Phone (720x450)
-                </a>
-
-                <a className='list-group-item' href='#'>
-                  <span className='pull-right text-muted'>193,129</span>
-                  Desktop (2560x1080)
-                </a>
-
-                <a className='list-group-item' href='#'>
-                  <span className='pull-right text-muted'>93,382</span>
-                  Desktop (2560x1600)
-                </a>
-
-            </div>
-            <a href='#' className='btn btn-primary-outline'>View all transactions</a>
+            <ReservationList {...this.props} />
+            <Link to='/dashboard/reservations' href='#' className='btn btn-primary-outline'>View all reservations</Link>
           </div>
         </div>
       </div>
