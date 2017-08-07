@@ -1,13 +1,12 @@
 import React, { Component } from 'react'
 import TextFieldGroup from 'components/common/TextFieldGroup'
 import DatePickerGroup from 'components/common/DatePickerGroup'
-import Button from 'components/common/Button'
 import validateInput from 'utils/validators/reserve'
 import {
   ModalBody,
   ModalFooter
 } from 'react-modal-bootstrap'
-import { FormControl, DropdownButton, MenuItem, InputGroup } from 'react-bootstrap'
+import { DropdownButton, MenuItem, InputGroup } from 'react-bootstrap'
 
 const InputGroupButton = InputGroup.Button
 
@@ -69,6 +68,8 @@ class ReserveForm extends Component {
   }
 
   render () {
+    console.log('props', this.props)
+    let {branch, rooms, branchId} = this.props
     return (
       <form className='form-access' onSubmit={this.onSubmit}>
         <ModalBody>
@@ -87,8 +88,8 @@ class ReserveForm extends Component {
                   id='input-dropdown-addon'
                   title='Room Types'
                 >
-                  {this.props.branch && JSON.parse(this.props.branch.get('roomTypes')).map((type, key) => {
-                    return (<MenuItem key={key} onClick={e => { this.setState({roomType: type.name, branchId: this.props.branchId}) }}>{type.name}</MenuItem>)
+                  {!!(branch && branchId) && JSON.parse(branch.get('roomTypes')).map((type, key) => {
+                    return (<MenuItem key={key} onClick={e => { this.setState({roomType: type.name, branchId: branchId}) }}>{type.name}</MenuItem>)
                   })}
                 </DropdownButton>
             </div>
@@ -109,7 +110,7 @@ class ReserveForm extends Component {
                   title='Room Names'
                   disabled={this.state.roomType == ''}
                 >
-                {this.props.rooms && this.props.rooms.map((room, key) => {
+                {rooms && rooms.map((room, key) => {
                   if (this.state.roomType === room.get('type')) {
                     return (<MenuItem key={key} onClick={e => { this.setState({room: room.get('name'), roomId: room.get('id')}) }}>{room.get('name')}</MenuItem>)
                   }
@@ -167,8 +168,8 @@ class ReserveForm extends Component {
               <div className='flextable'>
                 <div className='flextable-item'>
                   <DatePickerGroup
-                    onChange={e => { this.setState({startDate: e, endDate: null}) }}
-                    value={this.state.startDate}
+                    onChange={e => { this.setState({startDate: e, endDate: e}) }}
+                    value={this.state.startDate || new Date().toISOString()}
                     field='startDate'
                     placeholder='Start Date'
                     error={this.state.errors.startDate}
@@ -177,7 +178,7 @@ class ReserveForm extends Component {
                 <div className='flextable-item'>
                   <DatePickerGroup
                     onChange={e => { this.setState({endDate: e}) }}
-                    value={this.state.endDate}
+                    value={this.state.endDate || new Date().toISOString()}
                     field='endDate'
                     placeholder='End Date'
                     disabled={this.state.startDate == null}
