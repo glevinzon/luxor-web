@@ -1,111 +1,113 @@
 @font-face {
-  font-family: "toolkit-entypo";
-  src: url('http://localhost:3000/fonts/toolkit-entypo.eot');
-  src: url('http://localhost:3000/fonts/toolkit-entypo.eot?#iefix') format("eot"), url('http://localhost:3000/fonts/toolkit-entypo.woff2') format("woff2"), url('http://localhost:3000/fonts/toolkit-entypo.woff') format("woff"), url('http://localhost:3000/fonts/toolkit-entypo.ttf') format("truetype");
-  font-weight: normal;
-  font-style: normal;
+    font-family: "toolkit-entypo";
+    src: url('http://luxor-web.herokuapp.com/fonts/toolkit-entypo.eot');
+    src: url('http://luxor-web.herokuapp.com/fonts/toolkit-entypo.eot?#iefix') format("eot"), url('http://luxor-web.herokuapp.com/fonts/toolkit-entypo.woff2') format("woff2"), url('http://luxor-web.herokuapp.com/fonts/toolkit-entypo.woff') format("woff"), url('http://luxor-web.herokuapp.com/fonts/toolkit-entypo.ttf') format("truetype");
+    font-weight: normal;
+    font-style: normal;
 }
 
 :global {
-  @import 'base';
-  @import '~normalize.css/normalize';
-
-  // Some best-practice CSS that's useful for most apps
-  // Just remove them if they're not what you want
-  html {
-    box-sizing: border-box;
-  }
-
-  html,
-  body {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-  }
-
-  *,
-  *:before,
-  *:after {
-    box-sizing: inherit;
-  }
-
-  /* global spacing overrides */
-  h1, h2, h3, h4, h5, h6,
-  .h1, .h2, .h3, .h4, .h5, .h6 {
-    margin-top: 0;
-  }
-  hr {
-    margin-top: 30px;
-    margin-bottom: 30px;
-  }
-
-  .navbar-fixed-top,
-  .navbar-static-top {
-    border-bottom: 0;
-  }
-
-  body {
-    font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-size: 14px;
-    line-height: 1.5;
-    color: #cfd2da;
-    background-color: #252830;
-  }
-  .date-picker-popover {
-    background-color: #333;
-    .popover-title{
-      color: #000;
+    @import 'base';
+    @import '~normalize.css/normalize';
+    // Some best-practice CSS that's useful for most apps
+    // Just remove them if they're not what you want
+    html {
+        box-sizing: border-box;
     }
-  }
-  .maps-wrapper{
-    @media (min-width: 320px) {
-        width: 100%;
-      }
-
-    @media (min-width: 768px) {
-      width: 65%;
+    html,
+    body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
     }
-  }
-  .modal-title {
-    color: #000000;
-  }
-
-  .modal-body {
-    background: #252830;
-  }
-  .sweet-alert h2{
-    color: #000;
-  }
-  .carousel-indicators {
-    display: none;
-  }
-  .left.carousel-control {
-    display: none;
-  }
-  .right.carousel-control{
-    display: none;
-  }
-  .cta.faqs-wrapper {
-    background-size: inherit !important;
-    background-image: none !important;
-    background: url("http://localhost:3000/img/bg-pattern.png"), #7b4397;
-    /* fallback for old browsers */
-    background: url("http://localhost:3000/img/bg-pattern.png"), -webkit-linear-gradient(to left, #7b4397, #dc2430);
-    /* Chrome 10-25, Safari 5.1-6 */
-    background: url("http://localhost:3000/img/bg-pattern.png"), linear-gradient(to left, #7b4397, #dc2430);
+    *,
+    *:before,
+    *:after {
+        box-sizing: inherit;
     }
-  .popover-content {
-    padding: 0px;
-    .list-group{
-      margin: 0px;
+    /* global spacing overrides */
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    .h1,
+    .h2,
+    .h3,
+    .h4,
+    .h5,
+    .h6 {
+        margin-top: 0;
     }
-  }
-  #error-container {
-    margin-top: -60px;
-    position: fixed;
-    width: 90%;
-    box-sizing: border-box;
-    padding: 0;
-    z-index:9999;
-  }
+    hr {
+        margin-top: 30px;
+        margin-bottom: 30px;
+    }
+    .navbar-fixed-top,
+    .navbar-static-top {
+        border-bottom: 0;
+    }
+    body {
+        font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-size: 14px;
+        line-height: 1.5;
+        color: #cfd2da;
+        background-color: #252830;
+    }
+    .date-picker-popover {
+        background-color: #333;
+        .popover-title {
+            color: #000;
+        }
+    }
+    .maps-wrapper {
+        @media (min-width: 320px) {
+            width: 100%;
+        }
+        @media (min-width: 768px) {
+            width: 65%;
+        }
+    }
+    .modal-title {
+        color: #000000;
+    }
+    .modal-body {
+        background: #252830;
+    }
+    .sweet-alert h2 {
+        color: #000;
+    }
+    .carousel-indicators {
+        display: none;
+    }
+    .left.carousel-control {
+        display: none;
+    }
+    .right.carousel-control {
+        display: none;
+    }
+    .cta.faqs-wrapper {
+        background-size: inherit !important;
+        background-image: none !important;
+        background: url("http://luxor-web.herokuapp.com/img/bg-pattern.png"), #7b4397;
+        /* fallback for old browsers */
+        background: url("http://luxor-web.herokuapp.com/img/bg-pattern.png"), -webkit-linear-gradient(to left, #7b4397, #dc2430);
+        /* Chrome 10-25, Safari 5.1-6 */
+        background: url("http://luxor-web.herokuapp.com/img/bg-pattern.png"), linear-gradient(to left, #7b4397, #dc2430);
+    }
+    .popover-content {
+        padding: 0px;
+        .list-group {
+            margin: 0px;
+        }
+    }
+    #error-container {
+        margin-top: -60px;
+        position: fixed;
+        width: 90%;
+        box-sizing: border-box;
+        padding: 0;
+        z-index: 9999;
+    }
 }
