@@ -3,7 +3,9 @@ import { DropdownButton, MenuItem, Label } from 'react-bootstrap'
 
 class MainNav extends Component {
   render () {
+    console.log(this.props)
     let { branches, branchId } = this.props
+    var keys = Object.keys(branches)
     return (
       <nav id='mainNav' className='navbar navbar-default navbar-fixed-top'>
         <div className='container'>
@@ -29,7 +31,7 @@ class MainNav extends Component {
               <li>
                 <a className='page-scroll' href='#contact'>Contact Us</a>
               </li>
-              {(branches.length == 1) && (
+              {(keys.length > 1) && (
                 <li>
                   <a className='page-scroll'>
                     <DropdownButton bsSize='xsmall' title='Switch branch' id='dropdown-size-small'>

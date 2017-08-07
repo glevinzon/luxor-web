@@ -68,7 +68,6 @@ class ReserveForm extends Component {
   }
 
   render () {
-    console.log('props', this.props)
     let {branch, rooms, branchId} = this.props
     return (
       <form className='form-access' onSubmit={this.onSubmit}>

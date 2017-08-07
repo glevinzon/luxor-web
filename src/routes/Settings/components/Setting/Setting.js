@@ -100,7 +100,6 @@ class Setting extends Component {
   }
 
   render () {
-    console.log(this.state)
     let { branches, preferences } = this.state
 
     return (

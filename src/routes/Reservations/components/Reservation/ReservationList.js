@@ -3,7 +3,6 @@ import { Popover, OverlayTrigger } from 'react-bootstrap'
 
 class ReservationList extends Component {
   popoverRight = (reservation) => {
-    console.log('RESERVATION', reservation)
     return (
       <Popover id='popover-positioned-left'>
         <ul key={reservation.get('code')} className='list-group'>
