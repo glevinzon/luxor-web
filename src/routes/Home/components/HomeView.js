@@ -28,7 +28,7 @@ class HomeView extends Component {
   componentWillReceiveProps (nextProps) {
     let { fetchingBranchSuccess, fetchingSettingsSuccess, branches, settings, rooms } = nextProps
 
-    if (fetchingSettingsSuccess && settings) {
+    if (fetchingSettingsSuccess && settings && branches) {
       let branchId = this.state.branchId || settings.get('branch_id')
       let preferences = JSON.parse(settings.get('preferences'))
 

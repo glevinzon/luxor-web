@@ -29,17 +29,19 @@ class MainNav extends Component {
               <li>
                 <a className='page-scroll' href='#contact'>Contact Us</a>
               </li>
-              <li>
-                <a className='page-scroll'>
-                  <DropdownButton bsSize='xsmall' title='Switch branch' id='dropdown-size-small'>
-                    {branches.map((branch, key) => {
-                      if (branchId != branch.get('id')) {
-                        return (<MenuItem key={key} name={branch.get('id')} eventKey={branch.get('code')} onClick={e => this.props.switchBranchCb(e)}>{branch.get('name')}</MenuItem>)
-                      }
-                    })}
-                  </DropdownButton>
-                </a>
-              </li>
+              {(branches.length == 1) && (
+                <li>
+                  <a className='page-scroll'>
+                    <DropdownButton bsSize='xsmall' title='Switch branch' id='dropdown-size-small'>
+                      {branches.map((branch, key) => {
+                        if (branchId != branch.get('id')) {
+                          return (<MenuItem key={key} name={branch.get('id')} eventKey={branch.get('code')} onClick={e => this.props.switchBranchCb(e)}>{branch.get('name')}</MenuItem>)
+                        }
+                      })}
+                    </DropdownButton>
+                  </a>
+                </li>
+              )}
             </ul>
           </div>
         </div>

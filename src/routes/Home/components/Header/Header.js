@@ -59,7 +59,7 @@ class Header extends Component {
               <div className='header-content'>
                 <div className='header-content-inner'>
                   {this.state.title && (<h1>{this.state.title}</h1>)}
-                  <a href='#download' className='btn btn-outline btn-xl page-scroll' onClick={this.openModal} >Reserve Now!</a>
+                  {this.state.title && (<a href='#download' className='btn btn-outline btn-xl page-scroll' onClick={this.openModal} >Reserve Now!</a>)}
                 </div>
               </div>
             </div>
@@ -72,7 +72,6 @@ class Header extends Component {
           </ModalHeader>
           <ReserveForm show={this.state.isOpen} {...this.props} />
         </Modal>
-
       </header>
     )
   }
