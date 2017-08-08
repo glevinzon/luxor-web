@@ -14,6 +14,7 @@ export const GET_DUMB = 'api/GET_DUMB'
 
 export function uploadImage (data, target) {
   return (dispatch, getState) => {
+    dispatch(showLoading())
     const { accessToken } = getState().auth.toJS()
     return dispatch({
       [CALL_API]: {
@@ -28,7 +29,7 @@ export function uploadImage (data, target) {
           UPLOAD_IMAGE_SUCCESS,
           UPLOAD_IMAGE_FAIL]
       }
-    })
+    }).then(() => { dispatch(hideLoading()) })
   }
 }
 
