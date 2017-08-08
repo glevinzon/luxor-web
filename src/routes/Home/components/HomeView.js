@@ -62,7 +62,7 @@ class HomeView extends Component {
       <div id='page-top' className='page-top'>
         {branches && (<MainNav branchId={branchId} switchBranchCb={branch => this.handleSwitchBranch(branch)} branches={branches} />)}
         <Header {...this.props} branch={this.state.branch} branchId={branchId} rooms={this.state.availableRooms} preferences={this.state.preferences} />
-        <Slick {...this.props} />
+        <Slick branch={this.state.branch} rooms={this.state.rooms} />
         <Download preferences={this.state.preferences} />
         <Features branch={this.state.branch} rooms={this.state.rooms} />
         <Location branch={this.state.branch} />
