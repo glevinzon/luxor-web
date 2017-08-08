@@ -7,6 +7,7 @@ import Cta from './Cta'
 import Location from './Location'
 import Footer from './Footer'
 import Contact from './Contact'
+import Slick from './Slick'
 
 class HomeView extends Component {
   state = {
@@ -61,6 +62,7 @@ class HomeView extends Component {
       <div id='page-top' className='page-top'>
         {branches && (<MainNav branchId={branchId} switchBranchCb={branch => this.handleSwitchBranch(branch)} branches={branches} />)}
         <Header {...this.props} branch={this.state.branch} branchId={branchId} rooms={this.state.availableRooms} preferences={this.state.preferences} />
+        <Slick {...this.props} />
         <Download preferences={this.state.preferences} />
         <Features branch={this.state.branch} rooms={this.state.rooms} />
         <Location branch={this.state.branch} />
