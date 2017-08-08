@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Slider from 'react-slick'
-import pickRandom from 'pick-random'
+import shuffle from 'shuffle-array'
 
 class Slick extends Component {
   state = {
@@ -29,9 +29,9 @@ class Slick extends Component {
       })
       let images = []
       if (image.length > 1) {
-        images = pickRandom(image, {count: 2})
+        images = shuffle.pick(image, { 'picks': 2 })
       } else if (image.length == 1) {
-        images = pickRandom(image, {count: 1})
+        images = shuffle.pick(image, { 'picks': 1 })
       } else {
         images = null
       }
@@ -58,6 +58,7 @@ class Slick extends Component {
       <section id='carousel' className='carousel bg-primary' style={{padding: '0px', minHeight: '100%'}}>
         <Slider {...settings} >
           <div style={{ background: `url(${this.state.rooms ? this.state.rooms[0].url : ''}) center center / auto 100% no-repeat`, height: '420px', width: '100%' }} />
+          <div style={{ background: `url(${this.state.rooms ? this.state.rooms[1].url : ''}) center center / auto 100% no-repeat`, height: '420px', width: '100%' }} />
         </Slider>
       </section>
     )
