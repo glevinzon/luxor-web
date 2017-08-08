@@ -87,6 +87,12 @@
     .right.carousel-control {
         display: none;
     }
+    .slick-arrow.slick-prev {
+      display: none;
+    }
+    .slick-arrow.slick-next {
+      display: none;
+    }
     .cta.faqs-wrapper {
         background-size: inherit !important;
         background-image: none !important;

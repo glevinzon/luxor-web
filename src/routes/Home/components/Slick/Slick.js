@@ -27,28 +27,22 @@ class Slick extends Component {
           }
         })
       })
-      let images = []
-      if (image.length > 1) {
-        images = shuffle.pick(image, { 'picks': 2 })
-      } else if (image.length == 1) {
-        images = shuffle.pick(image, { 'picks': 1 })
-      } else {
-        images = null
-      }
-      this.setState({types: JSON.parse(branch.get('roomTypes')), branchCode: branch.get('code'), rooms: images})
+
+      this.setState({types: JSON.parse(branch.get('roomTypes')), branchCode: branch.get('code'), rooms: shuffle(image) })
     }
   }
 
   render () {
-    console.log(this.state.rooms)
+    let { rooms } = this.state
     const settings = {
       dots: false,
       infinite: true,
       speed: 500,
-      slidesToShow: 1,
+      slidesToShow: 4,
       slidesToScroll: 1,
       autoplay: true,
-      autoplaySpeed: 4000,
+      autoplaySpeed: 2000,
+      adaptiveHeight: true,
       beforeChange: function (currentSlide, nextSlide) {
         console.log('before change', currentSlide, nextSlide)
       }
@@ -56,10 +50,14 @@ class Slick extends Component {
 
     return (
       <section id='carousel' className='carousel bg-primary' style={{padding: '0px', minHeight: '100%'}}>
-        <Slider {...settings} >
-          <div style={{ background: `url(${this.state.rooms ? this.state.rooms[0].url : ''}) center center / auto 100% no-repeat`, height: '420px', width: '100%' }} />
-          <div style={{ background: `url(${this.state.rooms ? this.state.rooms[1].url : ''}) center center / auto 100% no-repeat`, height: '420px', width: '100%' }} />
-        </Slider>
+        {rooms
+          ? (<Slider {...settings} >
+            {rooms.map(room => {
+              return <div style={{ background: `url(${room.url}) center center / auto 100% no-repeat`, height: '420px', width: '100%' }} />
+            })}
+          </Slider>)
+          : null}
+
       </section>
     )
   }
