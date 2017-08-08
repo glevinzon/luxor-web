@@ -3,7 +3,6 @@ import { DropdownButton, MenuItem, Label } from 'react-bootstrap'
 
 class MainNav extends Component {
   render () {
-    console.log(this.props)
     let { branches, branchId } = this.props
     var keys = Object.keys(branches)
     return (
