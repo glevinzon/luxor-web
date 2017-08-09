@@ -42,10 +42,10 @@ class RoomUploadModal extends Component {
 
       this.props.uploadImage(formData, target, roomId)
     }
+    this.hideModal()
   }
 
   render () {
-    console.log(this.props)
     let { room } = this.props
     return (
       <Modal isOpen={this.props.open} onRequestHide={this.hideModal}>
