@@ -4,6 +4,7 @@ import moment from 'moment'
 import cx from 'classnames'
 import SweetAlert from 'react-bootstrap-sweetalert'
 import RoomImagesModal from './RoomImagesModal'
+import RoomUploadModal from './RoomUploadModal'
 
 class RoomTable extends Component {
   constructor (props) {
@@ -14,6 +15,7 @@ class RoomTable extends Component {
       delete: false,
       alert: false,
       show: false,
+      open: false,
       selectedRoom: null
     }
   }
@@ -72,14 +74,14 @@ class RoomTable extends Component {
     this.setState({page})
   }
 
-  handleRoomImageUpload = (roomCode) => {
-    this.setState({selectedRoom: roomCode, show: true})
-
-    console.log('UPLOAD', roomCode)
+  handleRoomImageUploads = (room) => {
+    this.setState({selectedRoom: room, show: true})
   }
 
   render () {
+    console.log(this.props)
     let { branches, rooms, fetchingRooms } = this.props
+    let { selectedRoom } = this.state
     if (rooms) {
       var total = rooms.get('total')
       var currentPage = rooms.get('currentPage')
@@ -95,7 +97,10 @@ class RoomTable extends Component {
       <div>
         {this.state.delete}
         {this.state.alert}
-        <RoomImagesModal show={this.state.show} onCloseCb={e => { this.setState({show: false}) }} selectedRoom={this.state.selectedRoom} />
+        <RoomImagesModal room={selectedRoom} show={this.state.show} onOpenUploadModal={e => { this.setState({open: true}) }} onCloseCb={e => { this.setState({show: false}) }} selectedRoom={this.state.selectedRoom} />
+        {selectedRoom && (
+          <RoomUploadModal room={selectedRoom} open={this.state.open} onCloseCb={e => { this.setState({open: false}) }} uploadImage={this.props.uploadImage} />
+        )}
         <div className='table-full'>
           <div className='table-responsive'>
             <table className='table' data-sort='table'>
@@ -115,7 +120,7 @@ class RoomTable extends Component {
                 {data && (data.map(room => {
                   return (
                     <tr key={room.get('id')}>
-                      <td><a onClick={e => this.handleRoomImageUpload(room.get('code'))}>{room.get('code')}</a></td>
+                      <td><a onClick={e => this.handleRoomImageUploads(room)}>{room.get('code')}</a></td>
                       <td>{branchesData && branchesData.map(branch => {
                         if (branch.get('id') === room.get('branch_id')) {
                           return (branch.get('name'))

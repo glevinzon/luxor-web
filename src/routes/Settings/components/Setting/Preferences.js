@@ -1,9 +1,7 @@
 import React, { Component } from 'react'
 import TextFieldGroup from 'components/common/TextFieldGroup'
-import classnames from 'classnames'
 import Dropzone from 'react-dropzone'
 import FormData from 'form-data'
-import RoomImages from './RoomImages'
 import SweetAlert from 'react-bootstrap-sweetalert'
 
 class Preferences extends Component {
@@ -99,6 +97,20 @@ class Preferences extends Component {
     this.props.settingsCb(data, this.props.branch.get('code'), false)
   }
 
+  handleCarouselDeletion = (index) => {
+    let {carouselTexts} = this.state
+    let texts = []
+    if (carouselTexts) {
+      var testArray = carouselTexts
+      testArray.splice(index, 1)
+      let data = this.state
+      data.carouselTexts = testArray
+      data.carouselText = null
+      data.alert = null
+      this.props.settingsCb(data, this.props.branch.get('code'), false)
+    }
+  }
+
   renderCarouselTexts = () => {
     return (
       <div className='form-group row'>
@@ -106,7 +118,7 @@ class Preferences extends Component {
           <ul className='list-group' style={{ background: '#252830'}}>
             {this.state.carouselTexts && this.state.carouselTexts.map((text, i) => {
               return (
-                <li key={i} className='list-group-item'>{text.name}</li>
+                <li key={i} className='list-group-item'>{text.name}&nbsp;<button type='button' className='btn btn-xs btn-pill btn-danger' onClick={e => { this.handleCarouselDeletion(i) }}>Delete</button></li>
               )
             })}
             <li className='list-group-item'>
@@ -133,22 +145,10 @@ class Preferences extends Component {
     )
   }
 
-  // handlePreferencesCb = (rooms, upload) => {
-  //   let data = this.state
-  //   data.rooms = rooms
-  //   data.alert = null
-  //   this.props.settingsCb(data, this.props.branch.get('code'), upload)
-  // }
-
-  // renderRoomImages = (rooms) => {
-  //   return (
-  //     <RoomImages rooms={rooms} preferencesCb={(rooms, upload) => this.handlePreferencesCb(rooms, upload)} {...this.props} />
-  //   )
-  // }
-
   render () {
     let { branch } = this.props
     let { rooms } = this.state
+
     return (
       <form className='form-access container' style={{ paddingTop: '1em' }}>
         {this.state.alert}

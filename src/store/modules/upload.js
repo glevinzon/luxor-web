@@ -12,13 +12,17 @@ export const GET_DUMB = 'api/GET_DUMB'
 // Actions
 // ------------------------------------
 
-export function uploadImage (data, target) {
+export function uploadImage (data, target, roomId) {
   return (dispatch, getState) => {
     dispatch(showLoading())
     const { accessToken } = getState().auth.toJS()
+    let endpoint = `/api/v1/uploads/${target}`
+    if (roomId) {
+      endpoint = `/api/v1/uploads/${target}/${roomId}`
+    }
     return dispatch({
       [CALL_API]: {
-        endpoint: `/api/v1/uploads/${target}`,
+        endpoint: endpoint,
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${accessToken}`

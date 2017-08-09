@@ -68,7 +68,6 @@ class GridGallery extends Component {
   }
 
   render () {
-    console.log(this.props.images)
     return (
       <div>
         <CheckButton
@@ -88,6 +87,7 @@ class GridGallery extends Component {
           padding: '2px',
           color: '#666'
         }}>Selected images: {this.getSelectedImages().toString()}</div>
+        <button type='button' className='btn btn-sm btn-pill btn-danger'>Delete</button>
         <div style={{
           display: 'block',
           minHeight: '1px',

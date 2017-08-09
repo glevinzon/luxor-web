@@ -3,12 +3,15 @@ import Room from '../components/Room'
 
 import { createRoom, getRooms, deleteRoom } from 'store/modules/room'
 import { getBranches } from 'store/modules/branch'
+import { uploadImage, getDumb } from 'store/modules/upload'
 
 const mapActionCreators = {
   createRoom,
   getRooms,
   deleteRoom,
-  getBranches
+  getBranches,
+  uploadImage,
+  getDumb
 }
 
 const mapStateToProps = (state) => ({
@@ -18,7 +21,12 @@ const mapStateToProps = (state) => ({
   deletingRoomSuccess: state.room.get('deletingRoomSuccess'),
   room: state.room.get('room'),
   creatingRoomSuccess: state.room.get('creatingRoomSuccess'),
-  branches: state.branch.get('branches')
+  branches: state.branch.get('branches'),
+  upload: state.upload.get('upload'),
+  uploadingImageSuccess: state.upload.get('uploadingImageSuccess'),
+  target: state.upload.get('target'),
+  gettingDumbSuccess: state.upload.get('gettingDumbSuccess'),
+  uploadingImage: state.upload.get('uploadingImage')
 })
 
 export default connect(mapStateToProps, mapActionCreators)(Room)

@@ -217,7 +217,7 @@ class RoomImagesModal extends Component {
           <ModalTitle>Uploads</ModalTitle>
         </ModalHeader>
         <ModalBody>
-          <h4>Room Images</h4>
+          <h4>Room Images <button type='button' className='btn btn-sm btn-pill btn-default' onClick={e => { this.props.onOpenUploadModal() }}>Upload</button></h4>
           <GridGallery images={images} />
         </ModalBody>
       </Modal>
