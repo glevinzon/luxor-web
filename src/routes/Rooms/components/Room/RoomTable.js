@@ -3,6 +3,7 @@ import Immutable from 'immutable'
 import moment from 'moment'
 import cx from 'classnames'
 import SweetAlert from 'react-bootstrap-sweetalert'
+import RoomImagesModal from './RoomImagesModal'
 
 class RoomTable extends Component {
   constructor (props) {
@@ -11,7 +12,9 @@ class RoomTable extends Component {
       page: 1,
       count: 15,
       delete: false,
-      alert: false
+      alert: false,
+      show: false,
+      selectedRoom: null
     }
   }
 
@@ -69,6 +72,12 @@ class RoomTable extends Component {
     this.setState({page})
   }
 
+  handleRoomImageUpload = (roomCode) => {
+    this.setState({selectedRoom: roomCode, show: true})
+
+    console.log('UPLOAD', roomCode)
+  }
+
   render () {
     let { branches, rooms, fetchingRooms } = this.props
     if (rooms) {
@@ -86,6 +95,7 @@ class RoomTable extends Component {
       <div>
         {this.state.delete}
         {this.state.alert}
+        <RoomImagesModal show={this.state.show} onCloseCb={e => { this.setState({show: false}) }} selectedRoom={this.state.selectedRoom} />
         <div className='table-full'>
           <div className='table-responsive'>
             <table className='table' data-sort='table'>
@@ -105,7 +115,7 @@ class RoomTable extends Component {
                 {data && (data.map(room => {
                   return (
                     <tr key={room.get('id')}>
-                      <td><a href='#'>{room.get('code')}</a></td>
+                      <td><a onClick={e => this.handleRoomImageUpload(room.get('code'))}>{room.get('code')}</a></td>
                       <td>{branchesData && branchesData.map(branch => {
                         if (branch.get('id') === room.get('branch_id')) {
                           return (branch.get('name'))

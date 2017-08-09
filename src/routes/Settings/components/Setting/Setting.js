@@ -20,17 +20,15 @@ class Setting extends Component {
 
     if (fetchingSettingsSuccess && settings) { // getSettings
       let branchId = settings.get('branch_id')
+      let preferences = JSON.parse(settings.get('preferences'))
       if (branches) {
         var branchesData = branches.get('data')
         branchesData.map(branch => {
           if (branch.get('id') === branchId) {
-            this.setState({selectedBranch: branch.get('name'), branches: branchesData})
+            this.setState({branchId, selectedBranch: branch.get('name'), branches: branchesData, preferences})
           }
         })
       }
-
-      let preferences = JSON.parse(settings.get('preferences'))
-      this.setState({branchId, preferences})
     }
     if (creatingSettingSuccess) { // updateSettingsWithCode
       this.setState({alert: (
@@ -55,7 +53,15 @@ class Setting extends Component {
     let data = this.state
     let branchId = data.branchId
     let preferences = data.preferences
-    this.props.updateSettingWithCode('ga6bN', {branchId: branchId || null, preferences: JSON.stringify(preferences)})
+    try {
+      if (branchId != null) {
+        this.props.updateSettingWithCode('ga6bN', {branchId: branchId || null, preferences: JSON.stringify(preferences)})
+      } else {
+        this.props.getSettings('ga6bN')
+      }
+    } catch (e) {
+
+    }
   }
 
   getBranchesMenu = (data) => {
@@ -101,7 +107,7 @@ class Setting extends Component {
 
   render () {
     let { branches, preferences } = this.state
-
+    console.log('SETTINGS', this.state)
     return (
       <div className='container-fluid-spacious' style={{marginTop: '2%'}} >
       {this.state.alert}

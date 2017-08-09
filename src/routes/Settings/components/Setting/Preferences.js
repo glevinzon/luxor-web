@@ -15,7 +15,6 @@ class Preferences extends Component {
     errors: [],
     isLoading: false,
     accepted: null,
-    rooms: null,
     alert: null
   }
 
@@ -134,18 +133,18 @@ class Preferences extends Component {
     )
   }
 
-  handlePreferencesCb = (rooms, upload) => {
-    let data = this.state
-    data.rooms = rooms
-    data.alert = null
-    this.props.settingsCb(data, this.props.branch.get('code'), upload)
-  }
+  // handlePreferencesCb = (rooms, upload) => {
+  //   let data = this.state
+  //   data.rooms = rooms
+  //   data.alert = null
+  //   this.props.settingsCb(data, this.props.branch.get('code'), upload)
+  // }
 
-  renderRoomImages = (rooms) => {
-    return (
-      <RoomImages rooms={rooms} preferencesCb={(rooms, upload) => this.handlePreferencesCb(rooms, upload)} {...this.props} />
-    )
-  }
+  // renderRoomImages = (rooms) => {
+  //   return (
+  //     <RoomImages rooms={rooms} preferencesCb={(rooms, upload) => this.handlePreferencesCb(rooms, upload)} {...this.props} />
+  //   )
+  // }
 
   render () {
     let { branch } = this.props
@@ -190,7 +189,6 @@ class Preferences extends Component {
           </div>
         </div>
         {this.renderCarouselTexts()}
-        {this.renderRoomImages(rooms || null)}
       </form>
     )
   }

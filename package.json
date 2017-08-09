@@ -122,6 +122,7 @@
     "react-dom": "^15.0.0",
     "react-dropzone": "^3.13.4",
     "react-gmaps": "^1.6.0",
+    "react-grid-gallery": "^0.4.2",
     "react-images": "^0.5.4",
     "react-modal-bootstrap": "^1.1.1",
     "react-redux": "^4.0.0",
