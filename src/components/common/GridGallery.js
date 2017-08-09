@@ -92,7 +92,7 @@ class GridGallery extends Component {
           display: 'block',
           minHeight: '1px',
           width: '100%',
-          border: '1px solid #ddd',
+          border: '0px solid #ddd',
           overflow: 'auto'}}>
           <Gallery
             images={this.state.images}

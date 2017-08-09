@@ -211,13 +211,13 @@ class RoomImagesModal extends Component {
     ]).splice(0, 16)
 
     return (
-      <Modal isOpen={this.state.show} onRequestHide={this.hideModal} >
+      <Modal isOpen={this.state.show} className='room-uploads-overlay' onRequestHide={this.hideModal} >
         <ModalHeader>
           <ModalClose onClick={this.hideModal} />
           <ModalTitle>Uploads</ModalTitle>
         </ModalHeader>
         <ModalBody>
-          <h4>Wrapped Text</h4>
+          <h4>Room Images</h4>
           <GridGallery images={images} />
         </ModalBody>
       </Modal>

@@ -1,3 +1,15 @@
 .dashboard-wrapper {
   @import 'toolkit-inverse.scss';
+  .room-uploads-overlay {
+      .modal-dialog {
+          width: 90%;
+          color: #ffffff;
+          .modal-content {
+              background-color: #252830;
+              h4 {
+                  color: #ffffff;
+              }
+          }
+      }
+  }
 }
