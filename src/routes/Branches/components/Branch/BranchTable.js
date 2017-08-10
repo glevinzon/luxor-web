@@ -90,7 +90,7 @@ class BranchTable extends Component {
                   <th>Code</th>
                   <th>Branch Name</th>
                   <th>Address</th>
-                  <th>Coordinates</th>
+                  <th>Geolocation</th>
                   <th>Contact</th>
                   <th>Room Types</th>
                   <th></th>

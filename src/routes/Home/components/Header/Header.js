@@ -51,7 +51,7 @@ class Header extends Component {
 
   render () {
     return (
-      <header style={{ background: `url(${this.state.bgImage}) center center / auto 100% no-repeat`, height: '100%', width: '100%' }}>
+      <header style={{ background: `url(${this.state.bgImage}) center center /  100% 100% no-repeat`, height: '100%', width: '100%' }}>
         {this.state.alert}
         <div className='container'>
           <div className='row'>
