@@ -60,7 +60,7 @@ class Branch extends Component {
               <button type='button' className='btn btn-pill btn-primary' onClick={e => { this.setState({open: true}) }}>Add New</button>
             </div>
           </div>
-          <BranchModal open={this.state.open} onClose={e => { this.setState({ open: false }) }} {...this.props} />
+          <BranchModal selectedBranch={this.state.selectedBranch} open={this.state.open} onClose={e => { this.setState({ open: false }) }} {...this.props} />
           <BranchTable {...this.props} />
 
         </div>

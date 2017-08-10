@@ -10,6 +10,7 @@ import SweetAlert from 'react-bootstrap-sweetalert'
 
 class BranchCreateForm extends Component {
   state = {
+    code: '',
     name: '',
     address: '',
     coordinates: '',
@@ -21,6 +22,20 @@ class BranchCreateForm extends Component {
     lat: null,
     lng: null,
     alert: null
+  }
+
+  componentWillReceiveProps (nextProps) {
+    let { selectedBranch } = nextProps
+    if (selectedBranch) {
+      this.setState({
+        code: selectedBranch.get('code'),
+        name: selectedBranch.get('name'),
+        address: selectedBranch.get('address'),
+        coordinates: JSON.parse(selectedBranch.get('coordinates')),
+        contact: selectedBranch.get('contact'),
+        roomTypes: JSON.parse(selectedBranch.get('roomTypes'))
+      })
+    }
   }
 
   onChange = (e) => {
@@ -50,12 +65,16 @@ class BranchCreateForm extends Component {
       if (this.isValid(data)) {
         data.coordinates = JSON.stringify({lat: this.state.lat || this.state.coordinates.lat, lng: this.state.lng || data.coordinates.lng})
         data.roomTypes = JSON.stringify(data.roomTypes)
-        this.setState({ name: '',
+        this.setState({ code: '', name: '',
           contact: '', address: '',
           coordinates: {lat: null, lng: null}, lat: null, lng: null,
           roomTypes: null, roomType: '', errors: {}, isLoading: true })
 
-        this.props.createBranch(data)
+        if (this.props.selectedBranch) {
+          this.props.updateBranch(data)
+        } else {
+          this.props.createBranch(data)
+        }
       }
     }
   }
@@ -69,6 +88,15 @@ class BranchCreateForm extends Component {
     this.setState({roomTypes: types, roomType: ''})
   }
 
+  handleRoomTypeDeletion = (index) => {
+    let {roomTypes} = this.state
+    if (roomTypes) {
+      var testArray = roomTypes
+      testArray.splice(index, 1)
+      this.setState({roomTypes: testArray})
+    }
+  }
+
   renderRoomTypes = () => {
     return (
       <div className='form-group row'>
@@ -76,7 +104,7 @@ class BranchCreateForm extends Component {
         <ul className='list-group' style={{ background: '#252830'}}>
           {this.state.roomTypes && this.state.roomTypes.map((room, key) => {
             return (
-              <li key={key} className='list-group-item'>{room.name}</li>
+              <li key={key} className='list-group-item'>{room.name}&nbsp;<button type='button' className='btn btn-xs btn-pill btn-danger' onClick={e => { this.handleRoomTypeDeletion(key) }}>Delete</button></li>
             )
           })}
           <li className='list-group-item'>

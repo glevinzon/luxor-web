@@ -37,13 +37,33 @@ export function getBranches (page = 1, count = 10) {
 }
 
 export function createBranch (data) {
-  console.log('data', data)
   return (dispatch, getState) => {
     const { accessToken } = getState().auth.toJS()
     return dispatch({
       [CALL_API]: {
         endpoint: '/api/v1/branch',
         method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${accessToken}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data),
+        types: [
+          CREATE_BRANCH,
+          CREATE_BRANCH_SUCCESS,
+          CREATE_BRANCH_FAIL]
+      }
+    })
+  }
+}
+
+export function updateBranch (data) {
+  return (dispatch, getState) => {
+    const { accessToken } = getState().auth.toJS()
+    return dispatch({
+      [CALL_API]: {
+        endpoint: '/api/v1/branch',
+        method: 'PUT',
         headers: {
           'Authorization': `Bearer ${accessToken}`,
           'Content-Type': 'application/json'

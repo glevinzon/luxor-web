@@ -1,12 +1,13 @@
 import {connect} from 'react-redux'
 import Branch from '../components/Branch'
 
-import { createBranch, getBranches, deleteBranch } from 'store/modules/branch'
+import { createBranch, getBranches, deleteBranch, updateBranch } from 'store/modules/branch'
 
 const mapActionCreators = {
   createBranch,
   getBranches,
-  deleteBranch
+  deleteBranch,
+  updateBranch
 }
 
 const mapStateToProps = (state) => ({

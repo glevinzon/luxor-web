@@ -3,6 +3,7 @@ import Immutable from 'immutable'
 import moment from 'moment'
 import cx from 'classnames'
 import SweetAlert from 'react-bootstrap-sweetalert'
+import BranchModal from './BranchModal'
 
 class BranchTable extends Component {
   constructor (props) {
@@ -11,7 +12,9 @@ class BranchTable extends Component {
       page: 1,
       count: 15,
       delete: false,
-      alert: false
+      alert: false,
+      selectedBranch: null,
+      open: false
     }
   }
 
@@ -25,6 +28,17 @@ class BranchTable extends Component {
           </SweetAlert>
           )
       })
+    }
+    if (nextProps.creatingBranchSuccess) {
+      this.setState({
+        open: false,
+        alert: (
+          <SweetAlert success title='Info Sent' onConfirm={e => { this.setState({alert: null}) }}>
+            Sweet!
+          </SweetAlert>
+        )
+      })
+      this.props.getBranches(1, 10)
     }
   }
 
@@ -80,6 +94,7 @@ class BranchTable extends Component {
 
     return (
       <div>
+      <BranchModal selectedBranch={this.state.selectedBranch || null} open={this.state.open} onClose={e => { this.setState({ open: false }) }} {...this.props} />
         {this.state.delete}
         {this.state.alert}
         <div className='table-full'>
@@ -110,7 +125,7 @@ class BranchTable extends Component {
                       })}</td>
                       <td>
                         <div className='btn-group'>
-                          <button type='button' className='btn btn-primary-outline'>
+                          <button type='button' className='btn btn-primary-outline' onClick={e => (this.setState({selectedBranch: branch, open: true}))}>
                             <span className='icon icon-pencil' />
                           </button>
                           <button type='button' className='btn btn-primary-outline' onClick={e => { this.handleDelete(branch.get('code')) }}>
