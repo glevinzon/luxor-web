@@ -49,7 +49,7 @@ class GridGallery extends Component {
   getSelectedImages = () => {
     var selected = []
     for (var i = 0; i < this.state.images.length; i++) {
-      if (this.state.images[i].isSelected == true) { selected.push(i) }
+      if (this.state.images[i].isSelected == true) { selected.push(this.state.images[i].code) }
     }
     return selected
   }
@@ -71,7 +71,14 @@ class GridGallery extends Component {
     })
   }
 
+  handleDeleteUploads = (selectedImages) => {
+    if (selectedImages.length > 0) {
+      this.props.deleteUploadsByRoomCodes({roomCodes: JSON.stringify(selectedImages)})
+      this.setState({selectAllChecked: false, images: null})
+    }
+  }
   render () {
+    console.log('GRID', this.props)
     return (
       <div>
         <CheckButton
@@ -87,11 +94,7 @@ class GridGallery extends Component {
           display: 'flex',
           alignItems: 'center'
         }}> select all </div>
-        <div style={{
-          padding: '2px',
-          color: '#666'
-        }}>Selected images: {this.getSelectedImages().toString()}</div>
-        <button type='button' className='btn btn-sm btn-pill btn-danger'>Delete</button>
+        <button type='button' disabled={this.getSelectedImages().length < 1} className='btn btn-sm btn-pill btn-danger' onClick={e => { this.handleDeleteUploads(this.getSelectedImages()) }}>Delete</button>
         <div style={{
           display: 'block',
           minHeight: '1px',

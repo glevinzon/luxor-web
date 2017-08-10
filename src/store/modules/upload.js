@@ -12,6 +12,10 @@ export const GET_UPLOADS_BY_ROOMID = 'api/GET_UPLOADS_BY_ROOMID'
 export const GET_UPLOADS_BY_ROOMID_SUCCESS = 'api/GET_UPLOADS_BY_ROOMID_SUCCESS'
 export const GET_UPLOADS_BY_ROOMID_FAIL = 'api/GET_UPLOADS_BY_ROOMID_FAIL'
 
+export const DELETE_UPLOADS_BY_ROOMCODES = 'api/DELETE_UPLOADS_BY_ROOMCODES'
+export const DELETE_UPLOADS_BY_ROOMCODES_SUCCESS = 'api/DELETE_UPLOADS_BY_ROOMCODES_SUCCESS'
+export const DELETE_UPLOADS_BY_ROOMCODES_FAIL = 'api/DELETE_UPLOADS_BY_ROOMCODES_FAIL'
+
 // ------------------------------------
 // Actions
 // ------------------------------------
@@ -55,6 +59,28 @@ export function getUploadsByRoomId (roomId = null) {
         types: [GET_UPLOADS_BY_ROOMID, GET_UPLOADS_BY_ROOMID_SUCCESS, GET_UPLOADS_BY_ROOMID_FAIL]
       }
     }).then(() => { dispatch(hideLoading()) })
+  }
+}
+
+export function deleteUploadsByRoomCodes (data) {
+  console.log('SELECTED', data)
+  return (dispatch, getState) => {
+    const { accessToken } = getState().auth.toJS()
+    return dispatch({
+      [CALL_API]: {
+        endpoint: '/api/v1/uploads',
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${accessToken}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data),
+        types: [
+          DELETE_UPLOADS_BY_ROOMCODES,
+          DELETE_UPLOADS_BY_ROOMCODES_SUCCESS,
+          DELETE_UPLOADS_BY_ROOMCODES_FAIL]
+      }
+    })
   }
 }
 
@@ -111,7 +137,8 @@ actionHandlers[ UPLOAD_IMAGE_FAIL ] = (state, action) => {
 actionHandlers[ GET_DUMB ] = state => {
   return state.merge({
     uploadingImageSuccess: false,
-    fetchingUploadsByRoomIdSuccess: false
+    fetchingUploadsByRoomIdSuccess: false,
+    deletingUploadsByRoomCodesSuccess: false
   })
 }
 
@@ -141,6 +168,30 @@ actionHandlers[ GET_UPLOADS_BY_ROOMID_FAIL ] = (state, action) => {
   })
 }
 
+actionHandlers[ DELETE_UPLOADS_BY_ROOMCODES ] = state => {
+  return state.merge({
+    deletingUploadsByRoomCodes: true,
+    deletingUploadsByRoomCodesSuccess: false,
+    deleteUploadsByRoomCodesError: null
+  })
+}
+
+actionHandlers[ DELETE_UPLOADS_BY_ROOMCODES_SUCCESS ] = (state, action) => {
+  return state.merge({
+    deletingUploadsByRoomCodes: false,
+    deletingUploadsByRoomCodesSuccess: true,
+    deleteUploadsByRoomCodesError: null
+  })
+}
+
+actionHandlers[ DELETE_UPLOADS_BY_ROOMCODES_FAIL ] = (state, action) => {
+  return state.merge({
+    deletingUploadsByRoomCodes: false,
+    deletingUploadsByRoomCodesSuccess: false,
+    deleteUploadsByRoomCodesError: action.payload.response.error
+  })
+}
+
 // ------------------------------------
 // Reducer
 // ------------------------------------
@@ -153,7 +204,10 @@ const initialState = Immutable.fromJS({
   fetchingUploadsByRoomId: false,
   fetchingUploadsByRoomIdSuccess: false,
   getUploadsByRoomIdError: null,
-  uploadsByRoomId: []
+  uploadsByRoomId: [],
+  deletingUploadsByRoomCodes: false,
+  deletingUploadsByRoomCodesSuccess: false,
+  deleteUploadsByRoomCodesError: null
 })
 
 export default function reducer (state = initialState, action) {

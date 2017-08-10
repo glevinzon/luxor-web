@@ -23,12 +23,23 @@ class RoomTable extends Component {
   }
 
   componentWillReceiveProps (nextProps) {
-    let { uploadingImageSuccess, fetchingUploadsByRoomIdSuccess, selectedRoomUploads } = nextProps
+    let { uploadingImageSuccess, fetchingUploadsByRoomIdSuccess, selectedRoomUploads, deletingUploadsByRoomCodesSuccess } = nextProps
     if (uploadingImageSuccess) {
       this.props.getUploadsByRoomId(this.state.selectedRoom.get('id'))
       this.setState({
         alert: (
           <SweetAlert success title='Upload Success' onConfirm={e => { this.setState({alert: null}) }}>
+            Sweet!
+          </SweetAlert>
+          )
+      })
+    }
+
+    if (deletingUploadsByRoomCodesSuccess) {
+      this.props.getUploadsByRoomId(this.state.selectedRoom.get('id'))
+      this.setState({
+        alert: (
+          <SweetAlert success title='Delete Success' onConfirm={e => { this.setState({alert: null}) }}>
             Sweet!
           </SweetAlert>
           )
@@ -119,7 +130,8 @@ class RoomTable extends Component {
           roomImages={selectedRoomUploads}
           show={this.state.show}
           onOpenUploadModal={e => { this.setState({open: true}) }}
-          onCloseCb={e => { this.setState({show: false}) }} />}
+          onCloseCb={e => { this.setState({show: false}) }}
+          deleteUploadsByRoomCodes={this.props.deleteUploadsByRoomCodes} />}
         {selectedRoom && (
           <RoomUploadModal room={selectedRoom} open={this.state.open} onCloseCb={e => { this.setState({open: false}) }} uploadImage={this.props.uploadImage} />
         )}

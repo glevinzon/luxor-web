@@ -37,6 +37,7 @@ class RoomImagesModal extends Component {
       var photos = []
       roomImages.map(image => {
         photos.push({
+          code: image.get('code'),
           src: image.get('path'),
           thumbnail: image.get('path'),
           thumbnailWidth: 320,
@@ -56,7 +57,7 @@ class RoomImagesModal extends Component {
         </ModalHeader>
         <ModalBody>
           <h4>Room Images <button type='button' className='btn btn-sm btn-pill btn-default' onClick={e => { this.props.onOpenUploadModal() }}>Upload</button></h4>
-          {roomImages && (<GridGallery images={photos} />)}
+          {roomImages && (<GridGallery deleteUploadsByRoomCodes={this.props.deleteUploadsByRoomCodes} images={photos} />)}
         </ModalBody>
       </Modal>
     )
