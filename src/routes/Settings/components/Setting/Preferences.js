@@ -76,6 +76,18 @@ class Preferences extends Component {
       data.headerTitle = e.target.value
       data.alert = null
     }
+    if (e.target.name === 'twitter') {
+      data.twitter = e.target.value
+      data.alert = null
+    }
+    if (e.target.name === 'facebook') {
+      data.facebook = e.target.value
+      data.alert = null
+    }
+    if (e.target.name === 'gplus') {
+      data.gplus = e.target.value
+      data.alert = null
+    }
     this.props.settingsCb(data, this.props.branch.get('code'), false)
   }
 
@@ -224,7 +236,6 @@ class Preferences extends Component {
   render () {
     let { branch } = this.props
     let { rooms } = this.state
-    console.log('SETTINGS', this.state)
     return (
       <form className='form-access container' style={{ paddingTop: '1em' }}>
         {this.state.alert}

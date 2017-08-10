@@ -39,7 +39,7 @@ class HomeView extends Component {
           var arrKeys = Object.keys(preferences)
           arrKeys.map(key => {
             if (branch.get('code') == key) {
-              this.setState({selectedBranchCode: branch.get('code'), preferences: preferences[`${key}`], rooms: preferences[`${key}`].rooms.roomImages, branch: branch})
+              this.setState({selectedBranchCode: branch.get('code'), preferences: preferences[`${key}`], branch: branch})
             }
           })
         }
@@ -62,13 +62,13 @@ class HomeView extends Component {
       <div id='page-top' className='page-top'>
         {branches && (<MainNav branchId={branchId} switchBranchCb={branch => this.handleSwitchBranch(branch)} branches={branches} />)}
         <Header {...this.props} branch={this.state.branch} branchId={branchId} rooms={this.state.availableRooms} preferences={this.state.preferences} />
-        <Slick branch={this.state.branch} rooms={this.state.rooms} />
-        <Download preferences={this.state.preferences} />
-        <Features branch={this.state.branch} rooms={this.state.rooms} />
-        <Location branch={this.state.branch} />
-        <Cta />
 
-        <Contact />
+        <Download preferences={this.state.preferences} />
+
+        <Location branch={this.state.branch} />
+        <Cta preferences={this.state.preferences} />
+
+        <Contact preferences={this.state.preferences} />
         <Footer />
       </div>
     )
