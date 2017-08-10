@@ -48,12 +48,14 @@ export function uploadImage (data, target, roomId) {
 export function getUploadsByRoomId (roomId = null) {
   return (dispatch, getState) => {
     dispatch(showLoading())
+    const { accessToken } = getState().auth.toJS()
     let endpoint = `/api/v1/uploads/${roomId}`
     return dispatch({
       [CALL_API]: {
         endpoint,
         method: 'GET',
         headers: {
+          'Authorization': `Bearer ${accessToken}`,
           'Content-Type': 'application/json'
         },
         types: [GET_UPLOADS_BY_ROOMID, GET_UPLOADS_BY_ROOMID_SUCCESS, GET_UPLOADS_BY_ROOMID_FAIL]

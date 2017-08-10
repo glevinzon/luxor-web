@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 
 class Contact extends Component {
-
   state = {
-    statements: null
+    twitter: null,
+    facebook: null,
+    gplus: null
   }
   componentWillReceiveProps (nextProps) {
     let { preferences } = nextProps
