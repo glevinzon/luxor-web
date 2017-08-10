@@ -60,7 +60,7 @@ class HomeView extends Component {
     let { branches, branchId } = this.state
     return (
       <div id='page-top' className='page-top'>
-        {branches && (<MainNav branchId={branchId} switchBranchCb={branch => this.handleSwitchBranch(branch)} branches={branches} />)}
+        <MainNav branchId={branchId} switchBranchCb={branch => this.handleSwitchBranch(branch)} branches={branches} />
         <Header {...this.props} branch={this.state.branch} branchId={branchId} rooms={this.state.availableRooms} preferences={this.state.preferences} />
 
         <Download preferences={this.state.preferences} />

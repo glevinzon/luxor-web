@@ -4,10 +4,12 @@ import { DropdownButton, MenuItem, Label } from 'react-bootstrap'
 class MainNav extends Component {
   render () {
     let { branches, branchId } = this.props
-    var keys = Object.keys(branches)
+    if (branches) {
+      var keys = Object.keys(branches)
+    }
     return (
       <nav id='mainNav' className='navbar navbar-default navbar-fixed-top'>
-        <div className='container'>
+        <div className='container-fluid'>
           <div className='navbar-header'>
             <button type='button' className='navbar-toggle collapsed' data-toggle='collapse' data-target='#bs-example-navbar-collapse-1'>
               <span className='sr-only'>Toggle navigation</span> Menu <i className='fa fa-bars'></i>
@@ -23,9 +25,21 @@ class MainNav extends Component {
                 <a className='page-scroll' href='#location'>Location</a>
               </li>
               <li>
-                <a className='page-scroll' href='#contact'>Contact Us</a>
+                <a className='page-scroll' href='#faqs'>FAQs</a>
               </li>
-              {(keys.length > 1) && (
+              {(keys && keys.length > 1) && (
+                <li>
+                  {branches.map((branch, key) => {
+                    if (branchId != branch.get('id')) {
+                      return <a className='page-scroll' href='#contact'>Contact Us{'( ' + branch.get('contact') + ' )' || ''}</a>
+                    }
+                  })}
+                </li>
+              )}
+              <li>
+
+              </li>
+              {(keys && keys.length > 1) && (
                 <li>
                   <div className='page-scroll' style={{ paddingTop: '15px',
                     paddingBottom: '15px',
