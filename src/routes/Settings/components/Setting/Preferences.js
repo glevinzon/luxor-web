@@ -13,7 +13,13 @@ class Preferences extends Component {
     errors: [],
     isLoading: false,
     accepted: null,
-    alert: null
+    alert: null,
+    faqTexts: null,
+    faqQuestionText: null,
+    faqAnswerText: null,
+    twitter: null,
+    facebook: null,
+    gplus: null
   }
 
   componentWillMount () {
@@ -97,6 +103,21 @@ class Preferences extends Component {
     this.props.settingsCb(data, this.props.branch.get('code'), false)
   }
 
+  handleAddFaqText = () => {
+    let {faqQuestionText, faqAnswerText, faqTexts} = this.state
+    let texts = faqTexts || []
+    if ((faqQuestionText != '' && faqQuestionText != null) && (faqAnswerText != '' && faqAnswerText != null)) {
+      texts.push({question: faqQuestionText, answer: faqAnswerText})
+    }
+    this.setState({faqTexts: texts, faqQuestionText: '', faqAnswerText: ''})
+    let data = this.state
+    data.faqTexts = texts
+    data.faqQuestionText = null
+    data.faqAnswerText = null
+    data.alert = null
+    this.props.settingsCb(data, this.props.branch.get('code'), false)
+  }
+
   handleCarouselDeletion = (index) => {
     let {carouselTexts} = this.state
     let texts = []
@@ -106,6 +127,21 @@ class Preferences extends Component {
       let data = this.state
       data.carouselTexts = testArray
       data.carouselText = null
+      data.alert = null
+      this.props.settingsCb(data, this.props.branch.get('code'), false)
+    }
+  }
+
+  handleFaqDeletion = (index) => {
+    let {faqTexts} = this.state
+    let texts = []
+    if (faqTexts) {
+      var testArray = faqTexts
+      testArray.splice(index, 1)
+      let data = this.state
+      data.faqTexts = testArray
+      data.faqQuestionText = null
+      data.faqAnswerText = null
       data.alert = null
       this.props.settingsCb(data, this.props.branch.get('code'), false)
     }
@@ -145,10 +181,50 @@ class Preferences extends Component {
     )
   }
 
+  renderFaqTexts = () => {
+    return (
+      <div className='form-group row'>
+        <div className='input-group col-sm-offset-1 col-sm-10 col-xs-offset-1 col-xs-10'>
+          <ul className='list-group' style={{ background: '#252830'}}>
+            {this.state.faqTexts && this.state.faqTexts.map((text, i) => {
+              return (
+                <li key={i} className='list-group-item'><h3>{text.question}&nbsp;<button type='button' className='btn btn-xs btn-pill btn-danger' onClick={e => { this.handleFaqDeletion(i) }}>Delete</button></h3><p>{text.answer}</p></li>
+              )
+            })}
+            <li className='list-group-item'>
+              <div className='flextable'>
+                <div className='flextable-item flextable-primary'>
+                  <TextFieldGroup
+                    onChange={this.onChange}
+                    field='faqQuestionText'
+                    value={this.state.faqQuestionText}
+                    placeholder='Question'
+                    />
+                  <TextFieldGroup
+                    onChange={this.onChange}
+                    field='faqAnswerText'
+                    value={this.state.faqAnswerText}
+                    placeholder='Answer'
+                    />
+                </div>
+                <div className='flextable-item'>
+                  <a className='btn btn-pill btn-default' onClick={e => this.handleAddFaqText()}>Add</a>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div className='input-group col-sm-offset-1 col-sm-10 col-xs-offset-1 col-xs-10'>
+
+        </div>
+      </div>
+    )
+  }
+
   render () {
     let { branch } = this.props
     let { rooms } = this.state
-
+    console.log('SETTINGS', this.state)
     return (
       <form className='form-access container' style={{ paddingTop: '1em' }}>
         {this.state.alert}
@@ -189,6 +265,40 @@ class Preferences extends Component {
           </div>
         </div>
         {this.renderCarouselTexts()}
+        {this.renderFaqTexts()}
+        <div className='form-group row'>
+          <div className='input-group col-sm-offset-1 col-sm-10 col-xs-offset-1 col-xs-10'>
+            <TextFieldGroup
+              onChange={this.onChange}
+              value={this.state.twitter}
+              field='twitter'
+              placeholder='Twitter Url'
+              error={this.state.errors.twitter}
+              />
+          </div>
+        </div>
+        <div className='form-group row'>
+          <div className='input-group col-sm-offset-1 col-sm-10 col-xs-offset-1 col-xs-10'>
+            <TextFieldGroup
+              onChange={this.onChange}
+              value={this.state.facebook}
+              field='facebook'
+              placeholder='Facebook Url'
+              error={this.state.errors.facebook}
+              />
+          </div>
+        </div>
+        <div className='form-group row'>
+          <div className='input-group col-sm-offset-1 col-sm-10 col-xs-offset-1 col-xs-10'>
+            <TextFieldGroup
+              onChange={this.onChange}
+              value={this.state.gplus}
+              field='gplus'
+              placeholder='Google Plus Url'
+              error={this.state.errors.gplus}
+              />
+          </div>
+        </div>
       </form>
     )
   }

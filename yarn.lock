@@ -5190,6 +5190,12 @@ react-gmaps@^1.6.0:
     create-react-class "^15.5.2"
     object-assign "^4.0.1"
 
+react-grid-gallery@^0.4.2:
+  version "0.4.2"
+  resolved "https://registry.yarnpkg.com/react-grid-gallery/-/react-grid-gallery-0.4.2.tgz#ab0e26d1f170e5321f3f2093bbcaebc5f83a60bb"
+  dependencies:
+    react-images "^0.5.4"
+
 react-images@^0.5.4:
   version "0.5.5"
   resolved "https://registry.yarnpkg.com/react-images/-/react-images-0.5.5.tgz#c1f175c6f6f297b061efa78d4d0dc0f2cc4b58bf"

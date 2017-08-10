@@ -107,7 +107,6 @@ class Setting extends Component {
 
   render () {
     let { branches, preferences } = this.state
-    console.log('SETTINGS', this.state)
     return (
       <div className='container-fluid-spacious' style={{marginTop: '2%'}} >
       {this.state.alert}
