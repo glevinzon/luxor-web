@@ -13,6 +13,10 @@ class GridGallery extends Component {
     }
   }
 
+  componentWillReceiveProps (nextProps) {
+    this.setState({images: nextProps.images})
+  }
+
   allImagesSelected = (images) => {
     var f = images.filter(
             function (img) {
@@ -68,7 +72,6 @@ class GridGallery extends Component {
   }
 
   render () {
-    console.log('GRID', this.props)
     return (
       <div>
         <CheckButton
