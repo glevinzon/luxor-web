@@ -30,7 +30,7 @@ class MainNav extends Component {
               {(keys && keys.length > 1) && (
                 <li>
                   {branches.map((branch, key) => {
-                    if (branchId != branch.get('id')) {
+                    if (branchId == branch.get('id')) {
                       return <a className='page-scroll' href='#contact'>Contact Us{'( ' + branch.get('contact') + ' )' || ''}</a>
                     }
                   })}

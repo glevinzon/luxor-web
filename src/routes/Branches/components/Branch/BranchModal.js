@@ -10,9 +10,6 @@ import {
 class BranchModal extends Component {
 
   hideModal = () => {
-    this.setState({
-      isOpen: false
-    })
     this.props.onClose()
   }
 

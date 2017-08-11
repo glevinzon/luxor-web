@@ -31,14 +31,8 @@ class BranchTable extends Component {
     }
     if (nextProps.creatingBranchSuccess) {
       this.setState({
-        open: false,
-        alert: (
-          <SweetAlert success title='Info Sent' onConfirm={e => { this.setState({alert: null}) }}>
-            Sweet!
-          </SweetAlert>
-        )
+        open: false
       })
-      this.props.getBranches(1, 10)
     }
   }
 

@@ -55,7 +55,7 @@ class BranchCreateForm extends Component {
   onSubmit = (e) => {
     e.preventDefault()
     let data = this.state
-    if (data.roomTypes.length < 1) {
+    if (data.roomTypes.length < 1 || data.roomTypes.length == null) {
       this.setState({alert: (
           <SweetAlert warning title='Oh! No.' onConfirm={e => { this.setState({alert: null}) }}>
             No room types! Please add one.
