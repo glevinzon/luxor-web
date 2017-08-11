@@ -10,9 +10,6 @@ import {
 class RoomModal extends Component {
 
   hideModal = () => {
-    this.setState({
-      isOpen: false
-    })
     this.props.onClose()
   }
 

@@ -73,6 +73,27 @@ export function createRoom (data) {
   }
 }
 
+export function updateRoom (data) {
+  return (dispatch, getState) => {
+    const { accessToken } = getState().auth.toJS()
+    return dispatch({
+      [CALL_API]: {
+        endpoint: '/api/v1/room',
+        method: 'PUT',
+        headers: {
+          'Authorization': `Bearer ${accessToken}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data),
+        types: [
+          CREATE_ROOM,
+          CREATE_ROOM_SUCCESS,
+          CREATE_ROOM_FAIL]
+      }
+    })
+  }
+}
+
 export function deleteRoom (code) {
   return (dispatch, getState) => {
     const { accessToken } = getState().auth.toJS()

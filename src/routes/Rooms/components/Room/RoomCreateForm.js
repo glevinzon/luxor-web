@@ -12,6 +12,7 @@ import {FormControl, FormGroup, InputGroup, DropdownButton, MenuItem} from 'reac
 class RoomCreateForm extends Component {
   state = {
     branchId: '',
+    code: '',
     name: '',
     description: '',
     type: '',
@@ -20,6 +21,31 @@ class RoomCreateForm extends Component {
     selectedBranch: null,
     errors: [],
     isLoading: false
+  }
+
+  componentWillReceiveProps (nextProps) {
+    let { selectedRoom, branches } = nextProps
+    if (selectedRoom) {
+      if (branches) {
+        var data = branches.get('data')
+        var selectedBranch = ''
+        data.map((branch, key) => {
+          if (branch.get('id') == selectedRoom.get('branch_id')) {
+            selectedBranch = branch.get('name')
+          }
+        })
+      }
+      this.setState({
+        branchId: '' + selectedRoom.get('branch_id'),
+        selectedBranch: selectedBranch,
+        code: selectedRoom.get('code'),
+        name: selectedRoom.get('name'),
+        description: selectedRoom.get('description'),
+        type: selectedRoom.get('type'),
+        rate: selectedRoom.get('rate'),
+        promo: selectedRoom.get('promo')
+      })
+    }
   }
 
   onChange = (e) => {
@@ -66,20 +92,21 @@ class RoomCreateForm extends Component {
     e.preventDefault()
     let data = this.state
     if (this.isValid(data)) {
-      this.setState({ name: '',
+      this.setState({ code: '', branchId: '', selectedBranch: '', name: '',
         description: '', type: '',
         rate: '',
         promo: '', errors: {}, isLoading: true })
-      this.props.createRoom(data)
+      if (this.props.selectedRoom) {
+        this.props.updateRoom(data)
+      } else {
+        this.props.createRoom(data)
+      }
     }
   }
 
   render () {
     let { branches } = this.props
     if (branches) {
-      var total = branches.get('total')
-      var currentPage = branches.get('currentPage')
-      var lastPage = branches.get('lastPage')
       var data = branches.get('data')
     }
 
@@ -95,7 +122,8 @@ class RoomCreateForm extends Component {
                   componentClass={InputGroup.Button}
                   id='input-dropdown-addon'
                   title='Branches'
-                  pullRight>
+                  pullRight
+                  disabled={this.props.selectedRoom}>
                   {data && this.getBranchesMenu(data)}
                 </DropdownButton>
               </InputGroup>

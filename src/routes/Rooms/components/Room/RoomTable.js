@@ -5,6 +5,7 @@ import cx from 'classnames'
 import SweetAlert from 'react-bootstrap-sweetalert'
 import RoomImagesModal from './RoomImagesModal'
 import RoomUploadModal from './RoomUploadModal'
+import RoomModal from './RoomModal'
 
 class RoomTable extends Component {
   constructor (props) {
@@ -18,7 +19,8 @@ class RoomTable extends Component {
       open: false,
       uploadSuccess: null,
       selectedRoom: null,
-      selectedRoomUploads: null
+      selectedRoomUploads: null,
+      updateModal: false
     }
   }
 
@@ -59,6 +61,12 @@ class RoomTable extends Component {
             Room has been deleted.
           </SweetAlert>
           )
+      })
+    }
+
+    if (nextProps.creatingRoomSuccess) {
+      this.setState({
+        updateModal: false
       })
     }
   }
@@ -135,6 +143,7 @@ class RoomTable extends Component {
         {selectedRoom && (
           <RoomUploadModal room={selectedRoom} open={this.state.open} onCloseCb={e => { this.setState({open: false}) }} uploadImage={this.props.uploadImage} />
         )}
+        <RoomModal selectedRoom={this.state.selectedRoom || null} open={this.state.updateModal} onClose={e => { this.setState({ updateModal: false }) }} {...this.props} />
         <div className='table-full'>
           <div className='table-responsive'>
             <table className='table' data-sort='table'>
@@ -167,7 +176,7 @@ class RoomTable extends Component {
                       <td>{room.get('promo')}</td>
                       <td>
                         <div className='btn-group'>
-                          <button type='button' className='btn btn-primary-outline'>
+                          <button type='button' className='btn btn-primary-outline' onClick={e => (this.setState({selectedRoom: room, updateModal: true}))}>
                             <span className='icon icon-pencil' />
                           </button>
                           <button type='button' className='btn btn-primary-outline' onClick={e => { this.handleDelete(room.get('code')) }}>

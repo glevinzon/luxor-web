@@ -1,7 +1,7 @@
 import {connect} from 'react-redux'
 import Room from '../components/Room'
 
-import { createRoom, getRooms, deleteRoom } from 'store/modules/room'
+import { createRoom, getRooms, deleteRoom, updateRoom } from 'store/modules/room'
 import { getBranches } from 'store/modules/branch'
 import { uploadImage, getDumb, getUploadsByRoomId, deleteUploadsByRoomCodes } from 'store/modules/upload'
 
@@ -13,7 +13,8 @@ const mapActionCreators = {
   uploadImage,
   getDumb,
   getUploadsByRoomId,
-  deleteUploadsByRoomCodes
+  deleteUploadsByRoomCodes,
+  updateRoom
 }
 
 const mapStateToProps = (state) => ({
