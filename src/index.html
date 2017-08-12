@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <title>Luxor One Traveller's Inn</title>
   <meta charset="utf-8">
@@ -21,45 +22,48 @@
   <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css" />
   <link rel="stylesheet" type="text/css" href="css/simple-line-icons.css" />
 
-  <!-- Chatra {literal} -->
-  <script>
-      (function(d, w, c) {
-          w.ChatraID = 'WXF8sCFrcuuzGtWix';
-          var s = d.createElement('script');
-          w[c] = w[c] || function() {
-              (w[c].q = w[c].q || []).push(arguments);
-          };
-          s.async = true;
-          s.src = (d.location.protocol === 'https:' ? 'https:': 'http:')
-          + '//call.chatra.io/chatra.js';
-          if (d.head) d.head.appendChild(s);
-      })(document, window, 'Chatra');
-  </script>
-  <!-- /Chatra {/literal} -->
-
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css" />
-  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css" />
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
+  />
 </head>
+
 <body>
   <div id="root" style="height: 100%"></div>
 </body>
 
 
-  <script src="js/jquery.min.js"></script>
-  <script src="js/chart.js"></script>
-  <script src="js/tablesorter.min.js"></script>
-  <script src="js/toolkit.js"></script>
-  <script src="js/application.js"></script>
+<script src="js/jquery.min.js"></script>
+<script src="js/chart.js"></script>
+<script src="js/tablesorter.min.js"></script>
+<script src="js/toolkit.js"></script>
+<script src="js/application.js"></script>
 
-  <script src="js/bootstrap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
-  <script src="js/new-age.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+<script src="js/new-age.min.js"></script>
 
-   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+
+<script type="text/javascript">
+  $(document).ready(function () {
+    if (window.location.pathname == '/') { // your stuff
+      window.$crisp = [];
+      window.CRISP_WEBSITE_ID = "a9340e49-6b96-4584-be74-2882d927e905";
+      (function () {
+        d = document;
+        s = d.createElement("script");
+        s.src = "https://client.crisp.chat/l.js";
+        s.async = 1;
+        d.getElementsByTagName("head")[0].appendChild(s);
+      })();
+    }
+  });
+
+</script>
 
 </html>
