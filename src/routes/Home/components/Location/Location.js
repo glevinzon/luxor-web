@@ -14,7 +14,7 @@ class Location extends Component {
     let {branch} = nextProps
     if (branch) {
       let coors = JSON.parse(branch.get('coordinates'))
-      this.setState({lat: coors.lat, lng: coors.lng})
+      this.setState({lat: coors.lat, lng: coors.lng, address: branch.get('address')})
     }
   }
 
@@ -25,6 +25,7 @@ class Location extends Component {
           <div className='container'>
             <h2>Visit us. Locate. Navigate.</h2>
             <MapLocation lat={this.state.lat} lng={this.state.lng} {...this.props} />
+            <p>{this.state.address}</p>
           </div>
         </div>
         <div className='overlay'></div>

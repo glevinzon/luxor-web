@@ -146,6 +146,7 @@ actionHandlers[ GET_DUMB ] = state => {
 
 actionHandlers[ GET_UPLOADS_BY_ROOMID ] = state => {
   return state.merge({
+    uploadsByRoomId: [],
     fetchingUploadsByRoomId: true,
     fetchingUploadsByRoomIdSuccess: false,
     getUploadsByRoomIdError: null,
