@@ -24,6 +24,7 @@ class HomeView extends Component {
     this.props.getRoomsWithStatus('available')
     this.props.getBranches(1, 10)
     this.props.getSettings('ga6bN')
+    this.props.getUploads()
   }
 
   componentWillReceiveProps (nextProps) {
@@ -54,6 +55,7 @@ class HomeView extends Component {
     this.setState({branchId})
     this.props.getBranches(1, 10)
     this.props.getSettings('ga6bN')
+    this.props.getUploads()
   }
 
   render () {

@@ -64,8 +64,24 @@ export function getUploadsByRoomId (roomId = null) {
   }
 }
 
+export function getUploads () {
+  return (dispatch, getState) => {
+    dispatch(showLoading())
+    let endpoint = '/api/v1/uploads'
+    return dispatch({
+      [CALL_API]: {
+        endpoint,
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        types: [GET_UPLOADS_BY_ROOMID, GET_UPLOADS_BY_ROOMID_SUCCESS, GET_UPLOADS_BY_ROOMID_FAIL]
+      }
+    }).then(() => { dispatch(hideLoading()) })
+  }
+}
+
 export function deleteUploadsByRoomCodes (data) {
-  console.log('SELECTED', data)
   return (dispatch, getState) => {
     const { accessToken } = getState().auth.toJS()
     return dispatch({
