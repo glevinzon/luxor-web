@@ -17,7 +17,8 @@ class HomeView extends Component {
     rooms: null,
     branch: null,
     branches: null,
-    availableRooms: null
+    availableRooms: null,
+    imageUploads: null
   }
 
   componentWillMount () {
@@ -28,7 +29,7 @@ class HomeView extends Component {
   }
 
   componentWillReceiveProps (nextProps) {
-    let { fetchingBranchSuccess, fetchingSettingsSuccess, branches, settings, rooms } = nextProps
+    let { fetchingBranchSuccess, fetchingSettingsSuccess, branches, settings, rooms, uploadsByRoomId } = nextProps
 
     if (fetchingSettingsSuccess && settings && branches) {
       let branchId = this.state.branchId || settings.get('branch_id')
@@ -46,7 +47,7 @@ class HomeView extends Component {
         }
       })
 
-      this.setState({branchId, branches: data, availableRooms: rooms})
+      this.setState({branchId, branches: data, availableRooms: rooms, imageUploads: uploadsByRoomId})
     }
   }
 
@@ -59,14 +60,14 @@ class HomeView extends Component {
   }
 
   render () {
-    let { branches, branchId } = this.state
+    let { branches, branchId, imageUploads } = this.state
     return (
       <div id='page-top' className='page-top'>
         <MainNav branchId={branchId} switchBranchCb={branch => this.handleSwitchBranch(branch)} branches={branches} />
         <Header {...this.props} branch={this.state.branch} branchId={branchId} rooms={this.state.availableRooms} preferences={this.state.preferences} />
 
         <Download preferences={this.state.preferences} />
-        <Features />
+        <Features images={imageUploads} rooms={this.state.availableRooms} branch={this.state.branch} />
         <Location branch={this.state.branch} />
         <Cta preferences={this.state.preferences} />
 
