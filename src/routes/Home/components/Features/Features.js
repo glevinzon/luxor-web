@@ -9,9 +9,15 @@ class Features extends Component {
     return (
       <section id='features' className='features'>
         <div className='container-fluid' >
+          <div className='hr-divider'>
+            <h3 className='hr-divider-content hr-divider-heading'>
+              <h3>King Bed Size</h3>
+            </h3>
+          </div>
+          &nbsp;
           <StackGrid
             monitorImagesLoaded
-            columnWidth={300}
+            columnWidth={350}
             duration={600}
             gutterWidth={15}
             gutterHeight={15}
@@ -23,69 +29,69 @@ class Features extends Component {
             entered={transition.entered}
             leaved={transition.leaved}
           >
-            <div key='key1'><Thumbnail src='/assets/thumbnaildiv.png' alt='242x200'>
+            <figure className='image' key='key1'><Thumbnail style={{textAlign: 'center'}} src='/assets/thumbnaildiv.png' alt='242x200'>
               <h3>Thumbnail label</h3>
               <p>Description</p>
               <p>
-                <Button bsStyle='primary'>Reserve</Button>
+                <button type='button' className='btn btn-lg btn-warning-outline'>Reserve</button>
               </p>
-            </Thumbnail></div>
-            <div key='key2'><Thumbnail src='/assets/thumbnaildiv.png' alt='242x200'>
+            </Thumbnail></figure>
+            <figure className='image' key='key2'><Thumbnail style={{textAlign: 'center'}} src='/assets/thumbnaildiv.png' alt='242x200'>
               <h3>Thumbnail label</h3>
               <p>Description</p>
               <p>
-                <Button bsStyle='primary'>Reserve</Button>
+                <button type='button' className='btn btn-lg btn-warning-outline'>Reserve</button>
               </p>
-            </Thumbnail></div>
-            <div key='key3'><Thumbnail src='/assets/thumbnaildiv.png' alt='242x200'>
+            </Thumbnail></figure>
+            <figure className='image' key='key3'><Thumbnail style={{textAlign: 'center'}} src='/assets/thumbnaildiv.png' alt='242x200'>
               <h3>Thumbnail label</h3>
               <p>Description</p>
               <p>
-                <Button bsStyle='primary'>Reserve</Button>
+                <button type='button' className='btn btn-lg btn-warning-outline'>Reserve</button>
               </p>
-            </Thumbnail></div>
-            <div key='key4'><Thumbnail src='/assets/thumbnaildiv.png' alt='242x200'>
+            </Thumbnail></figure>
+            <figure className='image' key='key4'><Thumbnail style={{textAlign: 'center'}} src='/assets/thumbnaildiv.png' alt='242x200'>
               <h3>Thumbnail label</h3>
               <p>Description</p>
               <p>
-                <Button bsStyle='primary'>Reserve</Button>
+                <button type='button' className='btn btn-lg btn-warning-outline'>Reserve</button>
               </p>
-            </Thumbnail></div>
-            <div key='key5'><Thumbnail src='/assets/thumbnaildiv.png' alt='242x200'>
+            </Thumbnail></figure>
+            <figure className='image' key='key5'><Thumbnail style={{textAlign: 'center'}} src='/assets/thumbnaildiv.png' alt='242x200'>
               <h3>Thumbnail label</h3>
               <p>Description</p>
               <p>
-                <Button bsStyle='primary'>Reserve</Button>
+                <button type='button' className='btn btn-lg btn-warning-outline'>Reserve</button>
               </p>
-            </Thumbnail></div>
-            <div key='key6'><Thumbnail src='/assets/thumbnaildiv.png' alt='242x200'>
+            </Thumbnail></figure>
+            <figure className='image' key='key6'><Thumbnail style={{textAlign: 'center'}} src='/assets/thumbnaildiv.png' alt='242x200'>
               <h3>Thumbnail label</h3>
               <p>Description</p>
               <p>
-                <Button bsStyle='primary'>Reserve</Button>
+                <button type='button' className='btn btn-lg btn-warning-outline'>Reserve</button>
               </p>
-            </Thumbnail></div>
-            <div key='key7'><Thumbnail src='/assets/thumbnaildiv.png' alt='242x200'>
+            </Thumbnail></figure>
+            <figure className='image' key='key7'><Thumbnail style={{textAlign: 'center'}} src='/assets/thumbnaildiv.png' alt='242x200'>
               <h3>Thumbnail label</h3>
               <p>Description</p>
               <p>
-                <Button bsStyle='primary'>Reserve</Button>
+                <button type='button' className='btn btn-lg btn-warning-outline'>Reserve</button>
               </p>
-            </Thumbnail></div>
-            <div key='key8'><Thumbnail src='/assets/thumbnaildiv.png' alt='242x200'>
+            </Thumbnail></figure>
+            <figure className='image' key='key8'><Thumbnail style={{textAlign: 'center'}} src='/assets/thumbnaildiv.png' alt='242x200'>
               <h3>Thumbnail label</h3>
               <p>Description</p>
               <p>
-                <Button bsStyle='primary'>Reserve</Button>
+                <button type='button' className='btn btn-lg btn-warning-outline'>Reserve</button>
               </p>
-            </Thumbnail></div>
-            <div key='key9'><Thumbnail src='/assets/thumbnaildiv.png' alt='242x200'>
+            </Thumbnail></figure>
+            <figure className='image' key='key9'><Thumbnail style={{textAlign: 'center'}} src='/assets/thumbnaildiv.png' alt='242x200'>
               <h3>Thumbnail label</h3>
               <p>Description</p>
               <p>
-                <Button bsStyle='primary'>Reserve</Button>
+                <button type='button' className='btn btn-lg btn-warning-outline'>Reserve</button>
               </p>
-            </Thumbnail></div>
+            </Thumbnail></figure>
           </StackGrid>
         </div>
       </section>
