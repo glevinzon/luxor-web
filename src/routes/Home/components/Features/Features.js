@@ -108,18 +108,19 @@ class Features extends Component {
                 if (room.get('type') == type.name) {
                   let randomImageSrc = this.pickRandomImage(room.get('code'), roomImages)
                   return (
-                    <figure className='image' key={key}>
-                    <Thumbnail onClick={e => { this.setState({lightboxIsOpen: true, selectedCode: room.get('code')}) }} style={{textAlign: 'center'}} src={randomImageSrc ? randomImageSrc.src : ''} alt='242x200'>
+                    <figure className='image' key={key} style={{textAlign: 'center'}}>
+                    <Thumbnail onClick={e => { this.setState({lightboxIsOpen: true, selectedCode: room.get('code')}) }} src={randomImageSrc ? randomImageSrc.src : ''} alt='242x200'>
                       <h3>{room.get('name')}</h3>
                       <ul className='list-group'>
                         {!!(room.get('description') && room.get('description') != '') && (<li className='list-group-item'><p>{room.get('description')}</p></li>)}
                         {!!(room.get('rate') && room.get('rate') != '') && (<li className='list-group-item'><p>{room.get('rate')}</p></li>)}
                         {!!(room.get('promo') && room.get('promo') != '') && (<li className='list-group-item'><p>{room.get('promo')}</p></li>)}
                       </ul>
+                    </Thumbnail>
                       <p>
-                        <button type='button' className='btn btn-lg btn-warning-outline'>Reserve</button>
+                        <button type='button' className='btn btn-lg btn-warning-outline'>Reserve {room.get('name')}</button>
                       </p>
-                    </Thumbnail></figure>
+                    </figure>
                   )
                 }
               })}
