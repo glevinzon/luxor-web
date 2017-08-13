@@ -70,9 +70,9 @@ class Features extends Component {
                     <figure className='image' key='key1'><Thumbnail style={{textAlign: 'center'}} src={randomImageSrc} alt='242x200'>
                       <h3>{room.get('name')}</h3>
                       <ul className='list-group'>
-                        {room.get('description') && (<li className='list-group-item'><p>{room.get('description')}</p></li>)}
-                        {room.get('rate') && (<li className='list-group-item'><p>{room.get('rate')}</p></li>)}
-                        {room.get('promo') && (<li className='list-group-item'><p>{room.get('promo')}</p></li>)}
+                        {!!(room.get('description') && room.get('description') != '') && (<li className='list-group-item'><p>{room.get('description')}</p></li>)}
+                        {!!(room.get('rate') && room.get('rate') != '') && (<li className='list-group-item'><p>{room.get('rate')}</p></li>)}
+                        {!!(room.get('promo') && room.get('promo') != '') && (<li className='list-group-item'><p>{room.get('promo')}</p></li>)}
                       </ul>
                       <p>
                         <button type='button' className='btn btn-lg btn-warning-outline'>Reserve</button>
