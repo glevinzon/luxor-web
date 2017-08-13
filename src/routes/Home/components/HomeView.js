@@ -66,7 +66,7 @@ class HomeView extends Component {
         <Header {...this.props} branch={this.state.branch} branchId={branchId} rooms={this.state.availableRooms} preferences={this.state.preferences} />
 
         <Download preferences={this.state.preferences} />
-
+        <Features />
         <Location branch={this.state.branch} />
         <Cta preferences={this.state.preferences} />
 

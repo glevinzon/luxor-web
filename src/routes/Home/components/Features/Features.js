@@ -1,166 +1,92 @@
 import React, { Component } from 'react'
-import Gallery from './Gallery'
+import {Thumbnail, Button} from 'react-bootstrap'
+import StackGrid, { transitions, easings } from 'react-stack-grid'
+
+const transition = transitions.scaleDown
 
 class Features extends Component {
-  state = {
-    types: null,
-    branchCode: null,
-    rooms: null
-  }
-  componentWillReceiveProps (nextProps) {
-    let { branch, rooms } = nextProps
-    let data = {}
-    if (branch && rooms) {
-      var arrKey = Object.keys(rooms)
-      JSON.parse(branch.get('roomTypes')).map(type => {
-        var image = []
-        arrKey.map(key => {
-          for (var i = 0; i < 5; i++) {
-            if (key === `${type.name}_roomImage${i}`) {
-              if (image.length < 1) {
-                image.push({ url: rooms[`${key}`].imageUrl, caption: 'No Caption', orientation: 'square', useForDemo: true })
-              } else {
-                image.push({ url: rooms[`${key}`].imageUrl, caption: 'No Caption', orientation: 'landscape', useForDemo: true })
-              }
-            }
-          }
-        })
-        data[type.name] = image
-      })
-      this.setState({types: JSON.parse(branch.get('roomTypes')), branchCode: branch.get('code'), rooms: data})
-    }
-  }
-
-  makeUnsplashSrc = (id) => {
-    return `https://images.unsplash.com/photo-${id}?dpr=2&auto=format&w=1024&h=1024`
-  }
-  makeUnsplashSrcSet = (id, size) => {
-    return `https://images.unsplash.com/photo-${id}?dpr=2&auto=format&w=${size} ${size}w`
-  }
-  makeUnsplashThumbnail = (id, orientation = 'landscape') => {
-    const dimensions = orientation === 'square'
-		? 'w=300&h=300'
-		: 'w=240&h=159'
-
-    return `https://images.unsplash.com/photo-${id}?dpr=2&auto=format&crop=faces&fit=crop&${dimensions}`
-  }
-
   render () {
-    const theme = {
-	// container
-      container: {
-        background: 'rgba(255, 255, 255, 0.9)'
-      },
-
-	// arrows
-      arrow: {
-        backgroundColor: 'rgba(255, 255, 255, 0.8)',
-        fill: '#222',
-        opacity: 0.6,
-        transition: 'opacity 200ms',
-
-        ':hover': {
-          opacity: 1
-        }
-      },
-      arrow__size__medium: {
-        borderRadius: 40,
-        height: 40,
-        marginTop: -20,
-
-        '@media (min-width: 768px)': {
-          height: 70,
-          padding: 15
-        }
-      },
-      arrow__direction__left: { marginLeft: 10 },
-      arrow__direction__right: { marginRight: 10 },
-
-	// header
-      header: {
-        height: 200
-      },
-
-      close: {
-        fill: '#D40000',
-        opacity: 0.6,
-        transition: 'all 200ms',
-        ':hover': {
-          opacity: 1
-        }
-      },
-
-	// footer
-      footer: {
-        color: 'black',
-        height: 200
-      },
-      footerCount: {
-        color: 'rgba(0, 0, 0, 0.6)'
-      },
-
-	// thumbnails
-      thumbnail: {
-      },
-      thumbnail__active: {
-        boxShadow: '0 0 0 2px #00D8FF'
-      }
-    }
-    const DEFAULT_IMAGES = [
-      { id: '1470619549108-b85c56fe5be8', caption: 'Photo by Alan Emery', orientation: 'square', useForDemo: true }, // https://unsplash.com/photos/SYzUF6XcWBY (Flamingo)
-      { id: '1471079502516-250c19af6928', caption: 'Photo by Jeremy Bishop', orientation: 'landscape', useForDemo: true }, // https://unsplash.com/photos/GIpGxe2_cT4 (Turtle)
-      { id: '1454023492550-5696f8ff10e1', caption: 'Photo by Jessica Weiller', orientation: 'landscape', useForDemo: true }, // https://unsplash.com/photos/LmVSKeDy6EA (Tiger)
-      { id: '1470854989922-5be2f7456d78', caption: 'Photo by Piotr Łaskawski', orientation: 'landscape', useForDemo: true }, // https://unsplash.com/photos/GXMr7BadXQo (Hedgehog)
-      { id: '1470317596697-cbdeda56f999', caption: 'Photo by Michel Bosma', orientation: 'landscape', useForDemo: true } // https://unsplash.com/photos/XgF9e93Tkt0 (Ladybug)
-    ]
     return (
       <section id='features' className='features'>
-        <div className='container'>
-          <div className='row'>
-            <div className='col-lg-12 text-center'>
-              <div className='section-heading'>
-                <h2>Great Location, Service and Stay.</h2>
-                <p className='text-muted'>Check out all the rooms you can stay in! You feel comfortable!</p>
-                <hr />
-              </div>
-            </div>
-          </div>
-          <div className='row'>
-            <div className='col-md-4'>
-              <div className='device-container'>
-                <div className='device-mockup iphone6_plus portrait white'>
-                  <div className='device'>
-                    <div className='screen'>
-                        <img src='img/gensan-front.JPG' className='img-responsive' alt='' /> </div>
-                    <div className='button'>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className='col-md-8'>
-              <div className='container-fluid'>
-                <div className='row'>
-                {this.state.types && this.state.types.map(type => {
-                  return (
-                    <div className='col-md-6' key={type.name}>
-                      <div className='feature-item'>
-                        <h3>{type.name}</h3>
-                        <Gallery images={this.state.rooms[`${type.name}`].map(({ url, caption, orientation, useForDemo }) => ({
-                          src: url,
-                          thumbnail: url,
-                          // caption,
-                          orientation,
-                          useForDemo
-                        }))} />
-                      </div>
-                    </div>
-                  )
-                })}
-                </div>
-              </div>
-            </div>
-          </div>
+        <div className='container-fluid' >
+          <StackGrid
+            monitorImagesLoaded
+            columnWidth={300}
+            duration={600}
+            gutterWidth={15}
+            gutterHeight={15}
+            easing={easings.cubicOut}
+            appearDelay={60}
+            appear={transition.appear}
+            appeared={transition.appeared}
+            enter={transition.enter}
+            entered={transition.entered}
+            leaved={transition.leaved}
+          >
+            <div key='key1'><Thumbnail src='/assets/thumbnaildiv.png' alt='242x200'>
+              <h3>Thumbnail label</h3>
+              <p>Description</p>
+              <p>
+                <Button bsStyle='primary'>Reserve</Button>
+              </p>
+            </Thumbnail></div>
+            <div key='key2'><Thumbnail src='/assets/thumbnaildiv.png' alt='242x200'>
+              <h3>Thumbnail label</h3>
+              <p>Description</p>
+              <p>
+                <Button bsStyle='primary'>Reserve</Button>
+              </p>
+            </Thumbnail></div>
+            <div key='key3'><Thumbnail src='/assets/thumbnaildiv.png' alt='242x200'>
+              <h3>Thumbnail label</h3>
+              <p>Description</p>
+              <p>
+                <Button bsStyle='primary'>Reserve</Button>
+              </p>
+            </Thumbnail></div>
+            <div key='key4'><Thumbnail src='/assets/thumbnaildiv.png' alt='242x200'>
+              <h3>Thumbnail label</h3>
+              <p>Description</p>
+              <p>
+                <Button bsStyle='primary'>Reserve</Button>
+              </p>
+            </Thumbnail></div>
+            <div key='key5'><Thumbnail src='/assets/thumbnaildiv.png' alt='242x200'>
+              <h3>Thumbnail label</h3>
+              <p>Description</p>
+              <p>
+                <Button bsStyle='primary'>Reserve</Button>
+              </p>
+            </Thumbnail></div>
+            <div key='key6'><Thumbnail src='/assets/thumbnaildiv.png' alt='242x200'>
+              <h3>Thumbnail label</h3>
+              <p>Description</p>
+              <p>
+                <Button bsStyle='primary'>Reserve</Button>
+              </p>
+            </Thumbnail></div>
+            <div key='key7'><Thumbnail src='/assets/thumbnaildiv.png' alt='242x200'>
+              <h3>Thumbnail label</h3>
+              <p>Description</p>
+              <p>
+                <Button bsStyle='primary'>Reserve</Button>
+              </p>
+            </Thumbnail></div>
+            <div key='key8'><Thumbnail src='/assets/thumbnaildiv.png' alt='242x200'>
+              <h3>Thumbnail label</h3>
+              <p>Description</p>
+              <p>
+                <Button bsStyle='primary'>Reserve</Button>
+              </p>
+            </Thumbnail></div>
+            <div key='key9'><Thumbnail src='/assets/thumbnaildiv.png' alt='242x200'>
+              <h3>Thumbnail label</h3>
+              <p>Description</p>
+              <p>
+                <Button bsStyle='primary'>Reserve</Button>
+              </p>
+            </Thumbnail></div>
+          </StackGrid>
         </div>
       </section>
     )
