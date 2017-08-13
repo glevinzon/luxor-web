@@ -108,8 +108,8 @@ class Features extends Component {
                 if (room.get('type') == type.name) {
                   let randomImageSrc = this.pickRandomImage(room.get('code'), roomImages)
                   return (
-                    <figure className='image' key='key1'>
-                    <Thumbnail onClick={e => { this.setState({lightboxIsOpen: true, selectedCode: room.get('code')}) }} style={{textAlign: 'center'}} src={randomImageSrc.src} alt='242x200'>
+                    <figure className='image' key={key}>
+                    <Thumbnail onClick={e => { this.setState({lightboxIsOpen: true, selectedCode: room.get('code')}) }} style={{textAlign: 'center'}} src={randomImageSrc ? randomImageSrc.src : ''} alt='242x200'>
                       <h3>{room.get('name')}</h3>
                       <ul className='list-group'>
                         {!!(room.get('description') && room.get('description') != '') && (<li className='list-group-item'><p>{room.get('description')}</p></li>)}
