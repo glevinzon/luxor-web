@@ -20,17 +20,17 @@ class NavBar extends Component {
                 <span className='icon icon-text-document' />
                 <small className='iconav-nav-label visible-xs-block'>Reservations</small></NavLink></OverlayTrigger>
             <OverlayTrigger
-              placement='right' overlay={<Tooltip id='reservations'>Branches</Tooltip>}>
+              placement='right' overlay={<Tooltip id='branches'>Branches</Tooltip>}>
               <NavLink to='/dashboard/branches' onlyActiveOnIndex>
                 <span className='icon icon-flow-tree' />
                 <small className='iconav-nav-label visible-xs-block'>Branches</small></NavLink></OverlayTrigger>
             <OverlayTrigger
-              placement='right' overlay={<Tooltip id='reservations'>Rooms</Tooltip>}>
+              placement='right' overlay={<Tooltip id='rooms'>Rooms</Tooltip>}>
               <NavLink to='/dashboard/rooms' onlyActiveOnIndex>
                 <span className='icon icon-key' />
                 <small className='iconav-nav-label visible-xs-block'>Rooms</small></NavLink></OverlayTrigger>
             <OverlayTrigger
-              placement='right' overlay={<Tooltip id='reservations'>Settings</Tooltip>}>
+              placement='right' overlay={<Tooltip id='settings'>Settings</Tooltip>}>
               <NavLink to='/dashboard/settings' onlyActiveOnIndex>
                 <span className='icon icon-cog' />
                 <small className='iconav-nav-label visible-xs-block'>Settings</small></NavLink></OverlayTrigger>

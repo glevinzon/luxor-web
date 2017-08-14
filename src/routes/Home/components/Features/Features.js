@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {Thumbnail, Button} from 'react-bootstrap'
+import {Thumbnail, OverlayTrigger, Tooltip} from 'react-bootstrap'
 import StackGrid, { transitions, easings } from 'react-stack-grid'
 import shuffle from 'shuffle-array'
 import Lightbox from 'react-images'
@@ -141,6 +141,8 @@ class Features extends Component {
                 if (room.get('type') == type.name) {
                   let randomImageSrc = this.pickRandomImage(room.get('code'), roomImages)
                   return (
+                    <OverlayTrigger
+                    placement='top' overlay={<Tooltip id='card'>Click to see more photos.</Tooltip>}>
                     <figure className='image' key={key} style={{textAlign: 'center'}}>
                     <Thumbnail onClick={e => { this.setState({lightboxIsOpen: true, selectedCode: room.get('code')}) }} src={randomImageSrc ? randomImageSrc.src : ''} alt='242x200'>
                       <h3>{room.get('name')}</h3>
@@ -154,6 +156,7 @@ class Features extends Component {
                         <button onClick={e => { this.openModal(room) }} type='button' className='btn btn-lg btn-warning-outline'>Reserve {room.get('name')}</button>
                       </p>
                     </figure>
+                    </OverlayTrigger>
                   )
                 }
               })}
