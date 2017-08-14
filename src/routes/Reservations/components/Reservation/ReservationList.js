@@ -35,8 +35,6 @@ class ReservationList extends Component {
           return (
             <OverlayTrigger key={reservation.get('code')} trigger='hover' placement='left' overlay={this.popoverRight(reservation)}>
               <a className='list-group-item' href='#'>
-                <span className='list-group-progress' style={{ width: '62.4%' }}></span>
-                <span className='pull-right text-muted'>62.4%</span>
                 {reservation.get('fullName')}
               </a>
             </OverlayTrigger>

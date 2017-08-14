@@ -38,25 +38,12 @@ class Dashboard extends Component {
 
         <div className='row statcards'>
           <div className='col-sm-6 col-lg-3 m-b'>
-            <div className='statcard statcard-success'>
-              <div className='p-a'>
-                <span className='statcard-desc'>Page views</span>
-                <h2 className='statcard-number'>
-                  12,938
-                  <small className='delta-indicator delta-positive'>5%</small>
-                </h2>
-                <hr className='statcard-hr m-b-0' />
-              </div>
-              <canvas id='sparkline1' width='378' height='94' className='sparkline' data-chart='spark-line' data-value='[{data:[28,68,41,43,96,45,100]}]' data-labels="['a','b','c','d','e','f','g']" style={{width: '189px', height: '47px'}}></canvas>
-            </div>
-          </div>
-          <div className='col-sm-6 col-lg-3 m-b'>
             <div className='statcard statcard-danger'>
               <div className='p-a'>
                 <span className='statcard-desc'>Pending Requests</span>
                 <h2 className='statcard-number'>
                   758
-                  <small className='delta-indicator delta-negative'>1.3%</small>
+
                 </h2>
                 <hr className='statcard-hr m-b-0' />
               </div>
@@ -69,11 +56,24 @@ class Dashboard extends Component {
                 <span className='statcard-desc'>Available Rooms</span>
                 <h2 className='statcard-number'>
                   1,293
-                  <small className='delta-indicator delta-positive'>6.75%</small>
+
                 </h2>
                 <hr className='statcard-hr m-b-0' />
               </div>
               <canvas id='sparkline1' width='378' height='94' className='sparkline' data-chart='spark-line' data-value='[{data:[12,38,32,60,36,54,68]}]' data-labels="['a', 'b','c','d','e','f','g']" style={{width: '189px', height: '47px'}}></canvas>
+            </div>
+          </div>
+          <div className='col-sm-6 col-lg-3 m-b'>
+            <div className='statcard statcard-success'>
+              <div className='p-a'>
+                <span className='statcard-desc'>Page views</span>
+                <h2 className='statcard-number'>
+                  12,938
+
+                </h2>
+                <hr className='statcard-hr m-b-0' />
+              </div>
+              <canvas id='sparkline1' width='378' height='94' className='sparkline' data-chart='spark-line' data-value='[{data:[28,68,41,43,96,45,100]}]' data-labels="['a','b','c','d','e','f','g']" style={{width: '189px', height: '47px'}}></canvas>
             </div>
           </div>
           <div className='col-sm-6 col-lg-3 m-b'>
@@ -82,7 +82,7 @@ class Dashboard extends Component {
                 <span className='statcard-desc'>Facebook Likes</span>
                 <h2 className='statcard-number'>
                   758
-                  <small className='delta-indicator delta-negative'>1.3%</small>
+
                 </h2>
                 <hr className='statcard-hr m-b-0' />
               </div>
@@ -93,16 +93,15 @@ class Dashboard extends Component {
 
         <div className='row'>
           <div className='col-md-4 m-b'>
-            <BranchList {...this.props} />
+            <ReservationList {...this.props} />
+            <Link to='/dashboard/reservations' href='#' className='btn btn-primary-outline'>View all reservations</Link>
           </div>
-
           <div className='col-md-4 m-b'>
             <RoomList {...this.props} />
             <Link to='/dashboard/rooms' href='#' className='btn btn-primary-outline'>View all rooms</Link>
           </div>
           <div className='col-md-4 m-b'>
-            <ReservationList {...this.props} />
-            <Link to='/dashboard/reservations' href='#' className='btn btn-primary-outline'>View all reservations</Link>
+            <BranchList {...this.props} />
           </div>
         </div>
       </div>
