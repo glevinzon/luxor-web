@@ -4,6 +4,8 @@ import moment from 'moment'
 import cx from 'classnames'
 import SweetAlert from 'react-bootstrap-sweetalert'
 import BranchModal from './BranchModal'
+import BranchImagesModal from './BranchImagesModal'
+import BranchUploadModal from './BranchUploadModal'
 
 class BranchTable extends Component {
   constructor (props) {
@@ -14,11 +16,41 @@ class BranchTable extends Component {
       delete: false,
       alert: false,
       selectedBranch: null,
-      open: false
+      uploadSuccess: null,
+      selectedBranchUploads: null,
+      open: false,
+      uploadOpen: false
     }
   }
 
   componentWillReceiveProps (nextProps) {
+    if (nextProps.uploadingImageSuccess) {
+      this.props.getUploadsByBranchId(this.state.selectedBranch.get('id'))
+      this.setState({
+        alert: (
+          <SweetAlert success title='Upload Success' onConfirm={e => { this.setState({alert: null}) }}>
+            Sweet!
+          </SweetAlert>
+          )
+      })
+    }
+
+    if (nextProps.fetchingUploadsByBranchIdSuccess) {
+      this.setState({selectedBranchUploads: nextProps.uploadsByBranchId})
+      nextProps.getDumb()
+    }
+
+    if (nextProps.deletingUploadsByCodesSuccess) {
+      this.props.getUploadsByBranchId(this.state.selectedBranch.get('id'))
+      this.setState({
+        alert: (
+          <SweetAlert success title='Delete Success' onConfirm={e => { this.setState({alert: null}) }}>
+            Sweet!
+          </SweetAlert>
+          )
+      })
+    }
+
     var deleteSuccess = nextProps.deletingBranchSuccess
     if (deleteSuccess) {
       this.setState({
@@ -77,17 +109,30 @@ class BranchTable extends Component {
     this.setState({page})
   }
 
+  handleBranchImageUploads = (branch) => {
+    this.props.getUploadsByBranchId(branch.get('id'))
+    this.setState({selectedBranch: branch, show: true})
+  }
+
   render () {
     let { branches, fetchingBranches } = this.props
+    let { selectedBranch, selectedBranchUploads } = this.state
     if (branches) {
-      var total = branches.get('total')
-      var currentPage = branches.get('currentPage')
-      var lastPage = branches.get('lastPage')
       var data = branches.get('data')
     }
 
     return (
       <div>
+      {<BranchImagesModal
+        branch={selectedBranch}
+        branchImages={selectedBranchUploads}
+        show={this.state.show}
+        onOpenUploadModal={e => { this.setState({uploadOpen: true}) }}
+        onCloseCb={e => { this.setState({show: false}) }}
+        deleteUploadsByCodes={this.props.deleteUploadsByCodes} />}
+      {selectedBranch && (
+        <BranchUploadModal branch={selectedBranch} uploadOpen={this.state.uploadOpen} onCloseCb={e => { this.setState({uploadOpen: false}) }} uploadImage={this.props.uploadImage} />
+      )}
       <BranchModal selectedBranch={this.state.selectedBranch || null} open={this.state.open} onClose={e => { this.setState({ open: false }) }} {...this.props} />
         {this.state.delete}
         {this.state.alert}
@@ -101,7 +146,7 @@ class BranchTable extends Component {
                   <th>Address</th>
                   <th>Geolocation</th>
                   <th>Contact</th>
-                  <th>Room Types</th>
+                  <th>Branch Types</th>
                   <th></th>
                 </tr>
               </thead>
@@ -109,7 +154,7 @@ class BranchTable extends Component {
                 {data && (data.map(branch => {
                   return (
                     <tr key={branch.get('id')}>
-                      <td><a href='#'>{branch.get('code')}</a></td>
+                      <td><a href='#' onClick={e => this.handleBranchImageUploads(branch)}>{branch.get('code')}</a></td>
                       <td>{branch.get('name')}</td>
                       <td>{branch.get('address')}</td>
                       <td>{JSON.parse(branch.get('coordinates')).lat}, {JSON.parse(branch.get('coordinates')).lng}</td>

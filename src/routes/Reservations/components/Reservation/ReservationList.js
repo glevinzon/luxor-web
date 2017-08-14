@@ -4,7 +4,7 @@ import { Popover, OverlayTrigger } from 'react-bootstrap'
 class ReservationList extends Component {
   popoverRight = (reservation) => {
     return (
-      <Popover id='popover-positioned-left'>
+      <Popover id='popover-positioned-right'>
         <ul key={reservation.get('code')} className='list-group'>
           {reservation.get('code') && (<li className='list-group-item'>{reservation.get('code')}</li>)}
           {reservation.get('fullName') && (<li className='list-group-item'>{reservation.get('fullName')}</li>)}
@@ -33,7 +33,7 @@ class ReservationList extends Component {
         </h4>
         {data && (data.map(reservation => {
           return (
-            <OverlayTrigger key={reservation.get('code')} trigger='hover' placement='left' overlay={this.popoverRight(reservation)}>
+            <OverlayTrigger key={reservation.get('code')} trigger='hover' placement='right' overlay={this.popoverRight(reservation)}>
               <a className='list-group-item' href='#'>
                 {reservation.get('fullName')}
               </a>

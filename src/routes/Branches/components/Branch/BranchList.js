@@ -4,7 +4,7 @@ import { Popover, OverlayTrigger } from 'react-bootstrap'
 class BranchList extends Component {
   popoverRight = (branch) => {
     return (
-      <Popover id='popover-positioned-right'>
+      <Popover id='popover-positioned-left'>
         <ul key={branch.get('code')} className='list-group'>
           {branch.get('code') && (<li className='list-group-item'>{branch.get('code')}</li>)}
           {branch.get('name') && (<li className='list-group-item'>{branch.get('name')}</li>)}
@@ -35,7 +35,7 @@ class BranchList extends Component {
         </h4>
         {data && (data.map(branch => {
           return (
-            <OverlayTrigger trigger='hover' placement='right' overlay={this.popoverRight(branch)}>
+            <OverlayTrigger trigger='hover' placement='left' overlay={this.popoverRight(branch)}>
               <a className='list-group-item' href='#'>
                 {branch.get('name')}
               </a>

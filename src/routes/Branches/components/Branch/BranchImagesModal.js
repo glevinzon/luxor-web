@@ -10,7 +10,7 @@ import GridGallery from 'components/common/GridGallery'
 import shuffle from 'shuffle-array'
 import moment from 'moment'
 
-class RoomImagesModal extends Component {
+class BranchImagesModal extends Component {
   state = {
     show: false
   }
@@ -32,10 +32,10 @@ class RoomImagesModal extends Component {
   }
 
   render () {
-    let {roomImages} = this.props
-    if (roomImages) {
+    let {branchImages} = this.props
+    if (branchImages) {
       var photos = []
-      roomImages.map(image => {
+      branchImages.map(image => {
         photos.push({
           code: image.get('code'),
           src: image.get('path'),
@@ -50,22 +50,22 @@ class RoomImagesModal extends Component {
     }
 
     return (
-      <Modal isOpen={this.state.show} className='room-uploads-overlay' onRequestHide={this.hideModal} >
+      <Modal isOpen={this.state.show} className='branch-uploads-overlay' onRequestHide={this.hideModal} >
         <ModalHeader>
           <ModalClose onClick={this.hideModal} />
           <ModalTitle>Uploads</ModalTitle>
         </ModalHeader>
         <ModalBody>
-          <h4>Room Images <button type='button' className='btn btn-sm btn-pill btn-default' onClick={e => { this.props.onOpenUploadModal() }}>Upload</button></h4>
-          {roomImages && (<GridGallery deleteUploadsByCodes={this.props.deleteUploadsByCodes} images={photos} />)}
+          <h4>Branch Images <button type='button' className='btn btn-sm btn-pill btn-default' onClick={e => { this.props.onOpenUploadModal() }}>Upload</button></h4>
+          {branchImages && (<GridGallery deleteUploadsByCodes={this.props.deleteUploadsByCodes} images={photos} />)}
         </ModalBody>
       </Modal>
     )
   }
 }
 
-RoomImagesModal.propTypes = {
+BranchImagesModal.propTypes = {
 
 }
 
-export default RoomImagesModal
+export default BranchImagesModal

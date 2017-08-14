@@ -25,7 +25,7 @@ class RoomTable extends Component {
   }
 
   componentWillReceiveProps (nextProps) {
-    let { uploadingImageSuccess, fetchingUploadsByRoomIdSuccess, selectedRoomUploads, deletingUploadsByRoomCodesSuccess } = nextProps
+    let { uploadingImageSuccess, fetchingUploadsByRoomIdSuccess, selectedRoomUploads, deletingUploadsByCodesSuccess } = nextProps
     if (uploadingImageSuccess) {
       this.props.getUploadsByRoomId(this.state.selectedRoom.get('id'))
       this.setState({
@@ -37,7 +37,7 @@ class RoomTable extends Component {
       })
     }
 
-    if (deletingUploadsByRoomCodesSuccess) {
+    if (deletingUploadsByCodesSuccess) {
       this.props.getUploadsByRoomId(this.state.selectedRoom.get('id'))
       this.setState({
         alert: (
@@ -139,7 +139,7 @@ class RoomTable extends Component {
           show={this.state.show}
           onOpenUploadModal={e => { this.setState({open: true}) }}
           onCloseCb={e => { this.setState({show: false}) }}
-          deleteUploadsByRoomCodes={this.props.deleteUploadsByRoomCodes} />}
+          deleteUploadsByCodes={this.props.deleteUploadsByCodes} />}
         {selectedRoom && (
           <RoomUploadModal room={selectedRoom} open={this.state.open} onCloseCb={e => { this.setState({open: false}) }} uploadImage={this.props.uploadImage} />
         )}

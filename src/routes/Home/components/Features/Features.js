@@ -23,7 +23,8 @@ class Features extends Component {
       lightboxIsOpen: false,
       currentImage: 1,
       isOpen: false,
-      alert: null
+      alert: null,
+      branchId: null
     }
 
     this.closeLightbox = this.closeLightbox.bind(this)
@@ -32,7 +33,7 @@ class Features extends Component {
   }
 
   componentWillReceiveProps (nextProps) {
-    let { branch, images, rooms } = nextProps
+    let { branch, images, rooms, branchId } = nextProps
     var roomImages = []
     var imagesPath = []
     if (branch && images && rooms) {
@@ -50,7 +51,7 @@ class Features extends Component {
         })
       })
     }
-    this.setState({branch: branch, rooms: rooms, roomImages: roomImages})
+    this.setState({branch: branch, rooms: rooms, roomImages: roomImages, branchId: branchId})
 
     let reserveSuccess = nextProps.reserve.get('creatingReservationSuccess')
     if (reserveSuccess) {
@@ -103,7 +104,7 @@ class Features extends Component {
     let { roomImages, branch, rooms, selectedCode } = this.state
 
     return (
-      <section id='features' className='features'>
+      <section id='features' className='features' style={{textAlign: 'center'}}>
         {selectedCode && (
           <Lightbox
             images={roomImages[this.state.selectedCode]}
@@ -115,6 +116,7 @@ class Features extends Component {
           />
         )}
         <div className='container-fluid' >
+        <h3>AVAILABLE ROOMS</h3>
         {branch && JSON.parse(branch.get('roomTypes')).map((type, key) => {
           return (
             <div key={key}>
@@ -138,12 +140,12 @@ class Features extends Component {
                 leaved={transition.leaved}
               >
               {!!(rooms && roomImages) && rooms.map((room, key) => {
-                if (room.get('type') == type.name) {
+                if ((room.get('type') == type.name) && (this.state.branchId == room.get('branch_id'))) {
                   let randomImageSrc = this.pickRandomImage(room.get('code'), roomImages)
                   return (
                     <OverlayTrigger
-                    placement='top' overlay={<Tooltip id='card'>Click to see more photos.</Tooltip>}>
-                    <figure className='image' key={key} style={{textAlign: 'center'}}>
+                      placement='top' overlay={<Tooltip id='card'>Click to see more photos.</Tooltip>}>
+                    <figure className='image' key={key}>
                     <Thumbnail onClick={e => { this.setState({lightboxIsOpen: true, selectedCode: room.get('code')}) }} src={randomImageSrc ? randomImageSrc.src : ''} alt='242x200'>
                       <h3>{room.get('name')}</h3>
                       <ul className='list-group'>

@@ -73,7 +73,7 @@ class GridGallery extends Component {
 
   handleDeleteUploads = (selectedImages) => {
     if (selectedImages.length > 0) {
-      this.props.deleteUploadsByRoomCodes({roomCodes: JSON.stringify(selectedImages)})
+      this.props.deleteUploadsByCodes({roomCodes: JSON.stringify(selectedImages)})
       this.setState({selectAllChecked: false, images: null})
     }
   }

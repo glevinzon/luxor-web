@@ -12,21 +12,28 @@ export const GET_UPLOADS_BY_ROOMID = 'api/GET_UPLOADS_BY_ROOMID'
 export const GET_UPLOADS_BY_ROOMID_SUCCESS = 'api/GET_UPLOADS_BY_ROOMID_SUCCESS'
 export const GET_UPLOADS_BY_ROOMID_FAIL = 'api/GET_UPLOADS_BY_ROOMID_FAIL'
 
-export const DELETE_UPLOADS_BY_ROOMCODES = 'api/DELETE_UPLOADS_BY_ROOMCODES'
-export const DELETE_UPLOADS_BY_ROOMCODES_SUCCESS = 'api/DELETE_UPLOADS_BY_ROOMCODES_SUCCESS'
-export const DELETE_UPLOADS_BY_ROOMCODES_FAIL = 'api/DELETE_UPLOADS_BY_ROOMCODES_FAIL'
+export const GET_UPLOADS_BY_BRANCHID = 'api/GET_UPLOADS_BY_BRANCHID'
+export const GET_UPLOADS_BY_BRANCHID_SUCCESS = 'api/GET_UPLOADS_BY_BRANCHID_SUCCESS'
+export const GET_UPLOADS_BY_BRANCHID_FAIL = 'api/GET_UPLOADS_BY_BRANCHID_FAIL'
+
+export const DELETE_UPLOADS_BY_CODES = 'api/DELETE_UPLOADS_BY_CODES'
+export const DELETE_UPLOADS_BY_CODES_SUCCESS = 'api/DELETE_UPLOADS_BY_CODES_SUCCESS'
+export const DELETE_UPLOADS_BY_CODES_FAIL = 'api/DELETE_UPLOADS_BY_CODES_FAIL'
 
 // ------------------------------------
 // Actions
 // ------------------------------------
 
-export function uploadImage (data, target, roomId) {
+export function uploadImage (data, target, roomId = null, branchId = null) {
   return (dispatch, getState) => {
     dispatch(showLoading())
     const { accessToken } = getState().auth.toJS()
     let endpoint = `/api/v1/uploads/${target}`
     if (roomId) {
-      endpoint = `/api/v1/uploads/${target}/${roomId}`
+      endpoint = `/api/v1/uploads/${target}/room/${roomId}`
+    }
+    if (branchId) {
+      endpoint = `/api/v1/uploads/${target}/branch/${branchId}`
     }
     return dispatch({
       [CALL_API]: {
@@ -49,7 +56,7 @@ export function getUploadsByRoomId (roomId = null) {
   return (dispatch, getState) => {
     dispatch(showLoading())
     const { accessToken } = getState().auth.toJS()
-    let endpoint = `/api/v1/uploads/${roomId}`
+    let endpoint = `/api/v1/uploads/room/${roomId}`
     return dispatch({
       [CALL_API]: {
         endpoint,
@@ -59,6 +66,25 @@ export function getUploadsByRoomId (roomId = null) {
           'Content-Type': 'application/json'
         },
         types: [GET_UPLOADS_BY_ROOMID, GET_UPLOADS_BY_ROOMID_SUCCESS, GET_UPLOADS_BY_ROOMID_FAIL]
+      }
+    }).then(() => { dispatch(hideLoading()) })
+  }
+}
+
+export function getUploadsByBranchId (branchId = null) {
+  return (dispatch, getState) => {
+    dispatch(showLoading())
+    const { accessToken } = getState().auth.toJS()
+    let endpoint = `/api/v1/uploads/branch/${branchId}`
+    return dispatch({
+      [CALL_API]: {
+        endpoint,
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${accessToken}`,
+          'Content-Type': 'application/json'
+        },
+        types: [GET_UPLOADS_BY_BRANCHID, GET_UPLOADS_BY_BRANCHID_SUCCESS, GET_UPLOADS_BY_BRANCHID_FAIL]
       }
     }).then(() => { dispatch(hideLoading()) })
   }
@@ -81,7 +107,7 @@ export function getUploads () {
   }
 }
 
-export function deleteUploadsByRoomCodes (data) {
+export function deleteUploadsByCodes (data) {
   return (dispatch, getState) => {
     const { accessToken } = getState().auth.toJS()
     return dispatch({
@@ -94,9 +120,9 @@ export function deleteUploadsByRoomCodes (data) {
         },
         body: JSON.stringify(data),
         types: [
-          DELETE_UPLOADS_BY_ROOMCODES,
-          DELETE_UPLOADS_BY_ROOMCODES_SUCCESS,
-          DELETE_UPLOADS_BY_ROOMCODES_FAIL]
+          DELETE_UPLOADS_BY_CODES,
+          DELETE_UPLOADS_BY_CODES_SUCCESS,
+          DELETE_UPLOADS_BY_CODES_FAIL]
       }
     })
   }
@@ -156,7 +182,7 @@ actionHandlers[ GET_DUMB ] = state => {
   return state.merge({
     uploadingImageSuccess: false,
     fetchingUploadsByRoomIdSuccess: false,
-    deletingUploadsByRoomCodesSuccess: false
+    deletingUploadsByCodesSuccess: false
   })
 }
 
@@ -187,27 +213,54 @@ actionHandlers[ GET_UPLOADS_BY_ROOMID_FAIL ] = (state, action) => {
   })
 }
 
-actionHandlers[ DELETE_UPLOADS_BY_ROOMCODES ] = state => {
+actionHandlers[ GET_UPLOADS_BY_BRANCHID ] = state => {
   return state.merge({
-    deletingUploadsByRoomCodes: true,
-    deletingUploadsByRoomCodesSuccess: false,
-    deleteUploadsByRoomCodesError: null
+    uploadsByBranchId: [],
+    fetchingUploadsByBranchId: true,
+    fetchingUploadsByBranchIdSuccess: false,
+    getUploadsByBranchIdError: null,
+    uploadingImageSuccess: false
   })
 }
 
-actionHandlers[ DELETE_UPLOADS_BY_ROOMCODES_SUCCESS ] = (state, action) => {
+actionHandlers[ GET_UPLOADS_BY_BRANCHID_SUCCESS ] = (state, action) => {
   return state.merge({
-    deletingUploadsByRoomCodes: false,
-    deletingUploadsByRoomCodesSuccess: true,
-    deleteUploadsByRoomCodesError: null
+    fetchingUploadsByBranchId: false,
+    fetchingUploadsByBranchIdSuccess: true,
+    getUploadsByBranchIdError: null,
+    uploadsByBranchId: action.payload.data.uploads
   })
 }
 
-actionHandlers[ DELETE_UPLOADS_BY_ROOMCODES_FAIL ] = (state, action) => {
+actionHandlers[ GET_UPLOADS_BY_BRANCHID_FAIL ] = (state, action) => {
   return state.merge({
-    deletingUploadsByRoomCodes: false,
-    deletingUploadsByRoomCodesSuccess: false,
-    deleteUploadsByRoomCodesError: action.payload.response.error
+    fetchingUploadsByBranchId: false,
+    fetchingUploadsByBranchIdSuccess: false,
+    getUploadsByBranchIdError: action.payload.response.error
+  })
+}
+
+actionHandlers[ DELETE_UPLOADS_BY_CODES ] = state => {
+  return state.merge({
+    deletingUploadsByCodes: true,
+    deletingUploadsByCodesSuccess: false,
+    deleteUploadsByCodesError: null
+  })
+}
+
+actionHandlers[ DELETE_UPLOADS_BY_CODES_SUCCESS ] = (state, action) => {
+  return state.merge({
+    deletingUploadsByCodes: false,
+    deletingUploadsByCodesSuccess: true,
+    deleteUploadsByCodesError: null
+  })
+}
+
+actionHandlers[ DELETE_UPLOADS_BY_CODES_FAIL ] = (state, action) => {
+  return state.merge({
+    deletingUploadsByCodes: false,
+    deletingUploadsByCodesSuccess: false,
+    deleteUploadsByCodesError: action.payload.response.error
   })
 }
 
@@ -224,9 +277,13 @@ const initialState = Immutable.fromJS({
   fetchingUploadsByRoomIdSuccess: false,
   getUploadsByRoomIdError: null,
   uploadsByRoomId: [],
-  deletingUploadsByRoomCodes: false,
-  deletingUploadsByRoomCodesSuccess: false,
-  deleteUploadsByRoomCodesError: null
+  deletingUploadsByCodes: false,
+  deletingUploadsByCodesSuccess: false,
+  deleteUploadsByCodesError: null,
+  fetchingUploadsByBranchId: false,
+  fetchingUploadsByBranchIdSuccess: false,
+  getUploadsByBranchIdError: null,
+  uploadsByBranchId: []
 })
 
 export default function reducer (state = initialState, action) {
