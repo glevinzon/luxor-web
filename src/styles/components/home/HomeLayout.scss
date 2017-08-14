@@ -1,4 +1,9 @@
 .page-top {
+  header{
+    .form-access{
+      @import 'toolkit-inverse.scss';
+    }
+  }
   .features{
     @import 'toolkit-inverse.scss';
   }

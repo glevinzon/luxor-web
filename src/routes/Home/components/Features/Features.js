@@ -3,6 +3,14 @@ import {Thumbnail, Button} from 'react-bootstrap'
 import StackGrid, { transitions, easings } from 'react-stack-grid'
 import shuffle from 'shuffle-array'
 import Lightbox from 'react-images'
+import ReserveForm from '../Header/ReserveForm'
+import {
+  Modal,
+  ModalHeader,
+  ModalTitle,
+  ModalClose
+} from 'react-modal-bootstrap'
+import SweetAlert from 'react-bootstrap-sweetalert'
 
 const transition = transitions.scaleDown
 
@@ -13,7 +21,9 @@ class Features extends Component {
     this.state = {
       roomImages: [],
       lightboxIsOpen: false,
-      currentImage: 1
+      currentImage: 1,
+      isOpen: false,
+      alert: null
     }
 
     this.closeLightbox = this.closeLightbox.bind(this)
@@ -41,6 +51,11 @@ class Features extends Component {
       })
     }
     this.setState({branch: branch, rooms: rooms, roomImages: roomImages})
+
+    let reserveSuccess = nextProps.reserve.get('creatingReservationSuccess')
+    if (reserveSuccess) {
+      this.hideModal()
+    }
   }
 
   pickRandomImage = (code, images) => {
@@ -65,8 +80,26 @@ class Features extends Component {
     })
   }
 
+  openModal = (room) => {
+    this.setState({
+      roomId: room.get('id'),
+      branchId: room.get('branch_id'),
+      roomType: room.get('type'),
+      room: room.get('name'),
+      isOpen: true
+    })
+  }
+
+  hideModal = () => {
+    this.setState({
+      isOpen: false
+    })
+  }
+
+  onConfirm = () => {
+  }
+
   render () {
-    console.log(this.state.roomImages)
     let { roomImages, branch, rooms, selectedCode } = this.state
 
     return (
@@ -118,7 +151,7 @@ class Features extends Component {
                       </ul>
                     </Thumbnail>
                       <p>
-                        <button type='button' className='btn btn-lg btn-warning-outline'>Reserve {room.get('name')}</button>
+                        <button onClick={e => { this.openModal(room) }} type='button' className='btn btn-lg btn-warning-outline'>Reserve {room.get('name')}</button>
                       </p>
                     </figure>
                   )
@@ -129,6 +162,13 @@ class Features extends Component {
           )
         })}
         </div>
+        <Modal isOpen={this.state.isOpen} onRequestHide={this.hideModal} backdropStyles={{'color': '#000000'}}>
+          <ModalHeader>
+            <ModalClose onClick={this.hideModal} />
+            <ModalTitle >Reserve a Room</ModalTitle>
+          </ModalHeader>
+          <ReserveForm room={this.state.room} roomId={this.state.roomId} branchId={this.state.branchId} roomType={this.state.roomType} show={this.state.isOpen} {...this.props} />
+        </Modal>
       </section>
     )
   }

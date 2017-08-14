@@ -129,7 +129,8 @@ class ReservationTable extends Component {
                   <th>Note</th>
                   <th>Contact</th>
                   <th>Email</th>
-                  <th>Date</th>
+                  <th>Start Date</th>
+                  <th>End Date</th>
                   <th>Room Type</th>
                   <th>Room Name</th>
                   <th>Status</th>
@@ -148,7 +149,8 @@ class ReservationTable extends Component {
                             <td>{reserve.get('note')}</td>
                             <td>{reserve.get('contact')}</td>
                             <td>{reserve.get('email')}</td>
-                            <td>{moment(reserve.date).format('MM-DD-YYYY')}</td>
+                            <td>{moment(reserve.get('startDate')).format('dddd, MM/DD/YY')}</td>
+                            <td>{moment(reserve.get('endDate')).format('dddd, MM/DD/YY')}</td>
                             <td>{room.get('type')}</td>
                             <td>{room.get('name')}</td>
                             <td>{this.renderStatus(reserve.get('status'), room, reserve.get('id'))}</td>

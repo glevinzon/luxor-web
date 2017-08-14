@@ -33,6 +33,16 @@ class ReserveForm extends Component {
     }
   }
 
+  componentWillReceiveProps (nextProps) {
+    let {branchId, roomId, roomType, room} = nextProps
+    this.setState({
+      branchId: branchId,
+      roomId: roomId,
+      roomType: roomType,
+      room: room
+    })
+  }
+
   onChange = (e) => {
     this.setState({ [e.target.name]: e.target.value })
   }
@@ -74,6 +84,32 @@ class ReserveForm extends Component {
         <ModalBody>
           <div className='form-group row'>
             <div className='input-group col-sm-offset-1 col-sm-10 col-xs-offset-1 col-xs-10'>
+              <div className='flextable'>
+                <div className='flextable-item'>
+                  <DatePickerGroup
+                    onChange={e => { this.setState({startDate: e, endDate: e}) }}
+                    value={this.state.startDate || new Date().toISOString()}
+                    field='startDate'
+                    placeholder='Start Date'
+                    error={this.state.errors.startDate}
+                  />
+                </div>
+                <div className='flextable-item'>
+                  <DatePickerGroup
+                    onChange={e => { this.setState({endDate: e}) }}
+                    value={this.state.endDate || new Date().toISOString()}
+                    field='endDate'
+                    placeholder='End Date'
+                    disabled={this.state.startDate == null}
+                    minDate={this.state.startDate}
+                    error={this.state.errors.endDate}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className='form-group row'>
+            <div className='input-group col-sm-offset-1 col-sm-10 col-xs-offset-1 col-xs-10'>
                <TextFieldGroup
                  onChange={this.onChange}
                  value={this.state.roomType}
@@ -88,7 +124,7 @@ class ReserveForm extends Component {
                   title='Room Types'
                 >
                   {!!(branch && branchId) && JSON.parse(branch.get('roomTypes')).map((type, key) => {
-                    return (<MenuItem key={key} onClick={e => { this.setState({roomType: type.name, branchId: branchId}) }}>{type.name}</MenuItem>)
+                    return (<MenuItem key={key} onClick={e => { this.setState({roomType: type.name, branchId: branchId, room: ''}) }}>{type.name}</MenuItem>)
                   })}
                 </DropdownButton>
             </div>
@@ -160,32 +196,6 @@ class ReserveForm extends Component {
                 placeholder='Address'
                 error={this.state.errors.address}
                 />
-            </div>
-          </div>
-          <div className='form-group row'>
-            <div className='input-group col-sm-offset-1 col-sm-10 col-xs-offset-1 col-xs-10'>
-              <div className='flextable'>
-                <div className='flextable-item'>
-                  <DatePickerGroup
-                    onChange={e => { this.setState({startDate: e, endDate: e}) }}
-                    value={this.state.startDate || new Date().toISOString()}
-                    field='startDate'
-                    placeholder='Start Date'
-                    error={this.state.errors.startDate}
-                  />
-                </div>
-                <div className='flextable-item'>
-                  <DatePickerGroup
-                    onChange={e => { this.setState({endDate: e}) }}
-                    value={this.state.endDate || new Date().toISOString()}
-                    field='endDate'
-                    placeholder='End Date'
-                    disabled={this.state.startDate == null}
-                    minDate={this.state.startDate}
-                    error={this.state.errors.endDate}
-                  />
-                </div>
-              </div>
             </div>
           </div>
           <div className='form-group row'>
