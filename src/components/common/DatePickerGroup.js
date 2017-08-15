@@ -18,6 +18,7 @@ class DatePickerGroup extends Component {
           onChange={onChange}
           minDate={minDate || `${new Date().toISOString()}`}
           maxDate={maxDate} />
+          <span className='statcard-desc'>{placeholder}</span>
       </div>
     )
   }

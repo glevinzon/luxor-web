@@ -35,6 +35,7 @@ class ReserveForm extends Component {
 
   componentWillReceiveProps (nextProps) {
     let {branchId, roomId, roomType, room} = nextProps
+
     this.setState({
       branchId: branchId,
       roomId: roomId,
@@ -108,52 +109,56 @@ class ReserveForm extends Component {
               </div>
             </div>
           </div>
-          <div className='form-group row'>
-            <div className='input-group col-sm-offset-1 col-sm-10 col-xs-offset-1 col-xs-10'>
-               <TextFieldGroup
-                 onChange={this.onChange}
-                 value={this.state.roomType}
-                 field='roomType'
-                 placeholder='Room Type'
-                 disabled
-                 error={this.state.errors.roomType}
-                />
-                <DropdownButton
-                  componentClass={InputGroupButton}
-                  id='input-dropdown-addon'
-                  title='Room Types'
-                >
-                  {!!(branch && branchId) && JSON.parse(branch.get('roomTypes')).map((type, key) => {
-                    return (<MenuItem key={key} onClick={e => { this.setState({roomType: type.name, branchId: branchId, room: ''}) }}>{type.name}</MenuItem>)
+          {!this.state.roomType && (
+            <div className='form-group row'>
+              <div className='input-group col-sm-offset-1 col-sm-10 col-xs-offset-1 col-xs-10'>
+                <TextFieldGroup
+                  onChange={this.onChange}
+                  value={this.state.roomType}
+                  field='roomType'
+                  placeholder='Room Type'
+                  disabled
+                  error={this.state.errors.roomType}
+                  />
+                  <DropdownButton
+                    componentClass={InputGroupButton}
+                    id='input-dropdown-addon'
+                    title='Room Types'
+                  >
+                    {!!(branch && branchId) && JSON.parse(branch.get('roomTypes')).map((type, key) => {
+                      return (<MenuItem key={key} onClick={e => { this.setState({roomType: type.name, branchId: branchId, room: ''}) }}>{type.name}</MenuItem>)
+                    })}
+                  </DropdownButton>
+              </div>
+            </div>
+          )}
+          {!this.state.room && (
+            <div className='form-group row'>
+              <div className='input-group col-sm-offset-1 col-sm-10 col-xs-offset-1 col-xs-10'>
+                <TextFieldGroup
+                  onChange={this.onChange}
+                  value={this.state.room}
+                  field='room'
+                  disabled
+                  placeholder='Select Room'
+                  error={this.state.errors.room}
+                  />
+                  <DropdownButton
+                    componentClass={InputGroupButton}
+                    id='input-dropdown-addon'
+                    title='Room Names'
+                    disabled={this.state.roomType == ''}
+                  >
+                  {rooms && rooms.map((room, key) => {
+                    if (this.state.roomType === room.get('type')) {
+                      return (<MenuItem key={key} onClick={e => { this.setState({room: room.get('name'), roomId: room.get('id')}) }}>{room.get('name')}</MenuItem>)
+                    }
                   })}
-                </DropdownButton>
-            </div>
-          </div>
-          <div className='form-group row'>
-            <div className='input-group col-sm-offset-1 col-sm-10 col-xs-offset-1 col-xs-10'>
-               <TextFieldGroup
-                 onChange={this.onChange}
-                 value={this.state.room}
-                 field='room'
-                 disabled
-                 placeholder='Select Room'
-                 error={this.state.errors.room}
-                />
-                <DropdownButton
-                  componentClass={InputGroupButton}
-                  id='input-dropdown-addon'
-                  title='Room Names'
-                  disabled={this.state.roomType == ''}
-                >
-                {rooms && rooms.map((room, key) => {
-                  if (this.state.roomType === room.get('type')) {
-                    return (<MenuItem key={key} onClick={e => { this.setState({room: room.get('name'), roomId: room.get('id')}) }}>{room.get('name')}</MenuItem>)
-                  }
-                })}
 
-                </DropdownButton>
+                  </DropdownButton>
+              </div>
             </div>
-          </div>
+          )}
           <div className='form-group row'>
             <div className='input-group col-sm-offset-1 col-sm-10 col-xs-offset-1 col-xs-10'>
               <TextFieldGroup

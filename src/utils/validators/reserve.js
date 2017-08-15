@@ -1,6 +1,7 @@
 import Validator from 'validator'
 import isEmpty from 'lodash/isEmpty'
 import moment from 'moment'
+import validator from 'email-validator'
 
 export default function validateInput (data) {
   let errors = {}
@@ -11,8 +12,8 @@ export default function validateInput (data) {
     errors.fullName = 'Full Name is required'
   }
 
-  if (Validator.isNull(data.email)) {
-    errors.email = 'Email is required'
+  if (!validator.validate(data.email)) {
+    errors.email = 'Email is invalid.'
   }
 
   if (Validator.isNull(data.contact)) {

@@ -170,7 +170,7 @@ class Features extends Component {
         <Modal isOpen={this.state.isOpen} onRequestHide={this.hideModal} backdropStyles={{'color': '#000000'}}>
           <ModalHeader>
             <ModalClose onClick={this.hideModal} />
-            <ModalTitle >Reserve a Room</ModalTitle>
+            <ModalTitle>Reserve {`${this.state.room} (${this.state.roomType})` || 'a Room'}</ModalTitle>
           </ModalHeader>
           <ReserveForm room={this.state.room} roomId={this.state.roomId} branchId={this.state.branchId} roomType={this.state.roomType} show={this.state.isOpen} {...this.props} />
         </Modal>

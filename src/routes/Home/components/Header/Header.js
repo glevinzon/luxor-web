@@ -68,7 +68,7 @@ class Header extends Component {
         <Modal isOpen={this.state.isOpen} onRequestHide={this.hideModal} backdropStyles={{'color': '#000000'}}>
           <ModalHeader>
             <ModalClose onClick={this.hideModal} />
-            <ModalTitle >Reserve a Room</ModalTitle>
+            <ModalTitle>{this.state.roomName ? this.state.roomName : 'Reserve a Room'}</ModalTitle>
           </ModalHeader>
           <ReserveForm show={this.state.isOpen} {...this.props} />
         </Modal>
