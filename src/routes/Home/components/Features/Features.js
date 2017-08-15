@@ -150,8 +150,8 @@ class Features extends Component {
                       <h3>{room.get('name')}</h3>
                       <ul className='list-group'>
                         {!!(room.get('description') && room.get('description') != '') && (<li className='list-group-item'><p>{room.get('description')}</p></li>)}
-                        {!!(room.get('rate') && room.get('rate') != '') && (<li className='list-group-item'><p>{room.get('rate')}</p></li>)}
-                        {!!(room.get('promo') && room.get('promo') != '') && (<li className='list-group-item'><p>{room.get('promo')}</p></li>)}
+                        {!!(room.get('rate') && room.get('rate') != '') && (<li className='list-group-item'><p>{room.get('rate')}</p><span className='statcard-desc'>Rate</span></li>)}
+                        {!!(room.get('promo') && room.get('promo') != '') && (<li className='list-group-item'><p>{room.get('promo')}</p><span className='statcard-desc'>Promo</span></li>)}
                       </ul>
                     </Thumbnail>
                       <p>
