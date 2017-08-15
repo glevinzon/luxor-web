@@ -1,12 +1,4 @@
 import React, { Component } from 'react'
-import ReserveForm from './ReserveForm'
-import {
-  Modal,
-  ModalHeader,
-  ModalTitle,
-  ModalClose
-} from 'react-modal-bootstrap'
-import SweetAlert from 'react-bootstrap-sweetalert'
 
 class Header extends Component {
   state = {
@@ -18,35 +10,9 @@ class Header extends Component {
 
   componentWillReceiveProps (nextProps) {
     let { preferences } = nextProps
-    let reserveSuccess = nextProps.reserve.get('creatingReservationSuccess')
-    if (reserveSuccess) {
-      this.hideModal()
-      this.setState({
-        alert: (
-          <SweetAlert success title='Information Sent' onConfirm={e => { this.setState({alert: null}) }}>
-          The Inn will contact you shortly. Thank you!
-          </SweetAlert>
-        )
-      })
-    }
     if (preferences) {
       this.setState({bgImage: preferences.headerBgImage, title: preferences.headerTitle})
     }
-  }
-
-  openModal = () => {
-    this.setState({
-      isOpen: true
-    })
-  }
-
-  hideModal = () => {
-    this.setState({
-      isOpen: false
-    })
-  }
-
-  onConfirm = () => {
   }
 
   render () {
@@ -59,19 +25,12 @@ class Header extends Component {
               <div className='header-content'>
                 <div className='header-content-inner'>
                   {this.state.title && (<h1>{this.state.title}</h1>)}
-                  {this.state.title && (<a href='#features' className='btn btn-outline btn-xl page-scroll' onClick={this.openModal} >Reserve Now!</a>)}
+                  <a href='#features' className='btn btn-outline btn-xl page-scroll'>Reserve Now!</a>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <Modal isOpen={this.state.isOpen} onRequestHide={this.hideModal} backdropStyles={{'color': '#000000'}}>
-          <ModalHeader>
-            <ModalClose onClick={this.hideModal} />
-            <ModalTitle>{this.state.roomName ? this.state.roomName : 'Reserve a Room'}</ModalTitle>
-          </ModalHeader>
-          <ReserveForm show={this.state.isOpen} {...this.props} />
-        </Modal>
       </header>
     )
   }

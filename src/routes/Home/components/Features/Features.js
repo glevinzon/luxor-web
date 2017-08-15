@@ -3,7 +3,7 @@ import {Thumbnail, OverlayTrigger, Tooltip} from 'react-bootstrap'
 import StackGrid, { transitions, easings } from 'react-stack-grid'
 import shuffle from 'shuffle-array'
 import Lightbox from 'react-images'
-import ReserveForm from '../Header/ReserveForm'
+import ReserveForm from 'components/common/ReserveForm'
 import {
   Modal,
   ModalHeader,
