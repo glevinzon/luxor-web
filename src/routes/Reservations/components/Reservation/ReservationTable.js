@@ -198,16 +198,12 @@ class ReservationTable extends Component {
         {this.state.delete}
         {this.state.alert}
         {this.state.approveAlert}
-
-        <div className='hr-divider'>
-          <Tabs bsStyle='nav nav-pills hr-divider-content hr-divider-tab' activeKey={this.state.selectedTab || 'pending'} onSelect={this.handleSelect} id='controlled-tab-example'>
-            <Tab style={{textAlign: 'left'}} key='pending' eventKey='pending' title='PENDING'>{this.renderTable(data, roomsData, 0)}</Tab>
-            <Tab style={{textAlign: 'left'}} key='approved' eventKey='approved' title='APPROVED'>{this.renderTable(data, roomsData, 1)}</Tab>
-            <Tab style={{textAlign: 'left'}} key='rejected' eventKey='rejected' title='REJECTED'>{this.renderTable(data, roomsData, 10)}</Tab>
-            <Tab style={{textAlign: 'left'}} key='archieved' eventKey='archieved' title='ARCHIEVED'>{this.renderTable(data, roomsData, 11)}</Tab>
-          </Tabs>
-        </div>
-
+        <Tabs bsStyle='nav nav-bordered' activeKey={this.state.selectedTab || 'pending'} onSelect={this.handleSelect} id='controlled-tab-example'>
+          <Tab style={{textAlign: 'left'}} key='pending' eventKey='pending' title='PENDING'>{this.renderTable(data, roomsData, 0)}</Tab>
+          <Tab style={{textAlign: 'left'}} key='approved' eventKey='approved' title='APPROVED'>{this.renderTable(data, roomsData, 1)}</Tab>
+          <Tab style={{textAlign: 'left'}} key='rejected' eventKey='rejected' title='REJECTED'>{this.renderTable(data, roomsData, 10)}</Tab>
+          <Tab style={{textAlign: 'left'}} key='archieved' eventKey='archieved' title='ARCHIEVED'>{this.renderTable(data, roomsData, 11)}</Tab>
+        </Tabs>
       </div>
     )
   }

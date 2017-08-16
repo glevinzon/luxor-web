@@ -27,15 +27,9 @@ class MainNav extends Component {
               <li>
                 <a className='page-scroll' href='#faqs'>FAQs</a>
               </li>
-              {(keys && keys.length > 1) && (
-                <li>
-                  {branches.map((branch, key) => {
-                    if (branchId == branch.get('id')) {
-                      return <a className='page-scroll' href='#contact'>Contact Us{'( ' + branch.get('contact') + ' )' || ''}</a>
-                    }
-                  })}
-                </li>
-              )}
+              <li>
+                <a className='page-scroll' href='#contact'>Contact Us</a>
+              </li>
               <li>
 
               </li>

@@ -34,6 +34,7 @@ class Features extends Component {
 
   componentWillReceiveProps (nextProps) {
     let { branch, images, rooms, branchId } = nextProps
+
     var roomImages = []
     var imagesPath = []
     if (branch && images && rooms) {
@@ -56,6 +57,13 @@ class Features extends Component {
     let reserveSuccess = nextProps.reserve.get('creatingReservationSuccess')
     if (reserveSuccess) {
       this.hideModal()
+      this.setState({
+        alertReserve: (
+          <SweetAlert success title='Information Sent' onConfirm={e => { this.setState({alertReserve: null}) }}>
+           The Inn will contact you shortly. Thank you!
+          </SweetAlert>
+         )
+      })
     }
   }
 
@@ -105,6 +113,7 @@ class Features extends Component {
 
     return (
       <section id='features' className='features' style={{textAlign: 'center'}}>
+      {this.state.alertReserve}
         {selectedCode && (
           <Lightbox
             images={roomImages[this.state.selectedCode]}
