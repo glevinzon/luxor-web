@@ -51,7 +51,7 @@ class RoomUploadModal extends Component {
       <Modal isOpen={this.props.open} onRequestHide={this.hideModal}>
         <ModalHeader>
           <ModalClose onClick={this.hideModal} />
-          <ModalTitle >Upload New {room.get('name')} Image</ModalTitle>
+          <ModalTitle >Upload New {room.name} Image</ModalTitle>
         </ModalHeader>
         <Dropzone
           style={{ width: '100%',
@@ -67,7 +67,7 @@ class RoomUploadModal extends Component {
           {(!this.state.accepted) && (<p style={{ textAlign: 'center' }}>Drop an image here, or click to select file to upload.</p>)}
         </Dropzone>
         <ModalFooter>
-          <button className='btn btn-primary' onClick={e => this.handleUploadAction(room.get('name'), room.get('id'))}>
+          <button className='btn btn-primary' onClick={e => this.handleUploadAction(room.name, room.id)}>
             Upload
           </button>
         </ModalFooter>

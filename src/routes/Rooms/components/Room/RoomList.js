@@ -5,13 +5,13 @@ class RoomList extends Component {
   popoverRight = (room) => {
     return (
       <Popover id='popover-positioned-right'>
-        <ul key={room.get('code')} className='list-group'>
-          {room.get('code') && (<li className='list-group-item'>{room.get('code')}</li>)}
-          {room.get('name') && (<li className='list-group-item'>{room.get('name')}</li>)}
-          {room.get('description') && (<li className='list-group-item'>{room.get('description')}</li>)}
-          {room.get('type') && (<li className='list-group-item'>{room.get('type')}</li>)}
-          {room.get('rate') && (<li className='list-group-item'>{room.get('rate')}</li>)}
-          {room.get('promo') && (<li className='list-group-item'>{room.get('promo')}</li>)}
+        <ul key={room.code} className='list-group'>
+          {room.code && (<li className='list-group-item'>{room.code}</li>)}
+          {room.name && (<li className='list-group-item'>{room.name}</li>)}
+          {room.description && (<li className='list-group-item'>{room.description}</li>)}
+          {room.type && (<li className='list-group-item'>{room.type}</li>)}
+          {room.rate && (<li className='list-group-item'>{room.rate}</li>)}
+          {room.promo && (<li className='list-group-item'>{room.promo}</li>)}
         </ul>
       </Popover>
     )
@@ -33,9 +33,9 @@ class RoomList extends Component {
         </h4>
         {data && (data.map(room => {
           return (
-            <OverlayTrigger key={room.get('code')} trigger='hover' placement='right' overlay={this.popoverRight(room)}>
+            <OverlayTrigger key={room.code} trigger='hover' placement='right' overlay={this.popoverRight(room)}>
               <a className='list-group-item' href='#'>
-                {room.get('name')}
+                {room.name}
               </a>
             </OverlayTrigger>
           )

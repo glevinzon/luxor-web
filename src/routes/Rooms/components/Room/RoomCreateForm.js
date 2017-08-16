@@ -30,20 +30,20 @@ class RoomCreateForm extends Component {
         var data = branches.get('data')
         var selectedBranch = ''
         data.map((branch, key) => {
-          if (branch.get('id') == selectedRoom.get('branch_id')) {
+          if (branch.get('id') == selectedRoom.branch_id) {
             selectedBranch = branch.get('name')
           }
         })
       }
       this.setState({
-        branchId: '' + selectedRoom.get('branch_id'),
+        branchId: '' + selectedRoom.branch_id,
         selectedBranch: selectedBranch,
-        code: selectedRoom.get('code'),
-        name: selectedRoom.get('name'),
-        description: selectedRoom.get('description'),
-        type: selectedRoom.get('type'),
-        rate: selectedRoom.get('rate'),
-        promo: selectedRoom.get('promo')
+        code: selectedRoom.code,
+        name: selectedRoom.name,
+        description: selectedRoom.description,
+        type: selectedRoom.type,
+        rate: selectedRoom.rate,
+        promo: selectedRoom.promo
       })
     }
   }

@@ -6,6 +6,8 @@ import SweetAlert from 'react-bootstrap-sweetalert'
 import RoomImagesModal from './RoomImagesModal'
 import RoomUploadModal from './RoomUploadModal'
 import RoomModal from './RoomModal'
+import { Tabs, Tab } from 'react-bootstrap'
+import _ from 'lodash'
 
 class RoomTable extends Component {
   constructor (props) {
@@ -27,7 +29,7 @@ class RoomTable extends Component {
   componentWillReceiveProps (nextProps) {
     let { uploadingImageSuccess, fetchingUploadsByRoomIdSuccess, selectedRoomUploads, deletingUploadsByCodesSuccess } = nextProps
     if (uploadingImageSuccess) {
-      this.props.getUploadsByRoomId(this.state.selectedRoom.get('id'))
+      this.props.getUploadsByRoomId(this.state.selectedRoom.id)
       this.setState({
         alert: (
           <SweetAlert success title='Upload Success' onConfirm={e => { this.setState({alert: null}) }}>
@@ -38,7 +40,7 @@ class RoomTable extends Component {
     }
 
     if (deletingUploadsByCodesSuccess) {
-      this.props.getUploadsByRoomId(this.state.selectedRoom.get('id'))
+      this.props.getUploadsByRoomId(this.state.selectedRoom.id)
       this.setState({
         alert: (
           <SweetAlert success title='Delete Success' onConfirm={e => { this.setState({alert: null}) }}>
@@ -113,21 +115,102 @@ class RoomTable extends Component {
   }
 
   handleRoomImageUploads = (room) => {
-    this.props.getUploadsByRoomId(room.get('id'))
+    this.props.getUploadsByRoomId(room.id)
     this.setState({selectedRoom: room, show: true})
   }
 
+  renderTable = (roomsData, branch, all) => {
+    return (
+      <div className='table-full'>
+      <div className='table-responsive'>
+        <table className='table' data-sort='table'>
+          <thead>
+            <tr>
+              <th>Code</th>
+              <th>Branch</th>
+              <th>Room Name</th>
+              <th>Description</th>
+              <th>Type</th>
+              <th>Rate</th>
+              <th>Promo</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {roomsData && branch && (roomsData.map(room => {
+              if (room.branch_id == branch.get('id')) {
+                return (
+                  <tr key={room.id}>
+                    <td><a onClick={e => this.handleRoomImageUploads(room)}>{room.code}</a></td>
+                    <td>{branch.get('name')}</td>
+                    <td>{room.name}</td>
+                    <td>{room.description}</td>
+                    <td>{room.type}</td>
+                    <td>{room.rate}</td>
+                    <td>{room.promo}</td>
+                    <td>
+                      <div className='btn-group'>
+                        <button type='button' className='btn btn-primary-outline' onClick={e => (this.setState({selectedRoom: room, updateModal: true}))}>
+                          <span className='icon icon-pencil' />
+                        </button>
+                        <button type='button' className='btn btn-primary-outline' onClick={e => { this.handleDelete(room.code) }}>
+                          <span className='icon icon-erase' />
+                        </button>
+                      </div></td>
+                  </tr>
+                )
+              } else if (all) {
+                return (
+                  <tr key={room.id}>
+                    <td><a onClick={e => this.handleRoomImageUploads(room)}>{room.code}</a></td>
+                    <td>{branch.get('name')}</td>
+                    <td>{room.name}</td>
+                    <td>{room.description}</td>
+                    <td>{room.type}</td>
+                    <td>{room.rate}</td>
+                    <td>{room.promo}</td>
+                    <td>
+                      <div className='btn-group'>
+                        <button type='button' className='btn btn-primary-outline' onClick={e => (this.setState({selectedRoom: room, updateModal: true}))}>
+                          <span className='icon icon-pencil' />
+                        </button>
+                        <button type='button' className='btn btn-primary-outline' onClick={e => { this.handleDelete(room.code) }}>
+                          <span className='icon icon-erase' />
+                        </button>
+                      </div></td>
+                  </tr>
+                )
+              }
+            }))}
+          </tbody>
+        </table>
+      </div>
+        <div className='text-center'>
+          <ul className='pagination'>
+            <li>
+              <a aria-label='Previous' onClick={e => this.handlePaginationClick('prev')} style={{display: cx({'none': this.state.page < 2 || this.props.fetchingRooms})}} >
+                <span aria-hidden='true'>&laquo;</span>
+              </a>
+            </li>
+            <li>
+              <a aria-label='Next' onClick={e => this.handlePaginationClick('next')} style={{display: cx({'none': (roomsData && roomsData.size === 0) || this.props.fetchingRooms})}} >
+                <span aria-hidden='true'>&raquo;</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    )
+  }
+
+  handleSelect = (e) => {
+    event.preventDefault()
+    this.setState({ selectedTab: e })
+  }
+
   render () {
-    let { branches, rooms, fetchingRooms } = this.props
+    let { branchesData, roomsData, fetchingRooms } = this.props
     let { selectedRoom, selectedRoomUploads } = this.state
-    if (rooms) {
-      var data = rooms.get('data')
-    }
-
-    if (branches) {
-      var branchesData = branches.get('data')
-    }
-
     return (
       <div>
         {this.state.delete}
@@ -144,66 +227,13 @@ class RoomTable extends Component {
           <RoomUploadModal room={selectedRoom} open={this.state.open} onCloseCb={e => { this.setState({open: false}) }} uploadImage={this.props.uploadImage} />
         )}
         <RoomModal selectedRoom={this.state.selectedRoom || null} open={this.state.updateModal} onClose={e => { this.setState({ updateModal: false }) }} {...this.props} />
-        <div className='table-full'>
-          <div className='table-responsive'>
-            <table className='table' data-sort='table'>
-              <thead>
-                <tr>
-                  <th>Code</th>
-                  <th>Branch</th>
-                  <th>Room Name</th>
-                  <th>Description</th>
-                  <th>Type</th>
-                  <th>Rate</th>
-                  <th>Promo</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                {data && (data.map(room => {
-                  return (
-                    <tr key={room.get('id')}>
-                      <td><a onClick={e => this.handleRoomImageUploads(room)}>{room.get('code')}</a></td>
-                      <td>{branchesData && branchesData.map(branch => {
-                        if (branch.get('id') === room.get('branch_id')) {
-                          return (branch.get('name'))
-                        }
-                      })}</td>
-                      <td>{room.get('name')}</td>
-                      <td>{room.get('description')}</td>
-                      <td>{room.get('type')}</td>
-                      <td>{room.get('rate')}</td>
-                      <td>{room.get('promo')}</td>
-                      <td>
-                        <div className='btn-group'>
-                          <button type='button' className='btn btn-primary-outline' onClick={e => (this.setState({selectedRoom: room, updateModal: true}))}>
-                            <span className='icon icon-pencil' />
-                          </button>
-                          <button type='button' className='btn btn-primary-outline' onClick={e => { this.handleDelete(room.get('code')) }}>
-                            <span className='icon icon-erase' />
-                          </button>
-                        </div></td>
-                    </tr>
-                  )
-                }))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-        <div className='text-center'>
-          <ul className='pagination'>
-            <li>
-              <a aria-label='Previous' onClick={e => this.handlePaginationClick('prev')} style={{display: cx({'none': this.state.page < 2 || fetchingRooms})}} >
-                <span aria-hidden='true'>&laquo;</span>
-              </a>
-            </li>
-            <li>
-              <a aria-label='Next' onClick={e => this.handlePaginationClick('next')} style={{display: cx({'none': (data && data.size === 0) || fetchingRooms})}} >
-                <span aria-hidden='true'>&raquo;</span>
-              </a>
-            </li>
-          </ul>
-        </div>
+        <Tabs bsStyle='nav nav-bordered' activeKey={this.state.selectedTab || 'all'} onSelect={this.handleSelect} id='controlled-tab-example'>
+          <Tab style={{textAlign: 'left'}} key='all' eventKey='all' title='ALL'>{this.renderTable(roomsData, branchesData, true)}</Tab>
+          {branchesData && branchesData.map((branch, key) => {
+            return (<Tab style={{textAlign: 'left'}} key={branch.get('name')} eventKey={_.upperCase(branch.get('name'))} title={branch.get('name')}>{this.renderTable(roomsData, branch)}</Tab>)
+          })}
+        </Tabs>
+
       </div>
     )
   }

@@ -3,7 +3,7 @@ import classnames from 'classnames'
 
 class TextFieldGroup extends Component {
   render () {
-    const { field, value, placeholder, type, onChange, error, disabled } = this.props
+    const { field, value, placeholder, type, onChange, error, disabled, inputBlock } = this.props
 
     return (
       <div className={classnames('form-group', { 'has-error': error })}>
@@ -13,7 +13,7 @@ class TextFieldGroup extends Component {
           value={value}
           type={type}
           name={field}
-          className='form-control'
+          className={classnames('form-control', { 'input-block': inputBlock })}
           disabled={disabled}
           placeholder={placeholder}
         />
@@ -28,6 +28,7 @@ TextFieldGroup.propTypes = {
   type: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   error: PropTypes.string,
+  inputBlock: PropTypes.bool,
   disabled: PropTypes.bool,
   placeholder: PropTypes.string
 }
