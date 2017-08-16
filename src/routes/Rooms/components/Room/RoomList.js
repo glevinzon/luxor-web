@@ -20,10 +20,8 @@ class RoomList extends Component {
   render () {
     let { rooms, fetchingRooms } = this.props
     if (rooms) {
-      var total = rooms.get('total')
-      var currentPage = rooms.get('currentPage')
-      var lastPage = rooms.get('lastPage')
       var data = rooms.get('data')
+      data = data.toJSON()
     }
 
     return (
