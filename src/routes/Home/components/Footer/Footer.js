@@ -9,16 +9,16 @@ class Footer extends Component {
             <p>&copy; Luxor One Traveller's Inn</p>
             <ul className='list-inline'>
               <li>
-                <a href='#features'>Rooms</a>
+                <a className='page-scroll' href='#features'>Rooms</a>
               </li>
               <li>
-                <a href='#location'>Location</a>
+                <a className='page-scroll' href='#location'>Location</a>
               </li>
               <li>
-                <a href='#contact'>Contact</a>
+                <a className='page-scroll' href='#contact'>Contact</a>
               </li>
               <li>
-                <a href='#faqs'>FAQ</a>
+                <a className='page-scroll' href='#faqs'>FAQ</a>
               </li>
             </ul>
           </div>

@@ -78,7 +78,6 @@ class GridGallery extends Component {
     }
   }
   render () {
-    console.log('GRID', this.props)
     return (
       <div>
         <CheckButton
