@@ -13,9 +13,17 @@ export const DELETE_RESERVATION = 'api/DELETE_RESERVATION'
 export const DELETE_RESERVATION_SUCCESS = 'api/DELETE_RESERVATION_SUCCESS'
 export const DELETE_RESERVATION_FAIL = 'api/DELETE_RESERVATION_FAIL'
 
+export const GET_DUMB_RESERVATION = 'api/GET_DUMB_RESERVATION'
+
 // ------------------------------------
 // Actions
 // ------------------------------------
+
+export function getDumbReservation () {
+  return {
+    type: GET_DUMB_RESERVATION
+  }
+}
 
 export function getReservations (page = 1, count = 10) {
   return (dispatch, getState) => {
@@ -49,6 +57,24 @@ export function createReservation (data) {
         CREATE_RESERVATION,
         CREATE_RESERVATION_SUCCESS,
         CREATE_RESERVATION_FAIL]
+    }
+  }
+}
+
+export function checkAvailability (data) {
+  let { roomId } = data
+  return {
+    [CALL_API]: {
+      endpoint: `/api/v1/reserves/available/${roomId}`,
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data),
+      types: [
+        GET_RESERVATIONS,
+        GET_RESERVATIONS_SUCCESS,
+        GET_RESERVATIONS_FAIL]
     }
   }
 }
@@ -136,6 +162,14 @@ const actionHandlers = {}
 // ------------------------------------
 // Rehydrate store action handler
 // ------------------------------------
+
+actionHandlers[ GET_DUMB_RESERVATION ] = state => {
+  return state.merge({
+    creatingReservationSuccess: false,
+    fetchingReservationsSuccess: false,
+    deletingReservationSuccess: false
+  })
+}
 
 actionHandlers[ CREATE_RESERVATION ] = state => {
   return state.merge({

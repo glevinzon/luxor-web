@@ -1,11 +1,12 @@
 .page-top {
-  header{
-    .form-access{
-      @import 'toolkit-inverse.scss';
-    }
-  }
   .features{
     @import 'toolkit-inverse.scss';
+    .sweet-alert {
+      @import 'toolkit-inverse.scss';
+    }
+    .sweet-alert h2 {
+      color: #000;
+    }
   }
   .faqs{
     @import 'toolkit-inverse.scss';

@@ -24,7 +24,10 @@ class Features extends Component {
       currentImage: 1,
       isOpen: false,
       alert: null,
-      branchId: null
+      branchId: null,
+      reserved: null,
+      available: null,
+      errors: []
     }
 
     this.closeLightbox = this.closeLightbox.bind(this)
@@ -33,7 +36,7 @@ class Features extends Component {
   }
 
   componentWillReceiveProps (nextProps) {
-    let { branch, images, rooms, branchId } = nextProps
+    let { branch, images, rooms, branchId, fetchingReservationsSuccess, reserves } = nextProps
 
     var roomImages = []
     var imagesPath = []
@@ -53,6 +56,28 @@ class Features extends Component {
       })
     }
     this.setState({branch: branch, rooms: rooms, roomImages: roomImages, branchId: branchId})
+
+    if (fetchingReservationsSuccess) {
+      let available = reserves.toJS()
+      if (available.length > 0) {
+        this.setState({
+          reserved: available,
+          available: (
+          <SweetAlert danger title='Room is already reserved' onConfirm={e => { this.setState({available: null}) }}>
+            Check the table below and choose other dates.
+          </SweetAlert>
+        )})
+      } else {
+        this.setState({
+          reserved: available,
+          available: (
+          <SweetAlert success title='Room is available' onConfirm={e => { this.setState({available: null}) }}>
+            Continue
+          </SweetAlert>
+        )})
+      }
+      this.props.getDumbReservation()
+    }
 
     let reserveSuccess = nextProps.reserve.get('creatingReservationSuccess')
     if (reserveSuccess) {
@@ -101,7 +126,9 @@ class Features extends Component {
 
   hideModal = () => {
     this.setState({
-      isOpen: false
+      isOpen: false,
+      available: null,
+      reserved: null
     })
   }
 
@@ -109,7 +136,7 @@ class Features extends Component {
   }
 
   render () {
-    let { roomImages, branch, rooms, selectedCode } = this.state
+    let { roomImages, branch, rooms, selectedCode, reserved, available, errors } = this.state
 
     return (
       <section id='features' className='features' style={{textAlign: 'center'}}>
@@ -181,7 +208,7 @@ class Features extends Component {
             <ModalClose onClick={this.hideModal} />
             <ModalTitle>Reserve {`${this.state.room} (${this.state.roomType})` || 'a Room'}</ModalTitle>
           </ModalHeader>
-          <ReserveForm room={this.state.room} roomId={this.state.roomId} branchId={this.state.branchId} roomType={this.state.roomType} show={this.state.isOpen} {...this.props} />
+          <ReserveForm errors={errors} reserved={reserved} available={available} room={this.state.room} roomId={this.state.roomId} branchId={this.state.branchId} roomType={this.state.roomType} show={this.state.isOpen} {...this.props} />
         </Modal>
       </section>
     )

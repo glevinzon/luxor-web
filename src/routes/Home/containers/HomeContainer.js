@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 
 import HomeView from '../components/HomeView'
-import { createReservation } from 'store/modules/reserve'
+import { createReservation, checkAvailability, getDumbReservation } from 'store/modules/reserve'
 import { getSettings } from 'store/modules/setting'
 import { getBranches } from 'store/modules/branch'
 import { getRoomsWithStatus } from 'store/modules/room'
@@ -13,11 +13,15 @@ const mapActionCreators = {
   getBranches,
   getRoomsWithStatus,
   getUploads,
-  getDumb
+  getDumb,
+  checkAvailability,
+  getDumbReservation
 }
 
 const mapStateToProps = (state) => ({
   reserve: state.reserve,
+  reserves: state.reserve.get('reserves'),
+  fetchingReservationsSuccess: state.reserve.get('fetchingReservationsSuccess'),
   settings: state.setting.get('settings'),
   fetchingSettingsSuccess: state.setting.get('fetchingSettingsSuccess'),
   fetchingSettings: state.setting.get('fetchingSettings'),

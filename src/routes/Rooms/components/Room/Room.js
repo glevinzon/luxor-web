@@ -71,7 +71,6 @@ class Room extends Component {
           }
         })
       }
-      console.log(data)
     }
 
     if (branches) {

@@ -7,6 +7,8 @@ import {
   ModalFooter
 } from 'react-modal-bootstrap'
 import { DropdownButton, MenuItem, InputGroup } from 'react-bootstrap'
+import SweetAlert from 'react-bootstrap-sweetalert'
+import moment from 'moment'
 
 const InputGroupButton = InputGroup.Button
 
@@ -28,19 +30,23 @@ class ReserveForm extends Component {
       isLoading: false,
       isOpen: false,
       roomType: '',
-      room: ''
-
+      room: '',
+      reserved: null,
+      available: null
     }
   }
 
   componentWillReceiveProps (nextProps) {
-    let {branchId, roomId, roomType, room} = nextProps
+    let {branchId, roomId, roomType, room, reserved, available, errors} = nextProps
 
     this.setState({
       branchId: branchId,
       roomId: roomId,
       roomType: roomType,
-      room: room
+      room: room,
+      reserved: reserved,
+      available: available,
+      errors: errors
     })
   }
 
@@ -64,6 +70,7 @@ class ReserveForm extends Component {
     if (this.isValid(data)) {
       this.setState({
         branchId: '',
+        reserved: null,
         roomId: '',
         roomType: '',
         room: '',
@@ -78,17 +85,27 @@ class ReserveForm extends Component {
     }
   }
 
+  handleCheckAvailability = (e) => {
+    this.setState({endDate: e})
+    let data = this.state
+    data.endDate = e
+    this.props.checkAvailability(data)
+  }
+
   render () {
+    console.log('STATE', this.state)
     let {branch, rooms, branchId} = this.props
+    let {reserved} = this.state
     return (
       <form className='form-access' onSubmit={this.onSubmit}>
+      {this.state.available}
         <ModalBody>
           <div className='form-group row'>
             <div className='input-group col-sm-offset-1 col-sm-10 col-xs-offset-1 col-xs-10'>
               <div className='flextable'>
                 <div className='flextable-item'>
                   <DatePickerGroup
-                    onChange={e => { this.setState({startDate: e, endDate: e}) }}
+                    onChange={e => { this.setState({reserved: null, startDate: e, endDate: e}) }}
                     value={this.state.startDate || new Date().toISOString()}
                     field='startDate'
                     placeholder='Start Date'
@@ -97,7 +114,7 @@ class ReserveForm extends Component {
                 </div>
                 <div className='flextable-item'>
                   <DatePickerGroup
-                    onChange={e => { this.setState({endDate: e}) }}
+                    onChange={e => { this.handleCheckAvailability(e) }}
                     value={this.state.endDate || new Date().toISOString()}
                     field='endDate'
                     placeholder='End Date'
@@ -214,9 +231,38 @@ class ReserveForm extends Component {
               />
             </div>
           </div>
+          <div className='hr-divider'>
+            <h3 className='hr-divider-content hr-divider-heading'>
+              Approved Reservations
+            </h3>
+          </div>
+          <div className='table-full' style={{textAlign: 'left'}}>
+            <div className='table-responsive'>
+              <table className='table'>
+                <thead>
+                  <tr>
+                    <th>Code</th>
+                    <th>Check-in Date</th>
+                    <th>Check-out Date</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {reserved && reserved.map(reserve => {
+                    return (
+                      <tr key={reserve.id}>
+                        <td>{reserve.code}</td>
+                        <td>{moment.utc(reserve.startDate).format('dddd, MM/DD/YY')}</td>
+                        <td>{moment.utc(reserve.endDate).format('dddd, MM/DD/YY')}</td>
+                      </tr>
+                    )
+                  })}
+                </tbody>
+              </table>
+            </div>
+          </div>
         </ModalBody>
         <ModalFooter>
-          <button className='btn btn-primary'>
+          <button disabled={reserved == null || (reserved && reserved.length > 0)} className='btn btn-primary'>
             Submit
           </button>
         </ModalFooter>
