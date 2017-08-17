@@ -127,7 +127,6 @@ class RoomTable extends Component {
           <thead>
             <tr>
               <th>Code</th>
-              <th>Branch</th>
               <th>Room Name</th>
               <th>Description</th>
               <th>Type</th>
@@ -142,7 +141,6 @@ class RoomTable extends Component {
                 return (
                   <tr key={room.id}>
                     <td><a onClick={e => this.handleRoomImageUploads(room)}>{room.code}</a></td>
-                    <td>{branch.get('name')}</td>
                     <td>{room.name}</td>
                     <td>{room.description}</td>
                     <td>{room.type}</td>
@@ -163,7 +161,6 @@ class RoomTable extends Component {
                 return (
                   <tr key={room.id}>
                     <td><a onClick={e => this.handleRoomImageUploads(room)}>{room.code}</a></td>
-                    <td>{branch.get('name')}</td>
                     <td>{room.name}</td>
                     <td>{room.description}</td>
                     <td>{room.type}</td>
@@ -228,7 +225,7 @@ class RoomTable extends Component {
         )}
         <RoomModal selectedRoom={this.state.selectedRoom || null} open={this.state.updateModal} onClose={e => { this.setState({ updateModal: false }) }} {...this.props} />
         <Tabs bsStyle='nav nav-bordered' activeKey={this.state.selectedTab || 'all'} onSelect={this.handleSelect} id='controlled-tab-example'>
-          <Tab style={{textAlign: 'left'}} key='all' eventKey='all' title='ALL'>{this.renderTable(roomsData, branchesData, true)}</Tab>
+          <Tab style={{textAlign: 'left'}} key='all' eventKey='all' title='All'>{this.renderTable(roomsData, branchesData, true)}</Tab>
           {branchesData && branchesData.map((branch, key) => {
             return (<Tab style={{textAlign: 'left'}} key={branch.get('name')} eventKey={_.upperCase(branch.get('name'))} title={branch.get('name')}>{this.renderTable(roomsData, branch)}</Tab>)
           })}
