@@ -1,8 +1,7 @@
 # Define the image
 FROM node:7-alpine
 
-
-RUN apk add --no-cache make gcc g++ python bash git yarn curl
+RUN apk add --no-cache make gcc g++ python bash git curl
 
 RUN curl -o- -L https://yarnpkg.com/install.sh | bash
 
