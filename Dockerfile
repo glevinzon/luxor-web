@@ -14,6 +14,8 @@ RUN mkdir -p $APP_PATH
 WORKDIR $APP_PATH
 
 COPY . $APP_PATH
+
+RUN yarn install
 # RUN cd /tmp/app && \
 #   yarn install && \
 #   cp -a /tmp/app/. $APP_PATH
@@ -25,7 +27,7 @@ COPY . $APP_PATH
 # Run it in port 5433
 EXPOSE 5433
 
-ENTRYPOINT ["sh", "./entrypoint.sh"]
+# ENTRYPOINT ["sh", "./entrypoint.sh"]
 
 # Start it
 CMD [ "npm", "start" ]
