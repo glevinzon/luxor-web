@@ -1,7 +1,7 @@
 # Define the image
 FROM node:7-alpine
 
-ENV NODE_ENV development
+ENV NODE_ENV production
 ENV APP_PATH /usr/src/app
 
 RUN apk add --no-cache make gcc g++ python bash git
@@ -23,5 +23,4 @@ COPY .env $APP_PATH
 EXPOSE 5433
 
 # Start it
-CMD [ "npm", "run", "deploy" ]
-CMD [ "npm", "run", "start" ]
+CMD [ "npm", "run", "deploy:prod", "&&", "npm", "run", "start" ]
