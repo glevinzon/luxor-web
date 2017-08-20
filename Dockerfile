@@ -1,12 +1,13 @@
 # Define the image
 FROM node:7-alpine
 
+
+RUN apk add --no-cache make gcc g++ python bash git yarn curl
+
 RUN curl -o- -L https://yarnpkg.com/install.sh | bash
 
 ENV NODE_ENV production
 ENV APP_PATH /usr/src/app
-
-# RUN apk add --no-cache make gcc g++ python bash git yarn
 
 # Create the app directory
 RUN mkdir -p $APP_PATH
