@@ -5,7 +5,7 @@ RUN apk add --no-cache make gcc g++ python bash git
 
 RUN npm install -g yarn
 
-ENV NODE_ENV development
+ENV NODE_ENV production
 ENV APP_PATH /usr/src/app
 
 # Create the app directory
