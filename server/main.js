@@ -7,6 +7,8 @@ import serve from 'koa-static'
 import proxy from 'koa-proxy'
 import _debug from 'debug'
 import config from '../config'
+import webpackDevMiddleware from './middleware/webpack-dev'
+import webpackHMRMiddleware from './middleware/webpack-hmr'
 
 const debug = _debug('app:server')
 const paths = config.utils_paths
@@ -28,9 +30,6 @@ app.use(convert(historyApiFallback({
 // Apply Webpack HMR Middleware
 // ------------------------------------
 if (config.env === 'development') {
-  import webpackDevMiddleware from './middleware/webpack-dev'
-  import webpackHMRMiddleware from './middleware/webpack-hmr'
-
   const compiler = webpack(webpackConfig)
 
   // Enable webpack-dev and webpack-hot middleware
