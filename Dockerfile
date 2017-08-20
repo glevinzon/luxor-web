@@ -3,7 +3,10 @@ FROM node:7-alpine
 
 RUN apk add --no-cache make gcc g++ python bash git curl
 
-RUN curl -o- -L https://yarnpkg.com/install.sh | bash
+RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add - && \
+    echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list && \
+    apt-get update && \
+    apt-get install yarn
 
 ENV NODE_ENV production
 ENV APP_PATH /usr/src/app
