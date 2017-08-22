@@ -3,11 +3,15 @@ import TextFieldGroup from 'components/common/TextFieldGroup'
 import validateInput from 'utils/validators/room'
 import classnames from 'classnames'
 
-import {
-  ModalBody,
-  ModalFooter
-} from 'react-modal-bootstrap'
-import {FormControl, FormGroup, InputGroup, DropdownButton, MenuItem} from 'react-bootstrap'
+import {ModalBody,
+  ModalFooter,
+  FormControl,
+  InputGroup,
+  DropdownButton,
+  MenuItem,
+  ButtonToolbar,
+  ToggleButtonGroup,
+  ToggleButton } from 'react-bootstrap'
 
 class RoomCreateForm extends Component {
   state = {
@@ -18,6 +22,7 @@ class RoomCreateForm extends Component {
     type: '',
     rate: '',
     promo: null,
+    status: 'exclusive',
     selectedBranch: null,
     errors: [],
     isLoading: false
@@ -43,7 +48,8 @@ class RoomCreateForm extends Component {
         description: selectedRoom.description,
         type: selectedRoom.type,
         rate: selectedRoom.rate,
-        promo: selectedRoom.promo
+        promo: selectedRoom.promo,
+        status: selectedRoom.status
       })
     }
   }
@@ -88,6 +94,10 @@ class RoomCreateForm extends Component {
     )
   }
 
+  handleStatus = (value) => {
+    this.setState({ status: value })
+  }
+
   onSubmit = (e) => {
     e.preventDefault()
     let data = this.state
@@ -95,7 +105,7 @@ class RoomCreateForm extends Component {
       this.setState({ code: '', branchId: '', selectedBranch: '', name: '',
         description: '', type: '',
         rate: '',
-        promo: '', errors: {}, isLoading: true })
+        promo: '', status: 'exclusive', errors: {}, isLoading: true })
       if (this.props.selectedRoom) {
         this.props.updateRoom(data)
       } else {
@@ -109,7 +119,6 @@ class RoomCreateForm extends Component {
     if (branches) {
       var data = branches.get('data')
     }
-
     return (
       <form className='form-access' onSubmit={this.onSubmit}>
         <ModalBody>
@@ -189,6 +198,20 @@ class RoomCreateForm extends Component {
                 />
             </div>
           </div>
+          <div className='form-group row'>
+            <div className='input-group col-sm-offset-1 col-sm-10 col-xs-offset-1 col-xs-10'>
+              <ButtonToolbar>
+                <ToggleButtonGroup type='radio'
+                  name='status'
+                  value={this.state.status}
+                  onChange={e => { this.handleStatus(e) }}>
+                  <ToggleButton value='exclusive'>Exclusive</ToggleButton>
+                  <ToggleButton value='open'>Open</ToggleButton>
+                </ToggleButtonGroup>
+              </ButtonToolbar>
+            </div>
+          </div>
+
         </ModalBody>
         <ModalFooter>
           <button className='btn btn-lg btn-pill btn-primary'>
