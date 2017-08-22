@@ -93,7 +93,6 @@ class ReserveForm extends Component {
   }
 
   render () {
-    console.log('STATE', this.state)
     let {branch, rooms, branchId} = this.props
     let {reserved} = this.state
     return (

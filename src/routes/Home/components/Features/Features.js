@@ -183,16 +183,21 @@ class Features extends Component {
                       placement='top' overlay={<Tooltip id='card'>Click to see more photos.</Tooltip>}>
                     <figure className='image' key={key}>
                     <Thumbnail onClick={e => { this.setState({lightboxIsOpen: true, selectedCode: room.get('code')}) }} src={randomImageSrc ? randomImageSrc.src : ''} alt='242x200'>
-                      <h3>{room.get('name')}</h3>
+                    <div className='hr-divider'>
+                      <h3 className='hr-divider-content hr-divider-heading'>
+                        {_.toUpper(room.get('status'))}
+                      </h3>
+                    </div>
+                    <h3>{room.get('name')}</h3>
                       <ul className='list-group'>
                         {!!(room.get('description') && room.get('description') != '') && (<li className='list-group-item'><p>{room.get('description')}</p></li>)}
                         {!!(room.get('rate') && room.get('rate') != '') && (<li className='list-group-item'><p>{room.get('rate')}</p><span className='statcard-desc'>Rate</span></li>)}
                         {!!(room.get('promo') && room.get('promo') != '') && (<li className='list-group-item'><p>{room.get('promo')}</p><span className='statcard-desc'>Promo</span></li>)}
                       </ul>
                     </Thumbnail>
-                      <p>
+                      {room.get('status') && room.get('status') == 'exclusive' ? (<p>
                         <button onClick={e => { this.openModal(room) }} type='button' className='btn btn-lg btn-warning-outline'>Reserve {room.get('name')}</button>
-                      </p>
+                      </p>) : null}
                     </figure>
                     </OverlayTrigger>
                   )

@@ -14,7 +14,6 @@ class HomeView extends Component {
     branchId: null,
     selectedBranchCode: null,
     preferences: null,
-    rooms: null,
     branch: null,
     branches: null,
     availableRooms: null,
@@ -22,7 +21,7 @@ class HomeView extends Component {
   }
 
   componentWillMount () {
-    this.props.getRoomsWithStatus('available')
+    this.props.getRoomsWithStatus()
     this.props.getBranches(1, 10)
     this.props.getSettings('ga6bN')
     this.props.getUploads()
@@ -61,6 +60,8 @@ class HomeView extends Component {
 
   render () {
     let { branches, branchId, imageUploads } = this.state
+
+    console.log('STATE', this.state)
     return (
       <div id='page-top' className='page-top'>
         <MainNav branchId={branchId} switchBranchCb={branch => this.handleSwitchBranch(branch)} branches={branches} />
