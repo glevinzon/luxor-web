@@ -12,7 +12,7 @@ export default class Login extends Component {
     return (
       <div className='container login-wrapper' style={{ marginTop: '15%' }}>
         <div className='hr-divider m-t m-b'>
-          <h3 className='hr-divider-content hr-divider-heading'><img src='icon.png' width='70' /></h3>
+          <h3 className='hr-divider-content hr-divider-heading'><img src='https://luxoronetravellersinn.com/icon.png' width='70' /></h3>
         </div>
         <LoginForm {...this.props} />
         <hr className='m-t-0 m-b-md' />

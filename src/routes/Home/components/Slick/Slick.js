@@ -44,7 +44,6 @@ class Slick extends Component {
       autoplaySpeed: 2000,
       adaptiveHeight: true,
       beforeChange: function (currentSlide, nextSlide) {
-        console.log('before change', currentSlide, nextSlide)
       }
     }
 

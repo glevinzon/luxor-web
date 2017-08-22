@@ -61,7 +61,6 @@ class HomeView extends Component {
   render () {
     let { branches, branchId, imageUploads } = this.state
 
-    console.log('STATE', this.state)
     return (
       <div id='page-top' className='page-top'>
         <MainNav branchId={branchId} switchBranchCb={branch => this.handleSwitchBranch(branch)} branches={branches} />

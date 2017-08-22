@@ -10,7 +10,7 @@ class NavBar extends Component {
     return (
       <nav className='iconav'>
         <Link to='/dashboard' className='iconav-brand'>
-          <img src='icon.png' width='25' />
+          <img src='https://luxoronetravellersinn.com/icon.png' width='25' />
         </Link>
         <div className='iconav-slider'>
           <ul className='nav nav-pills iconav-nav' role='tablist'>
