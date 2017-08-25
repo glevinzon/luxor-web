@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import LoginForm from './LoginForm'
+import {Link} from 'react-router'
 
 export default class Login extends Component {
   static propTypes = {
@@ -15,7 +16,11 @@ export default class Login extends Component {
           <h3 className='hr-divider-content hr-divider-heading'><img src='https://luxoronetravellersinn.com/icon.png' width='70' /></h3>
         </div>
         <LoginForm {...this.props} />
-        <hr className='m-t-0 m-b-md' />
+        <div className='hr-divider'>
+        <h3 className='hr-divider-content hr-divider-heading'>
+          <Link to='signup'>Create Account</Link> | Forgot Password
+        </h3>
+      </div>
       </div>
     )
   }

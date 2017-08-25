@@ -30,6 +30,11 @@ class NavBar extends Component {
                 <span className='icon icon-key' />
                 <small className='iconav-nav-label visible-xs-block'>Rooms</small></NavLink></OverlayTrigger>
             <OverlayTrigger
+              placement='right' overlay={<Tooltip id='settings'>Accounts</Tooltip>}>
+              <NavLink to='/dashboard/accounts' onlyActiveOnIndex>
+                <span className='icon icon-users' />
+                <small className='iconav-nav-label visible-xs-block'>Accounts</small></NavLink></OverlayTrigger>
+            <OverlayTrigger
               placement='right' overlay={<Tooltip id='settings'>Settings</Tooltip>}>
               <NavLink to='/dashboard/settings' onlyActiveOnIndex>
                 <span className='icon icon-cog' />

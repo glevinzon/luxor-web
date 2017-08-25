@@ -4,6 +4,7 @@ import ReservationRoute from '../Reservations'
 import BranchRoute from '../Branches'
 import RoomsRoute from '../Rooms'
 import SettingsRoute from '../Settings'
+import SignupRoute from '../Signup'
 
 export default (store) => ({
   path: 'dashboard',
@@ -33,7 +34,8 @@ export default (store) => ({
     ReservationRoute(store),
     BranchRoute(store),
     RoomsRoute(store),
-    SettingsRoute(store)
+    SettingsRoute(store),
+    SignupRoute(store)
   ]
   // path: '/dashboard',
   // onEnter: async (nextState, replace, cb) => {
