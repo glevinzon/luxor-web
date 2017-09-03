@@ -57,7 +57,7 @@ export function createAccount (data) {
     const { accessToken } = getState().auth.toJS()
     return dispatch({
       [CALL_API]: {
-        endpoint: '/api/v1/account',
+        endpoint: '/api/v1/users',
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${accessToken}`,
@@ -66,7 +66,23 @@ export function createAccount (data) {
         body: JSON.stringify(data),
         types: [
           CREATE_ACCOUNT,
-          CREATE_ACCOUNT_SUCCESS,
+          {
+            type: CREATE_ACCOUNT_SUCCESS,
+            meta: {
+              done: true,
+              transition: {
+                success: (prevState, nextState) => {
+                  const { query, pathname } = prevState.router.locationBeforeTransitions
+
+                  const redirectTo = pathname === '/signup' ? '/dashboard' : '/'
+
+                  return ({
+                    pathname: query.redirect || redirectTo
+                  })
+                }
+              }
+            }
+          },
           CREATE_ACCOUNT_FAIL]
       }
     })
@@ -172,7 +188,7 @@ actionHandlers[ CREATE_ACCOUNT_SUCCESS ] = (state, action) => {
     creatingAccount: false,
     creatingAccountSuccess: true,
     createAccountError: null,
-    account: action.payload.data.account
+    account: action.payload.data.user
   })
 }
 

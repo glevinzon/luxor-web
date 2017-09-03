@@ -32,8 +32,8 @@ class SignupForm extends Component {
       })
     }
     if (newProps.account.get('creatingAccountSuccess')) {
-      let user = newProps.account.get('user')
-      Alert.success(`Welcome! ${user.get('username')}`, {
+      let user = newProps.account.get('account')
+      Alert.success(`Registration Success! Email sent to ${user.get('email')} for verification.`, {
         position: 'top-right',
         effect: 'scale'
       })
