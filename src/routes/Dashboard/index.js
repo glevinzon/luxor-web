@@ -5,7 +5,9 @@ import BranchRoute from '../Branches'
 import RoomsRoute from '../Rooms'
 import SettingsRoute from '../Settings'
 import SignupRoute from '../Signup'
-import AccountRoute from '../Accounts'
+import VerifyRoute from '../Verify'
+import ResetPasswordRoute from '../ResetPassword'
+import ForgotPasswordRoute from '../ForgotPassword'
 
 export default (store) => ({
   path: 'dashboard',
@@ -37,7 +39,9 @@ export default (store) => ({
     RoomsRoute(store),
     SettingsRoute(store),
     SignupRoute(store),
-    AccountRoute(store)
+    VerifyRoute(store),
+    ForgotPasswordRoute(store),
+    ResetPasswordRoute(store)
   ]
   // path: '/dashboard',
   // onEnter: async (nextState, replace, cb) => {

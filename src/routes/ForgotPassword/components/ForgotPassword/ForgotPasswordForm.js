@@ -1,37 +1,35 @@
 import React, { Component } from 'react'
 import TextFieldGroup from 'components/common/TextFieldGroup'
 import Button from 'components/common/Button'
-import validateInput from 'utils/validators/login'
+import validateInput from 'utils/validators/forgotPassword'
 import Alert from 'react-s-alert'
 
-class LoginForm extends Component {
+class ForgotPasswordForm extends Component {
   constructor (props) {
     super(props)
 
     this.state = {
       email: '',
-      password: '',
       errors: [],
       isLoading: false
     }
   }
 
+  componentWillMount () {
+  }
+
   componentWillReceiveProps (newProps, oldProps) {
-    if (!newProps.auth.get('loggingIn')) {
-      this.setState({ isLoading: false })
-    }
-    if (newProps.auth.get('loginError')) {
-      let code = newProps.auth.get('loginError').get('code')
-      let message = newProps.auth.get('loginError').get('message')
+    if (newProps.accounts.get('forgotPasswordError')) {
+      let code = newProps.accounts.get('forgotPasswordError').get('code')
+      let message = newProps.accounts.get('forgotPasswordError').get('message')
       Alert.error(`<h4>Error ${code}</h4><ul>` + (message ? (`<li>${message}</li>`) : '') + '</ul>', {
         position: 'top-right',
         effect: 'scale',
         html: true
       })
     }
-    if (newProps.auth.get('loginSuccess')) {
-      let user = newProps.auth.get('user')
-      Alert.success(`Welcome! ${user.get('username')}`, {
+    if (newProps.accounts.get('forgotPasswordSuccess')) {
+      Alert.success('Success! Please check your email.', {
         position: 'top-right',
         effect: 'scale'
       })
@@ -57,11 +55,10 @@ class LoginForm extends Component {
 
     if (this.isValid()) {
       this.setState({ errors: {}, isLoading: true })
-      const { email, password } = this.state
-      this.props.login(email, password)
+      const data = this.state
+      this.props.forgotPassword(data)
     }
   }
-
   render () {
     return (
       <form className='form-access' onSubmit={this.onSubmit}>
@@ -77,21 +74,9 @@ class LoginForm extends Component {
           </div>
         </div>
         <div className='form-group row'>
-          <div className='input-group col-sm-offset-4 col-sm-4 col-xs-offset-2 col-xs-8'>
-            <TextFieldGroup
-              type='password'
-              onChange={this.onChange}
-              value={this.state.password}
-              field='password'
-              placeholder='Password'
-              error={this.state.errors.password}
-            />
-          </div>
-        </div>
-        <div className='form-group row'>
           <div className='col-sm-offset-4 col-sm-4 col-xs-offset-2 col-xs-8'>
             <Button
-              value='Log In'
+              value='Reset Password'
               hidden={this.state.isLoading}
               className='btn btn-default-outline'
             />
@@ -102,8 +87,8 @@ class LoginForm extends Component {
   }
 }
 
-LoginForm.propTypes = {
+ForgotPasswordForm.propTypes = {
 
 }
 
-export default LoginForm
+export default ForgotPasswordForm

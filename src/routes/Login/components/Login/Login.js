@@ -18,7 +18,7 @@ export default class Login extends Component {
         <LoginForm {...this.props} />
         <div className='hr-divider'>
         <h3 className='hr-divider-content hr-divider-heading'>
-          <Link to='signup'>Create Account</Link> | Forgot Password
+          <Link to='signup'>Create Account</Link> | <Link to='/password/forgot'>Forgot Password</Link>
         </h3>
       </div>
       </div>

@@ -15,10 +15,86 @@ export const DELETE_ACCOUNT_FAIL = 'api/DELETE_ACCOUNT_FAIL'
 export const VERIFY_ACCOUNT = 'api/VERIFY_ACCOUNT'
 export const VERIFY_ACCOUNT_SUCCESS = 'api/VERIFY_ACCOUNT_SUCCESS'
 export const VERIFY_ACCOUNT_FAIL = 'api/VERIFY_ACCOUNT_FAIL'
+export const FORGOT_PASSWORD = 'api/FORGOT_PASSWORD'
+export const FORGOT_PASSWORD_SUCCESS = 'api/FORGOT_PASSWORD_SUCCESS'
+export const FORGOT_PASSWORD_FAIL = 'api/FORGOT_PASSWORD_FAIL'
+export const CHANGE_PASSWORD = 'api/CHANGE_PASSWORD'
+export const CHANGE_PASSWORD_SUCCESS = 'api/CHANGE_PASSWORD_SUCCESS'
+export const CHANGE_PASSWORD_FAIL = 'api/CHANGE_PASSWORD_FAIL'
 
 // ------------------------------------
 // Actions
 // ------------------------------------
+
+export function changePassword (data) {
+  return (dispatch, getState) => {
+    return dispatch({
+      [CALL_API]: {
+        endpoint: '/api/v1/password/change',
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data),
+        types: [
+          CHANGE_PASSWORD,
+          {
+            type: CHANGE_PASSWORD_SUCCESS,
+            meta: {
+              done: true,
+              transition: {
+                success: (prevState, nextState) => {
+                  const { query, pathname } = prevState.router.locationBeforeTransitions
+
+                  const redirectTo = pathname === '/password/change' ? '/dashboard' : '/'
+
+                  return ({
+                    pathname: query.redirect || redirectTo
+                  })
+                }
+              }
+            }
+          },
+          CHANGE_PASSWORD_FAIL]
+      }
+    })
+  }
+}
+
+export function forgotPassword (data) {
+  return (dispatch, getState) => {
+    return dispatch({
+      [CALL_API]: {
+        endpoint: '/api/v1/password/forgot',
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data),
+        types: [
+          FORGOT_PASSWORD,
+          {
+            type: FORGOT_PASSWORD_SUCCESS,
+            meta: {
+              done: true,
+              transition: {
+                success: (prevState, nextState) => {
+                  const { query, pathname } = prevState.router.locationBeforeTransitions
+
+                  const redirectTo = pathname === '/password/forgot' ? '/dashboard' : '/'
+
+                  return ({
+                    pathname: query.redirect || redirectTo
+                  })
+                }
+              }
+            }
+          },
+          FORGOT_PASSWORD_FAIL]
+      }
+    })
+  }
+}
 
 export function verifyEmail (code, email) {
   return (dispatch, getState) => {
@@ -212,6 +288,54 @@ const actionHandlers = {}
 // Rehydrate store action handler
 // ------------------------------------
 
+actionHandlers[ CHANGE_PASSWORD ] = state => {
+  return state.merge({
+    changePassword: true,
+    changePasswordSuccess: false,
+    changePasswordError: null
+  })
+}
+
+actionHandlers[ CHANGE_PASSWORD_SUCCESS ] = (state, action) => {
+  return state.merge({
+    changePassword: false,
+    changePasswordSuccess: true,
+    changePasswordError: null
+  })
+}
+
+actionHandlers[ CHANGE_PASSWORD_FAIL ] = (state, action) => {
+  return state.merge({
+    changePassword: false,
+    changePasswordSuccess: false,
+    changePasswordError: action.payload.response.error
+  })
+}
+
+actionHandlers[ FORGOT_PASSWORD ] = state => {
+  return state.merge({
+    forgotPassword: true,
+    forgotPasswordSuccess: false,
+    forgotPasswordError: null
+  })
+}
+
+actionHandlers[ FORGOT_PASSWORD_SUCCESS ] = (state, action) => {
+  return state.merge({
+    forgotPassword: false,
+    forgotPasswordSuccess: true,
+    forgotPasswordError: null
+  })
+}
+
+actionHandlers[ FORGOT_PASSWORD_FAIL ] = (state, action) => {
+  return state.merge({
+    forgotPassword: false,
+    forgotPasswordSuccess: false,
+    forgotPasswordError: action.payload.response.error
+  })
+}
+
 actionHandlers[ VERIFY_ACCOUNT ] = state => {
   return state.merge({
     verifyAccount: true,
@@ -327,7 +451,10 @@ const initialState = Immutable.fromJS({
   deletingAccountSuccess: false,
   verifyAccount: false,
   verifyAccountSuccess: false,
-  verifyAccountError: null
+  verifyAccountError: null,
+  forgotPassword: false,
+  forgotPasswordSuccess: false,
+  forgotPasswordError: null
 })
 
 export default function reducer (state = initialState, action) {

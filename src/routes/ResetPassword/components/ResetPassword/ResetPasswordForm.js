@@ -1,37 +1,52 @@
 import React, { Component } from 'react'
 import TextFieldGroup from 'components/common/TextFieldGroup'
 import Button from 'components/common/Button'
-import validateInput from 'utils/validators/login'
+import validateInput from 'utils/validators/resetPassword'
 import Alert from 'react-s-alert'
 
-class LoginForm extends Component {
+class ResetPasswordForm extends Component {
   constructor (props) {
     super(props)
 
     this.state = {
+      code: '',
       email: '',
       password: '',
+      confirmPassword: '',
       errors: [],
       isLoading: false
     }
   }
 
-  componentWillReceiveProps (newProps, oldProps) {
-    if (!newProps.auth.get('loggingIn')) {
-      this.setState({ isLoading: false })
+  componentWillMount () {
+    let { code, email } = this.props.location.query
+
+    if ((code && email) && (code != undefined && email != undefined)) {
+      this.setState({
+        code: code,
+        email: email
+      })
+    } else {
+      Alert.error('<h4>Error: Code and/or Email not found.</h4><ul>' + '<li>Please re-send email.</li>' + '</ul>', {
+        position: 'top-right',
+        effect: 'scale',
+        html: true
+      })
     }
-    if (newProps.auth.get('loginError')) {
-      let code = newProps.auth.get('loginError').get('code')
-      let message = newProps.auth.get('loginError').get('message')
+  }
+
+  componentWillReceiveProps (newProps, oldProps) {
+    if (newProps.accounts.get('changePasswordError')) {
+      let code = newProps.accounts.get('changePasswordError').get('code')
+      let message = newProps.accounts.get('changePasswordError').get('message')
       Alert.error(`<h4>Error ${code}</h4><ul>` + (message ? (`<li>${message}</li>`) : '') + '</ul>', {
         position: 'top-right',
         effect: 'scale',
         html: true
       })
     }
-    if (newProps.auth.get('loginSuccess')) {
-      let user = newProps.auth.get('user')
-      Alert.success(`Welcome! ${user.get('username')}`, {
+    if (newProps.accounts.get('changePasswordSuccess')) {
+      Alert.success('Success! Password Changed!', {
         position: 'top-right',
         effect: 'scale'
       })
@@ -57,8 +72,8 @@ class LoginForm extends Component {
 
     if (this.isValid()) {
       this.setState({ errors: {}, isLoading: true })
-      const { email, password } = this.state
-      this.props.login(email, password)
+      const data = this.state
+      this.props.changePassword(data)
     }
   }
 
@@ -89,9 +104,21 @@ class LoginForm extends Component {
           </div>
         </div>
         <div className='form-group row'>
+          <div className='input-group col-sm-offset-4 col-sm-4 col-xs-offset-2 col-xs-8'>
+            <TextFieldGroup
+              type='password'
+              onChange={this.onChange}
+              value={this.state.confirmPassword}
+              field='confirmPassword'
+              placeholder='Confirm Password'
+              error={this.state.errors.confirmPassword}
+            />
+          </div>
+        </div>
+        <div className='form-group row'>
           <div className='col-sm-offset-4 col-sm-4 col-xs-offset-2 col-xs-8'>
             <Button
-              value='Log In'
+              value='Change Password'
               hidden={this.state.isLoading}
               className='btn btn-default-outline'
             />
@@ -102,8 +129,8 @@ class LoginForm extends Component {
   }
 }
 
-LoginForm.propTypes = {
+ResetPasswordForm.propTypes = {
 
 }
 
-export default LoginForm
+export default ResetPasswordForm
