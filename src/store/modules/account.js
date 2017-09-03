@@ -12,10 +12,47 @@ export const GET_ACCOUNTS_FAIL = 'api/GET_ACCOUNTS_FAIL'
 export const DELETE_ACCOUNT = 'api/DELETE_ACCOUNT'
 export const DELETE_ACCOUNT_SUCCESS = 'api/DELETE_ACCOUNT_SUCCESS'
 export const DELETE_ACCOUNT_FAIL = 'api/DELETE_ACCOUNT_FAIL'
+export const VERIFY_ACCOUNT = 'api/VERIFY_ACCOUNT'
+export const VERIFY_ACCOUNT_SUCCESS = 'api/VERIFY_ACCOUNT_SUCCESS'
+export const VERIFY_ACCOUNT_FAIL = 'api/VERIFY_ACCOUNT_FAIL'
 
 // ------------------------------------
 // Actions
 // ------------------------------------
+
+export function verifyEmail (code, email) {
+  return (dispatch, getState) => {
+    return dispatch({
+      [CALL_API]: {
+        endpoint: `/api/v1/verify/email?code=${code}&email=${email}`,
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        types: [
+          VERIFY_ACCOUNT,
+          {
+            type: VERIFY_ACCOUNT_SUCCESS,
+            meta: {
+              done: true,
+              transition: {
+                success: (prevState, nextState) => {
+                  const { query, pathname } = prevState.router.locationBeforeTransitions
+
+                  const redirectTo = pathname === '/verify/email' ? '/dashboard' : '/'
+
+                  return ({
+                    pathname: query.redirect || redirectTo
+                  })
+                }
+              }
+            }
+          },
+          VERIFY_ACCOUNT_FAIL]
+      }
+    })
+  }
+}
 
 export function getAccounts (page = 1, count = 10) {
   return (dispatch, getState) => {
@@ -175,6 +212,30 @@ const actionHandlers = {}
 // Rehydrate store action handler
 // ------------------------------------
 
+actionHandlers[ VERIFY_ACCOUNT ] = state => {
+  return state.merge({
+    verifyAccount: true,
+    verifyAccountSuccess: false,
+    verifyAccountError: null
+  })
+}
+
+actionHandlers[ VERIFY_ACCOUNT_SUCCESS ] = (state, action) => {
+  return state.merge({
+    verifyAccount: false,
+    verifyAccountSuccess: true,
+    verifyAccountError: null
+  })
+}
+
+actionHandlers[ VERIFY_ACCOUNT_FAIL ] = (state, action) => {
+  return state.merge({
+    verifyAccount: false,
+    verifyAccountSuccess: false,
+    verifyAccountError: action.payload.response.error
+  })
+}
+
 actionHandlers[ CREATE_ACCOUNT ] = state => {
   return state.merge({
     creatingAccount: true,
@@ -263,7 +324,10 @@ const initialState = Immutable.fromJS({
   getAccountsError: false,
   fetchingAccountSuccess: false,
   deleteAccountError: false,
-  deletingAccountSuccess: false
+  deletingAccountSuccess: false,
+  verifyAccount: false,
+  verifyAccountSuccess: false,
+  verifyAccountError: null
 })
 
 export default function reducer (state = initialState, action) {
