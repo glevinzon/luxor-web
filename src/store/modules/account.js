@@ -133,7 +133,7 @@ export function verifyEmail (code, email) {
 export function getAccounts (page = 1, count = 10) {
   return (dispatch, getState) => {
     dispatch(showLoading())
-    let endpoint = `/api/v1/accounts?page=${page}&count=${count}`
+    let endpoint = `/api/v1/users?page=${page}&count=${count}`
     const { accessToken } = getState().auth.toJS()
     return dispatch({
       [CALL_API]: {
@@ -228,7 +228,7 @@ export function deleteAccount (code) {
     const { accessToken } = getState().auth.toJS()
     return dispatch({
       [CALL_API]: {
-        endpoint: `/api/v1/account/${code}`,
+        endpoint: `/api/v1/users/${code}`,
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${accessToken}`

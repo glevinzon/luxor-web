@@ -8,6 +8,7 @@ import SignupRoute from '../Signup'
 import VerifyRoute from '../Verify'
 import ResetPasswordRoute from '../ResetPassword'
 import ForgotPasswordRoute from '../ForgotPassword'
+import AccountRoute from '../Accounts'
 
 export default (store) => ({
   path: 'dashboard',
@@ -41,7 +42,8 @@ export default (store) => ({
     SignupRoute(store),
     VerifyRoute(store),
     ForgotPasswordRoute(store),
-    ResetPasswordRoute(store)
+    ResetPasswordRoute(store),
+    AccountRoute(store)
   ]
   // path: '/dashboard',
   // onEnter: async (nextState, replace, cb) => {
