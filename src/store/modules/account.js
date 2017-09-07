@@ -26,6 +26,38 @@ export const CHANGE_PASSWORD_FAIL = 'api/CHANGE_PASSWORD_FAIL'
 // Actions
 // ------------------------------------
 
+export function adminChangePassword (data) {
+  return (dispatch, getState) => {
+    const { accessToken } = getState().auth.toJS()
+    return dispatch({
+      [CALL_API]: {
+        endpoint: '/api/v1/password/admin/change',
+        method: 'PUT',
+        headers: {
+          'Authorization': `Bearer ${accessToken}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data),
+        types: [
+          CHANGE_PASSWORD,
+          {
+            type: CHANGE_PASSWORD_SUCCESS,
+            meta: {
+              done: true,
+              transition: {
+                success: (prevState) => ({
+                  // Redirect to login
+                  pathname: prevState.router.locationBeforeTransitions.query.redirect || '/login'
+                })
+              }
+            }
+          },
+          CHANGE_PASSWORD_FAIL]
+      }
+    })
+  }
+}
+
 export function changePassword (data) {
   return (dispatch, getState) => {
     return dispatch({
@@ -391,7 +423,8 @@ actionHandlers[ GET_ACCOUNTS ] = state => {
     fetchingAccountsSuccess: false,
     getAccountsError: null,
     creatingAccountSuccess: false,
-    deletingAccountSuccess: false
+    deletingAccountSuccess: false,
+    changePasswordSuccess: false
   })
 }
 

@@ -5,6 +5,7 @@ import cx from 'classnames'
 import SweetAlert from 'react-bootstrap-sweetalert'
 import _ from 'lodash'
 import { Tabs, Tab, ButtonGroup, Button, DropdownButton, MenuItem } from 'react-bootstrap'
+import AccountModal from './AccountModal'
 
 class AccountTable extends Component {
   constructor (props) {
@@ -15,7 +16,9 @@ class AccountTable extends Component {
       delete: false,
       alert: false,
       approveAlert: null,
-      role: 'user'
+      role: 'user',
+      changePasswordModal: false,
+      selectedEmail: ''
     }
   }
 
@@ -130,6 +133,7 @@ class AccountTable extends Component {
   renderTable = (data, filter) => {
     return (
       <div className='table-full'>
+        <AccountModal open={this.state.changePasswordModal} selectedEmail={this.state.selectedEmail} onClose={e => { this.setState({ changePasswordModal: false }) }} {...this.props} />
         <div className='table-responsive'>
           <table className='table' data-sort='table'>
             <thead>
@@ -154,7 +158,7 @@ class AccountTable extends Component {
                       <td>{this.renderStatus(account.get('verified'), account.get('id'), account.get('role'))}</td>
                       <td>
                         <div className='btn-group'>
-                          <button type='button' className='btn btn-primary-outline'>
+                          <button type='button' className='btn btn-primary-outline' onClick={e => { this.setState({selectedEmail: account.get('email'), changePasswordModal: true}) }}>
                             <span className='icon icon-pencil' />
                           </button>
                           <button type='button' className='btn btn-primary-outline' onClick={e => { this.handleDelete(account.get('code')) }}>

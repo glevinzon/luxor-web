@@ -10,6 +10,9 @@ class Accounts extends Component {
     if (nextProps.creatingAccountSuccess) {
       this.props.getAccounts(1, 10)
     }
+    if (nextProps.changePasswordSuccess) {
+      this.props.getAccounts(1, 10)
+    }
   }
 
   render () {
