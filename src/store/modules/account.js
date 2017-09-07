@@ -207,7 +207,7 @@ export function updateAccount (data) {
     const { accessToken } = getState().auth.toJS()
     return dispatch({
       [CALL_API]: {
-        endpoint: '/api/v1/account',
+        endpoint: '/api/v1/user',
         method: 'PUT',
         headers: {
           'Authorization': `Bearer ${accessToken}`,

@@ -14,7 +14,8 @@ class AccountTable extends Component {
       count: 15,
       delete: false,
       alert: false,
-      approveAlert: null
+      approveAlert: null,
+      role: 'user'
     }
   }
 
@@ -78,20 +79,20 @@ class AccountTable extends Component {
     this.setState({ selectedTab: e })
   }
 
-  renderStatus = (status, reserveId) => {
+  renderStatus = (status, userId, role) => {
     var indicator = (<button type='button' className='btn btn-sm btn-pill btn-default'>Default</button>)
     if (status == '0') {
       indicator = (<button type='button' className='btn btn-sm btn-pill btn-warning' onClick={e => {
         this.setState({approveAlert: (<SweetAlert
           info
           showCancel
-          confirmBtnText='Yes, verified'
+          confirmBtnText='Yes, verify'
           confirmBtnBsStyle='success'
-          cancelBtnText='Reject'
-          cancelBtnBsStyle='danger'
+          cancelBtnText='Cancel'
+          cancelBtnBsStyle='default'
           title='Are you sure?'
-          onConfirm={e => { this.handleUpdateStatus(reserveId, 'approve') }}
-          onCancel={e => { this.handleUpdateStatus(reserveId, 'reject') }}
+          onConfirm={e => { this.handleUpdateRoleOrStatus(userId, role, 1) }}
+          onCancel={e => { this.setState({approveAlert: null}) }}
         >
         This will verify selected account.
         </SweetAlert>)})
@@ -104,8 +105,12 @@ class AccountTable extends Component {
     return indicator
   }
 
-  handleUpdateStatus = (reserveId, status) => {
-    this.props.updateAccountStatus(reserveId, status)
+  handleUpdateRoleOrStatus = (userId, role, status) => {
+    let data = this.state
+    data.id = userId
+    data.role = role
+    data.verified = status
+    this.props.updateAccount(data)
     this.setState({approveAlert: null})
   }
 
@@ -113,11 +118,11 @@ class AccountTable extends Component {
     this.setState({ value })
   }
 
-  renderRole = (role) => {
+  renderRole = (status, userId, role) => {
     return (
       <DropdownButton title={_.toUpper(role)} value={role} id='bg-nested-dropdown'>
-        <MenuItem eventKey='admin'>Admin</MenuItem>
-        <MenuItem eventKey='user'>User</MenuItem>
+        <MenuItem eventKey='admin' onClick={e => { this.handleUpdateRoleOrStatus(userId, 'admin', status) }}>Admin</MenuItem>
+        <MenuItem eventKey='user' onClick={e => { this.handleUpdateRoleOrStatus(userId, 'user', status) }}>User</MenuItem>
       </DropdownButton>
     )
   }
@@ -145,8 +150,8 @@ class AccountTable extends Component {
                       <td><a href='#'>{account.get('code')}</a></td>
                       <td>{account.get('username')}</td>
                       <td>{account.get('email')}</td>
-                      <td>{this.renderRole(account.get('role'))}</td>
-                      <td>{this.renderStatus(account.get('verified'), account.get('id'))}</td>
+                      <td>{this.renderRole(account.get('verified'), account.get('id'), account.get('role'))}</td>
+                      <td>{this.renderStatus(account.get('verified'), account.get('id'), account.get('role'))}</td>
                       <td>
                         <div className='btn-group'>
                           <button type='button' className='btn btn-primary-outline'>

@@ -5,6 +5,13 @@ class Accounts extends Component {
   componentWillMount () {
     this.props.getAccounts(1, 10)
   }
+
+  componentWillReceiveProps (nextProps) {
+    if (nextProps.creatingAccountSuccess) {
+      this.props.getAccounts(1, 10)
+    }
+  }
+
   render () {
     return (
       <div className='container-fluid-spacious' style={{marginTop: '2%'}} >
