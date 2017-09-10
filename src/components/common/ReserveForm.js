@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import TextFieldGroup from 'components/common/TextFieldGroup'
 import DatePickerGroup from 'components/common/DatePickerGroup'
+import TextAreaGroup from 'components/common/TextAreaGroup'
 import validateInput from 'utils/validators/reserve'
 import {
   ModalBody,
@@ -221,7 +222,7 @@ class ReserveForm extends Component {
           </div>
           <div className='form-group row'>
             <div className='input-group col-sm-offset-1 col-sm-10 col-xs-offset-1 col-xs-10'>
-              <TextFieldGroup
+              <TextAreaGroup
                 onChange={this.onChange}
                 value={this.state.note}
                 field='note'

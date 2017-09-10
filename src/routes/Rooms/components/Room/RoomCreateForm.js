@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import TextFieldGroup from 'components/common/TextFieldGroup'
+import TextAreaGroup from 'components/common/TextAreaGroup'
 import validateInput from 'utils/validators/room'
 import classnames from 'classnames'
 
@@ -151,7 +152,7 @@ class RoomCreateForm extends Component {
           </div>
           <div className='form-group row'>
             <div className='input-group col-sm-offset-1 col-sm-10 col-xs-offset-1 col-xs-10'>
-              <TextFieldGroup
+              <TextAreaGroup
                 onChange={this.onChange}
                 value={this.state.description}
                 field='description'
