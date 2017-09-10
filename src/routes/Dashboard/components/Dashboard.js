@@ -42,7 +42,7 @@ class Dashboard extends Component {
               <div className='p-a'>
                 <span className='statcard-desc'>Pending Requests</span>
                 <h2 className='statcard-number'>
-                  758
+                  -
 
                 </h2>
                 <hr className='statcard-hr m-b-0' />
@@ -55,7 +55,7 @@ class Dashboard extends Component {
               <div className='p-a'>
                 <span className='statcard-desc'>Available Rooms</span>
                 <h2 className='statcard-number'>
-                  1,293
+                  -
 
                 </h2>
                 <hr className='statcard-hr m-b-0' />
@@ -68,7 +68,7 @@ class Dashboard extends Component {
               <div className='p-a'>
                 <span className='statcard-desc'>Page views</span>
                 <h2 className='statcard-number'>
-                  12,938
+                  -
 
                 </h2>
                 <hr className='statcard-hr m-b-0' />
@@ -81,7 +81,7 @@ class Dashboard extends Component {
               <div className='p-a'>
                 <span className='statcard-desc'>Facebook Likes</span>
                 <h2 className='statcard-number'>
-                  758
+                  -
 
                 </h2>
                 <hr className='statcard-hr m-b-0' />

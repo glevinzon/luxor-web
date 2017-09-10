@@ -51,6 +51,7 @@ class AccountChangePasswordForm extends Component {
           <div className='form-group row'>
             <div className='input-group col-sm-offset-1 col-sm-10 col-xs-offset-1 col-xs-10'>
               <TextFieldGroup
+                type='password'
                 onChange={this.onChange}
                 value={this.state.password}
                 field='password'
@@ -62,6 +63,7 @@ class AccountChangePasswordForm extends Component {
           <div className='form-group row'>
             <div className='input-group col-sm-offset-1 col-sm-10 col-xs-offset-1 col-xs-10'>
               <TextFieldGroup
+                type='password'
                 onChange={this.onChange}
                 value={this.state.confirmPassword}
                 field='confirmPassword'
