@@ -147,6 +147,7 @@ class RoomTable extends Component {
                     <td>{room.type}</td>
                     <td>{room.rate}</td>
                     <td>{room.promo}</td>
+                    <td>{room.status && room.status == 'exclusive' ? (<button type='button' className='btn btn-xs btn-pill btn-info'>{_.toUpper(room.status)}</button>) : <button type='button' className='btn btn-xs btn-pill btn-default'>{_.toUpper(room.status)}</button>}</td>
                     <td>
                       <div className='btn-group'>
                         <button type='button' className='btn btn-primary-outline' onClick={e => (this.setState({selectedRoom: room, updateModal: true}))}>
