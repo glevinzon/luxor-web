@@ -201,18 +201,22 @@ class RoomCreateForm extends Component {
           </div>
           <div className='form-group row'>
             <div className='input-group col-sm-offset-1 col-sm-10 col-xs-offset-1 col-xs-10'>
-              <ButtonToolbar>
-                <ToggleButtonGroup type='radio'
-                  name='status'
-                  value={this.state.status}
-                  onChange={e => { this.handleStatus(e) }}>
-                  <ToggleButton value='exclusive'>Exclusive</ToggleButton>
-                  <ToggleButton value='open'>Open</ToggleButton>
-                </ToggleButtonGroup>
-              </ButtonToolbar>
+              <div className='radio-inline custom-control custom-radio'>
+                <label>
+                  <input type='radio' id='radio1' name='radio_req' checked={this.state.status == 'exclusive'} onClick={e => { this.setState({ status: 'exclusive' }) }} />
+                  <span className='custom-control-indicator'></span>
+                  Exclusive
+                </label>
+              </div>
+              <div className='radio-inline custom-control custom-radio'>
+                <label>
+                  <input type='radio' id='radio2' name='radio_req' checked={this.state.status == 'open'} onClick={e => { this.setState({ status: 'open' }) }} />
+                  <span className='custom-control-indicator'></span>
+                  Open
+                </label>
+              </div>
             </div>
           </div>
-
         </ModalBody>
         <ModalFooter>
           <button className='btn btn-lg btn-pill btn-primary'>

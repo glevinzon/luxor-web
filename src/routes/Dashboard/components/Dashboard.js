@@ -37,7 +37,7 @@ class Dashboard extends Component {
         </div>
 
         <div className='row statcards'>
-          <div className='col-sm-6 col-lg-3 m-b'>
+          <div className='col-sm-6 col-lg-6 m-b'>
             <div className='statcard statcard-danger'>
               <div className='p-a'>
                 <span className='statcard-desc'>Pending Requests</span>
@@ -50,7 +50,7 @@ class Dashboard extends Component {
               <canvas id='sparkline1' width='378' height='94' className='sparkline' data-chart='spark-line' data-value='[{data:[4,34,64,27,96,50,80]}]' data-labels="['a', 'b','c','d','e','f','g']" style={{width: '189px', height: '47px'}}></canvas>
             </div>
           </div>
-          <div className='col-sm-6 col-lg-3 m-b'>
+          <div className='col-sm-6 col-lg-6 m-b'>
             <div className='statcard statcard-info'>
               <div className='p-a'>
                 <span className='statcard-desc'>Available Rooms</span>
@@ -61,32 +61,6 @@ class Dashboard extends Component {
                 <hr className='statcard-hr m-b-0' />
               </div>
               <canvas id='sparkline1' width='378' height='94' className='sparkline' data-chart='spark-line' data-value='[{data:[12,38,32,60,36,54,68]}]' data-labels="['a', 'b','c','d','e','f','g']" style={{width: '189px', height: '47px'}}></canvas>
-            </div>
-          </div>
-          <div className='col-sm-6 col-lg-3 m-b'>
-            <div className='statcard statcard-success'>
-              <div className='p-a'>
-                <span className='statcard-desc'>Page views</span>
-                <h2 className='statcard-number'>
-                  -
-
-                </h2>
-                <hr className='statcard-hr m-b-0' />
-              </div>
-              <canvas id='sparkline1' width='378' height='94' className='sparkline' data-chart='spark-line' data-value='[{data:[28,68,41,43,96,45,100]}]' data-labels="['a','b','c','d','e','f','g']" style={{width: '189px', height: '47px'}}></canvas>
-            </div>
-          </div>
-          <div className='col-sm-6 col-lg-3 m-b'>
-            <div className='statcard statcard-warning'>
-              <div className='p-a'>
-                <span className='statcard-desc'>Facebook Likes</span>
-                <h2 className='statcard-number'>
-                  -
-
-                </h2>
-                <hr className='statcard-hr m-b-0' />
-              </div>
-              <canvas id='sparkline1' width='378' height='94' className='sparkline' data-chart='spark-line' data-value='[{data:[43,48,52,58,50,95,100]}]' data-labels="['a', 'b','c','d','e','f','g']" style={{width: '189px', height: '47px'}}></canvas>
             </div>
           </div>
         </div>
