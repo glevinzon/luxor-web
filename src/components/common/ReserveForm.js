@@ -119,7 +119,7 @@ class ReserveForm extends Component {
                     field='endDate'
                     placeholder='End Date'
                     disabled={this.state.startDate == null}
-                    minDate={this.state.startDate}
+                    minDate={moment(this.state.startDate).add(1, 'day')}
                     error={this.state.errors.endDate}
                   />
                 </div>

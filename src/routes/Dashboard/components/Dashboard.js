@@ -36,7 +36,7 @@ class Dashboard extends Component {
           <h3 className='hr-divider-content hr-divider-heading'>Quick Info</h3>
         </div>
 
-        <div className='row statcards'>
+        {/* <div className='row statcards'>
           <div className='col-sm-6 col-lg-6 m-b'>
             <div className='statcard statcard-danger'>
               <div className='p-a'>
@@ -63,7 +63,7 @@ class Dashboard extends Component {
               <canvas id='sparkline1' width='378' height='94' className='sparkline' data-chart='spark-line' data-value='[{data:[12,38,32,60,36,54,68]}]' data-labels="['a', 'b','c','d','e','f','g']" style={{width: '189px', height: '47px'}}></canvas>
             </div>
           </div>
-        </div>
+        </div> */}
 
         <div className='row'>
           <div className='col-md-4 m-b'>
