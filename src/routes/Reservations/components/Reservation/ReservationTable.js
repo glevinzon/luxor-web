@@ -147,15 +147,17 @@ class ReservationTable extends Component {
                           <td>{room.get('type')}</td>
                           <td>{room.get('name')}</td>
                           <td>{this.renderStatus(reserve.get('status'), room, reserve.get('id'))}</td>
-                          <td>
-                            <div className='btn-group'>
-                              <button type='button' className='btn btn-primary-outline'>
-                                <span className='icon icon-pencil' />
-                              </button>
-                              <button type='button' className='btn btn-primary-outline' onClick={e => { this.handleDelete(reserve.get('code')) }}>
-                                <span className='icon icon-erase' />
-                              </button>
-                            </div></td>
+                          {filter != 11
+                          ? <td>
+                          <div className='btn-group'>
+                            <button type='button' className='btn btn-primary-outline'>
+                              <span className='icon icon-pencil' />
+                            </button>
+                            <button type='button' className='btn btn-primary-outline' onClick={e => { this.handleDelete(reserve.get('code')) }}>
+                              <span className='icon icon-erase' />
+                            </button>
+                          </div></td>
+                          : null}
                         </tr>
                       )
                     }
